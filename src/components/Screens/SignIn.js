@@ -47,24 +47,22 @@ function SignIn() {
     }
 
     return (<React.Fragment>
-    <ThemeProvider theme={muiTheme}>
-
-    
-        <div style = { centering }><TextBox { ...commonProps }
-             placeholder = { 'Email' }
-             adornment   = { <EmailIcon/> }
-             handler     = { e => email = e.target.value }/>
-        </div>
-        <div style = { centering }><TextBox { ...commonProps }
-             type        = { 'password' }
-             placeholder = { 'Password' }
-             adornment   = { <VpnKeyIcon/> }
-             handler     = { e => password = e.target.value }/>
-        </div>
-        <div style = { centering }><MyButton { ...commonProps }
-             value       = { 'Sign In!' }
-             handler     = { () => userSignIn() }/>
-        </div>
+        <ThemeProvider theme={muiTheme}>
+            <div style = { centering }><TextBox { ...commonProps }
+                placeholder = { 'Email' }
+                adornment   = { <EmailIcon/> }
+                handler     = { e => email = e.target.value }/>
+            </div>
+            <div style = { centering }><TextBox { ...commonProps }
+                type        = { 'password' }
+                placeholder = { 'Password' }
+                adornment   = { <VpnKeyIcon/> }
+                handler     = { e => password = e.target.value }/>
+            </div>
+            <div style = { centering }><MyButton { ...commonProps }
+                value       = { 'Sign In!' }
+                handler     = { () => userSignIn() }/>
+            </div>
         </ThemeProvider>
     </React.Fragment>);
 }
