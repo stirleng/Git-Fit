@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    flex-direction: column;
+    
+}
+
+#inputFieldContainer {
+    flex-direction: column;
+    display: flex;
+    margin-top: 20px;
+}
+
+.inputBox {
+    margin-bottom: 10px;
+}
+
+.signUpBackground{
+    background-color: #E3EDFF;
+    height: 100vh
+}

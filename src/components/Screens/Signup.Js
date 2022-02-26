@@ -1,87 +1,113 @@
-import {React, useState} from 'react'
+import { margin } from '@mui/system';
+import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'
+import './signup.css'
 
-import EmailIcon from '@mui/icons-material/Email';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import TextBox from "../ui/TextBox";
-import MyButton from "../ui/Button"
 
-const muiTheme = createTheme({
-  typography: {
-      allVariants: {
-          margin: 0,
-          fontFamily: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
-                       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                       'sans-serif'].join(','),
-          webKitFontSmoothing: 'antialiased',
-          mozOsxFontSmoothing: 'grayscale',
-          textTransform: 'none',
-          fontWeight: 400,
-          fontSize: '1rem',
-          lineHeight: '1.4375em',
-      },
-  },
-});
+
 
 
 function Signup() {
 
-  const centering   = { display: 'flex', justifyContent: 'center', paddingTop: '0.35%' };
-  const commonProps = { textColor: 'white', bgColor: 'black', width: 275, height: 40 };
-
+ 
   const {signUp} = useAuth();
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
-  let email    = '';
-  let password = '';
-  let confirmPassword = '';
+  //testing purpose for success signups
+  const [success, setSuccess] = useState(false);
+
+
 
   async function handleSubmit(e){
+
       e.preventDefault();
 
+      setSuccess(false);
+
+      console.log(password);
+      console.log(confirmPassword);
+
+      
+
       if (password !== confirmPassword){
-        return setError("Password do no match")
+        setError("Password do no match");
+        return;
       }
+
+
 
       try {
         setError('')
         setLoading(true)
-        signUp(email, password)
-      }catch{
-        setError("Failed to create an account")
+        await signUp(email, password)
+        setSuccess(true)
+      }catch(err){
+        setError(err.message)
       }
+      
       setLoading(false)
   }
 
-  return (<React.Fragment>
-    <ThemeProvider theme={muiTheme}>
-        
-        {error && <h2>{error}</h2>}
-
-        <div style = { centering }><TextBox { ...commonProps }
-            placeholder = { 'Email' }
-            adornment   = { <EmailIcon/> }
-            handler     = { e => email = e.target.value }/>
+  return (
+    <div className='signUpBackground'>
+      <div className='container'>
+            <h1>Sign Up Page</h1>
+            <form onSubmit={handleSubmit} >
+              <div id='inputFieldContainer'>
+                <input 
+                  className='inputBox' 
+                  placeholder='Enter your email!'
+                  type="text"
+                  value={email}
+                  onChange={(e) =>setEmail(e.target.value)}
+                />
+                <input 
+                  className='inputBox'
+                  placeholder='Enter your password!'
+                  type="password"
+                  value={password}
+                  onChange={(e) =>setPassword(e.target.value)}
+                />
+                <input 
+                  className='inputBox'
+                  placeholder='Confirm your password!'
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) =>setConfirmPassword(e.target.value)}
+                />
+                
+                {loading? 
+                <h1>Signing up, Please wait :D</h1>:
+                <input type="submit"/>}
+              </div>
+            </form>
+            {error && <h1>{error}</h1>}
+            {success && <h1>Successfully Signedup</h1>}
+            <div>
+              Already have an account? <Link to='/signin'>Sign In</Link>
+            </div>
         </div>
-        <div style = { centering }><TextBox { ...commonProps }
-            type        = { 'password' }
-            placeholder = { 'Password' }
-            adornment   = { <VpnKeyIcon/> }
-            handler     = { e => password = e.target.value }/>
+        <div>
+          <h1>What is GitFit!</h1>
+          <h2>Nulla aliquip nulla proident elit officia sunt cillum. 
+            Exercitation aliqua id ut duis tempor. Dolore labore minim 
+            culpa nisi aute sit incididunt cillum duis eu nostrud nulla
+             proident adipisicing. Excepteur in dolore irure proident 
+             duis ut quis aliquip duis duis minim ex incididunt nisi. 
+             Deserunt officia magna ut excepteur duis cupidatat amet 
+             cillum aliquip aliqua voluptate fugiat veniam. Deserunt 
+             reprehenderit proident et dolore irure aute. 
+             Reprehenderit quis aliqua eiusmod ex adipisicing reprehenderit 
+             esse ullamco deserunt.</h2>
         </div>
-        <div style = { centering }><TextBox { ...commonProps }
-            type        = { 'confirm password' }
-            placeholder = { 'Confirm Password' }
-            adornment   = { <VpnKeyIcon/> }
-            handler     = { e => confirmPassword = e.target.value }/>
-        </div>
-        <div style = { centering }><MyButton { ...commonProps }
-            value       = { 'Sign Up!' }
-            handler     = { () => handleSubmit() }/>
-        </div>
-    </ThemeProvider>
-</React.Fragment>);
+    </div>
+    
+  );
 }
 
 

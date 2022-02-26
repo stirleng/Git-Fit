@@ -6,3 +6,4 @@
 3. npm install
 4. npm install firebase
 5. npm install @mui/material @mui/icons-material
+6. npm install react-router-dom@6
