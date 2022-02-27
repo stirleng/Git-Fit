@@ -73,7 +73,7 @@ function SignIn() {
                             handler     = { () => userSignIn() }/>
                         </div>
                         <div>
-                             Need an account? <Link to="/">Sign Up</Link>
+                             Need an account? <Link to="/signup">Sign Up</Link>
                         </div>
                     </ThemeProvider>
                 </div>
