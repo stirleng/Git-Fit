@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect} from 'react'
-import { auth } from '../firebase';
+import React, {useContext, useEffect, useState} from 'react'
+import {auth} from '../firebase';
 
-const AuthContext = React.createContext()
+const AuthContext = React.createContext();
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -10,36 +10,44 @@ export function useAuth() {
 
 export function AuthProvider({children}) {
 
-  const [currentUser, setCurrentUser] = useState();
-  // const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState();
 
-  function signUp(email,password){
-     return auth.createUserWithEmailAndPassword(email,password)
-  }
-  
-  function signIn(email, password){
-    return auth.signInWithEmailAndPassword(email,password)
-  }
+    // const [loading, setLoading] = useState(true);
 
-  useEffect(()=> {
-   const unsubscribe =  auth.onAuthStateChanged(user => {
-        setCurrentUser(user)
-        // setLoading(false)
-    }, [])
-    
-    return unsubscribe
-  })
-  
-  const value = {
-      currentUser,
-      signUp,
-      signIn
-  }
+    function signUp(email, password) {
+        return auth.createUserWithEmailAndPassword(email, password);
+    }
 
-  return (
-    <AuthContext.Provider value = {value}>
-       {children}
-    </AuthContext.Provider>
+    function signIn(email, password) {
+        return auth.signInWithEmailAndPassword(email, password)
+            .catch(err => {
+                // Handle Errors here.
+                const errorCode = err.code;
+                const errorMessage = err.message;
+                if (errorCode === 'auth/wrong-password')
+                    alert('Wrong password.');
+                else
+                    alert(errorMessage);
+                console.log(err);
+            });
+    }
 
-  )
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            setCurrentUser(user);
+            // setLoading(false)
+        });
+    }, []);
+
+    const value = {
+        currentUser,
+        signUp,
+        signIn
+    };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
