@@ -1,21 +1,21 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 export default function NewInfo() {
-  
-   let navigate = useNavigate();
 
-  function handleSubmit(){
-    return navigate('/')
-  }
+    let navigate = useNavigate();
 
-  return (
-    <div>
+    function handleSubmit() {
+        return navigate('/')
+    }
+
+    return (
         <div>
-            <button onClick={handleSubmit}></button>
+            <div>
+                <button onClick={handleSubmit}></button>
+            </div>
+            NewInfo
         </div>
-        NewInfo
-    </div>
 
-  )
+    )
 }

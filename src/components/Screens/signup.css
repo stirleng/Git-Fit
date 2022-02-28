@@ -1,21 +1,15 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center ;
-    flex-direction: column;
-}
+.signUpBackground {
+    /*    background-color: #E3EDFF;
+        height: 100vh*/
+    background-image: url("https://files.catbox.moe/11c0vy.jpg");
+    filter: blur(4px);
 
-#inputFieldContainer {
-    flex-direction: column;
-    display: flex;
-    margin-top: 20px;
-}
+    width: 100vw;
+    height: 72%;
 
-.inputBox {
-    margin-bottom: 10px;
-}
-
-.signUpBackground{
-    background-color: #E3EDFF;
-    height: 100vh
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: -1;
 }

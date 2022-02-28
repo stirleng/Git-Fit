@@ -1,37 +1,43 @@
-
-import { AuthProvider } from './contexts/AuthContext';
-
-
-//Screens
-import SignIn from './components/Screens/SignIn';
-import Signup from './components/Screens/Signup';
-import Home from './components/Screens/Home';
-import NewInfo from './components/Screens/NewInfo';
+import {AuthProvider} from './contexts/AuthContext';
+import SignIn from './components/screens/SignIn';
+import Home from './components/screens/Home';
+import NewInfo from './components/screens/NewInfo';
 
 import {Routes, Route, BrowserRouter as Router} from "react-router-dom";
-import PrivateRoute from './components/Screens/PrivateRoute';
+import PrivateRoute from './components/screens/PrivateRoute';
+import {createTheme} from "@mui/material";
+
+export const muiTheme = createTheme({
+    typography: {
+        allVariants: {
+            margin: 0,
+            fontFamily: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                'sans-serif'].join(','),
+            webKitFontSmoothing: 'antialiased',
+            mozOsxFontSmoothing: 'grayscale',
+            textTransform: 'none',
+            fontWeight: 400,
+            fontSize: '1rem',
+            lineHeight: '1.4375em',
+        },
+    },
+});
 
 function App() {
-    return ( // Force both the mui textFields and Buttons to have the same font, etc.
-      
-    //First goes to Root which is /, but since we aren't signed in
-    //it will redirect to signup.
-      
-     <Router>
-       <AuthProvider>
-          <Routes>    
-            <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>} />   
-            <Route path="/signup" element={<SignUp/>} />
-            <Route path="/signin" element={<SignIn/>} />
-            <Route path="/newinfo" element = {<PrivateRoute><NewInfo/> </PrivateRoute>} /> 
-        </Routes>
-      </AuthProvider>    
-     </Router>
-         
-
-       
-       
-
+    return (
+        //First goes to Root which is /, but since we aren't signed in
+        //it will redirect to signup.
+        <Router>
+            <AuthProvider>
+                <Routes>
+                    <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>}/>
+                    <Route path="/signup" element={<Home/>}/>
+                    <Route path="/signin" element={<SignIn/>}/>
+                    <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
+                </Routes>
+            </AuthProvider>
+        </Router>
     );
 }
 
