@@ -1,6 +1,35 @@
 .HomeScreenHeader{
-    display: flex;
+    display:flex;
     justify-content: center;
-    height: 100vh;
+    height: 10vh;
     background-color: #2b87ff5d;
+}
+
+.HomePageButtons{
+    display: flex;
+    justify-content: space-around;
+    margin-top:10vh;
+}
+.WorkoutsPageButton{
+    border: 3px solid#290186; /* Blue */
+    background-color:white;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.MealsPageButton{
+    border: 3px solid #4CAF50; /* Green */
+    background-color:white;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
 }
