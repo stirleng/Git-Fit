@@ -6,7 +6,6 @@ import NewInfo from './components/screens/NewInfo';
 import {Routes, Route, BrowserRouter as Router} from "react-router-dom";
 import PrivateRoute from './components/screens/PrivateRoute';
 import {createTheme} from "@mui/material";
-import SignUp from "./components/screens/SignUp";
 
 export const muiTheme = createTheme({
     typography: {
@@ -33,7 +32,7 @@ function App() {
             <AuthProvider>
                 <Routes>
                     <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>}/>
-                    <Route path="/signup" element={<SignUp/>}/>
+                    <Route path="/signup" element={<Home/>}/>
                     <Route path="/signin" element={<SignIn/>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
                 </Routes>
