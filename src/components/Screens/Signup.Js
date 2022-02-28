@@ -1,6 +1,5 @@
-import { margin } from '@mui/system';
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'
 import './signup.css'
 
@@ -10,7 +9,8 @@ import './signup.css'
 
 function Signup() {
 
- 
+
+
   const {signUp} = useAuth();
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -22,6 +22,8 @@ function Signup() {
   const [success, setSuccess] = useState(false);
 
 
+
+  let navigate = useNavigate();
 
   async function handleSubmit(e){
 
@@ -46,6 +48,7 @@ function Signup() {
         setLoading(true)
         await signUp(email, password)
         setSuccess(true)
+        return navigate('/newinfo')
       }catch(err){
         setError(err.message)
       }
@@ -83,7 +86,7 @@ function Signup() {
                 
                 {loading? 
                 <h1>Signing up, Please wait :D</h1>:
-                <input type="submit"/>}
+                <input type="submit" />}
               </div>
             </form>
             {error && <h1>{error}</h1>}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth } from '../../firebase.js';
+import { useAuth } from '../../contexts/AuthContext';
 import EmailIcon from '@mui/icons-material/Email';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import TextBox from "../ui/TextBox";
@@ -8,7 +8,7 @@ import MyButton from "../ui/Button"
 import './signin.css'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
 const muiTheme = createTheme({
     typography: {
@@ -35,18 +35,31 @@ function SignIn() {
     let email    = '';
     let password = '';
 
-    function userSignIn() {
-        auth.signInWithEmailAndPassword(email, password)
-            .catch(function(error) {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                if (errorCode === 'auth/wrong-password')
-                    alert('Wrong password.');
-                else
-                    alert(errorMessage);
-                console.log(error);
-            });
+    const {signIn} = useAuth();
+    let navigate = useNavigate();
+
+    async function userSignIn(e) {
+        // auth.signInWithEmailAndPassword(email, password)
+        //     .catch(function(error) {
+        //         // Handle Errors here.
+        //         const errorCode = error.code;
+        //         const errorMessage = error.message;
+        //         if (errorCode === 'auth/wrong-password')
+        //             alert('Wrong password.');
+        //         else
+        //             alert(errorMessage);
+        //         console.log(error);
+        //     });
+        //e.preventDefault()
+
+        try{
+            console.log("HERE")
+            await signIn(email,password);
+            return navigate('/')
+        }catch(err){
+            alert(err.message)
+        }
+
     }
 
     return (<React.Fragment>

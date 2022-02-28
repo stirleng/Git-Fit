@@ -1,10 +1,14 @@
-import SignIn from './components/Screens/SignIn'
+
+import { AuthProvider } from './contexts/AuthContext';
+
+
+//Screens
+import SignIn from './components/Screens/SignIn';
 import Signup from './components/Screens/Signup';
 import Home from './components/Screens/Home';
-import { AuthProvider } from './contexts/AuthContext';
-import "./components/Screens/signup.css"
+import NewInfo from './components/Screens/NewInfo';
 
-import {Routes, Route, Link, BrowserRouter as Router} from "react-router-dom";
+import {Routes, Route, BrowserRouter as Router} from "react-router-dom";
 import PrivateRoute from './components/Screens/PrivateRoute';
 
 function App() {
@@ -16,12 +20,10 @@ function App() {
      <Router>
        <AuthProvider>
           <Routes>    
-            <Route path="/" element={
-              <PrivateRoute>
-                <Home/>
-              </PrivateRoute>} />   
+            <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>} />   
             <Route path="/signup" element={<Signup/>} />
-            <Route path="/signin" element={<SignIn/>} />        
+            <Route path="/signin" element={<SignIn/>} />
+            <Route path="/newinfo" element = {<PrivateRoute><NewInfo/> </PrivateRoute>} /> 
         </Routes>
       </AuthProvider>    
      </Router>
