@@ -1,5 +1,23 @@
 import React from 'react';
-import {InputAdornment, TextField} from '@mui/material';
+import {InputAdornment, TextField, ThemeProvider} from '@mui/material';
+import {createTheme} from "@mui/material";
+
+export const muiTheme = createTheme({
+    typography: {
+        allVariants: {
+            margin: 0,
+            fontFamily: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                'sans-serif'].join(','),
+            webKitFontSmoothing: 'antialiased',
+            mozOsxFontSmoothing: 'grayscale',
+            textTransform: 'none',
+            fontWeight: 400,
+            fontSize: '1rem',
+            lineHeight: '1.4375em',
+        },
+    },
+});
 
 /* PROPS DESCRIPTION
  * (string)  type:        represents the type of input that should go in the box (e.g. 'password' or 'text').
@@ -12,20 +30,28 @@ import {InputAdornment, TextField} from '@mui/material';
  * (func)    handler:     the handler for handling changes in the input field.
  */
 export default function TextBox(props) {
-    return (<React.Fragment>
-        <TextField type        = { props.type }
-                   placeholder = { props.placeholder }
-                   sx          = {{ input: { color:  props.textColor},
-                                    width:           props.width,
-                                    height:          props.height}}
-                   style       = {{ backgroundColor: props.bgColor,
-                                    borderRadius:    5 }}
-                   InputProps  = {{ startAdornment: (
-                                   <InputAdornment position='start' sx={{ color: props.textColor }}>
-                                       { props.adornment }
-                                   </InputAdornment>) }}
-                   size        = 'small'
-                   onChange    = {props.handler}
-        />
-    </React.Fragment>);
+    return (<div className={props.className}>
+        <ThemeProvider theme={muiTheme}>
+            <TextField type={props.type}
+                       placeholder={props.placeholder}
+                       sx={{
+                           input: {color: props.textColor},
+                           width: props.width,
+                           height: props.height
+                       }}
+                       style={{
+                           backgroundColor: props.bgColor,
+                           borderRadius: 5
+                       }}
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position='start' sx={{color: props.textColor}}>
+                                   {props.adornment}
+                               </InputAdornment>)
+                       }}
+                       size='small'
+                       onChange={props.handler}
+            />
+        </ThemeProvider>
+    </div>);
 }
