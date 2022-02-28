@@ -1,101 +1,64 @@
-import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import {useAuth} from '../../contexts/AuthContext';
+import React, {useState} from 'react';
+import {auth} from '../../firebase.js';
 import EmailIcon from '@mui/icons-material/Email';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import TextBox from "../ui/TextBox";
 import MyButton from "../ui/Button"
-
 import './signin.css'
-
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Link, useNavigate} from 'react-router-dom';
-
-const muiTheme = createTheme({
-    typography: {
-        allVariants: {
-            margin: 0,
-            fontFamily: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
-                         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                         'sans-serif'].join(','),
-            webKitFontSmoothing: 'antialiased',
-            mozOsxFontSmoothing: 'grayscale',
-            textTransform: 'none',
-            fontWeight: 400,
-            fontSize: '1rem',
-            lineHeight: '1.4375em',
-        },
-    },
-});
-
+import {Link, useNavigate} from 'react-router-dom';
 
 function SignIn() {
-    const centering   = { display: 'flex', justifyContent: 'center', paddingTop: '0.35%' };
-    const commonProps = { textColor: 'white', bgColor: 'black', width: 275, height: 40 };
+    const commonProps = {className: 'inputBox', textColor: 'white', bgColor: 'black', width: 275, height: 40};
 
-    let email    = '';
-    let password = '';
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const {signIn} = useAuth();
     let navigate = useNavigate();
 
-    async function userSignIn(e) {
-        // auth.signInWithEmailAndPassword(email, password)
-        //     .catch(function(error) {
-        //         // Handle Errors here.
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         if (errorCode === 'auth/wrong-password')
-        //             alert('Wrong password.');
-        //         else
-        //             alert(errorMessage);
-        //         console.log(error);
-        //     });
-        //e.preventDefault()
+    async function handleSubmit(e) {
+        e.preventDefault();
+        /*        auth.signInWithEmailAndPassword(email, password)
+                    .catch(function(error) {
+                        // Handle Errors here.
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        if (errorCode === 'auth/wrong-password')
+                            alert('Wrong password.');
+                        else
+                            alert(errorMessage);
+                        console.log(error);
+                    });
+                e.preventDefault()*/
 
-        try{
-            console.log("HERE")
-            await signIn(email,password);
-            return navigate('/')
-        }catch(err){
-            alert(err.message)
-        }
-
+        await signIn(email, password);
+        return navigate('/');
     }
 
-    return (<React.Fragment>
-    <div>
-        <div className='wrapper'>
-                <div className='bottom-layer'>
-                    <div className='background'/>
+    return (<div className='wrapper'>
+        <div id='bottom-layer' className='signInBackground'/>
+        <div id='top-layer' className='container'>
+            <form onSubmit={handleSubmit}>
+                <h1>Sign In Page</h1>
+                <div id='inputFieldContainer'>
+                    <TextBox {...commonProps}
+                             placeholder={'Email'}
+                             adornment={<EmailIcon/>}
+                             handler={e => setEmail(e.target.value)}/>
+                    <TextBox {...commonProps}
+                             type={'password'}
+                             placeholder={'Password'}
+                             adornment={<VpnKeyIcon/>}
+                             handler={e => setPassword(e.target.value)}/>
+                    <MyButton {...commonProps}
+                              type='submit'
+                              value={'Sign In!'}/>
                 </div>
-                <div className='top-layer'>
-                    <ThemeProvider theme={muiTheme}>
-                        <div style = { centering }><TextBox { ...commonProps }
-                            placeholder = { 'Email' }
-                            adornment   = { <EmailIcon/> }
-                            handler     = { e => email = e.target.value }/>
-                        </div>
-                        <div style = { centering }><TextBox { ...commonProps }
-                            type        = { 'password' }
-                            placeholder = { 'Password' }
-                            adornment   = { <VpnKeyIcon/> }
-                            handler     = { e => password = e.target.value }/>
-                        </div>
-                        <div style = { centering }><MyButton { ...commonProps }
-                            value       = { 'Sign In!' }
-                            handler     = { () => userSignIn() }/>
-                        </div>
-                        <div>
-                             Need an account? <Link to="/signup">Sign Up</Link>
-                        </div>
-                    </ThemeProvider>
-                </div>
-            </div>
-            
-         
-    </div>
-       
-    </React.Fragment>);
+                Need an account? <Link to="/signup">Sign Up</Link>
+            </form>
+        </div>
+    </div>);
 }
 
 export default SignIn;
