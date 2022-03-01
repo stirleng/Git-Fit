@@ -61,7 +61,8 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 8px;
+    border-width: 10px;
+    border-radius: 25px;
     font-family: Futura-Bold-Italic;
     font-size: xx-large;
 }
@@ -69,7 +70,7 @@
 .WorkoutsPageButton{
     cursor: pointer;
     background-size: cover;
-    border: 6px solid#dc54ee; /* Blue */
+    border-color: #dc54ee;
     background-color:white;
     color: black;
     padding-top: 5vh;
@@ -101,7 +102,7 @@
 }
 
 .MealsPageButton{
-    border: 3px solid #4CAF50; /* Green */
+    border-color: #4CAF50;
     background-color:white;
     color: black;
     padding-top: 5vh;
