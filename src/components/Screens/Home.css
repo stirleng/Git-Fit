@@ -1,6 +1,24 @@
 @font-face {
-    font-family: Futura;
+    font-family: Futura-Medium-Italic;
     src: url(../fonts/futura/Futura\ Medium\ Italic\ font.ttf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Futura-Heavy-Italic;
+    src: url(../fonts/futura/Futura\ Heavy\ Italic\ font.ttf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Futura-Book;
+    src: url(../fonts/futura/Futura\ Book\ font.ttf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Futura-Bold-Italic;
+    src: url(../fonts/futura/Futura\ Bold\ Italic\ font.ttf);
     font-style: italic;
 }
 
@@ -8,8 +26,8 @@
     background-image: 
 	  linear-gradient(to right bottom, 
      rgba(76, 216, 255, 0.8),
-     rgba(30, 108, 217, 0.8)),
-     url('../images/HomePageImage.jpg');
+     rgba(12, 85, 187, 0.8)),
+     url('../images/HomePageBackground.jpg');
      background-size: cover;
      height: 100vh;
 }
@@ -21,40 +39,73 @@
     padding-top: 2vh;
     padding-bottom: 9vh;
     background-color: #2b87ff5d;
+    margin-left: 75vh;
+    margin-right: 75vh;
     color: #2774AE;
     -webkit-text-stroke-color: #FFD100;
     -webkit-text-stroke-width: 3px;
     font-size: 130px;
     font-weight: bolder;
-    font-family: Futura;
+    font-family: Futura-Heavy-Italic;
 }
 
-.HomePageButtons{
+.HomePageButtonContainer{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top:10vh;
 }
 
-.WorkoutsPageButton{
-    border: 3px solid#290186; /* Blue */
-    background-color:white;
-    color: black;
-    padding: 15px 32px;
+.HomePageButtons{
+    font-family: Futura;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 8px;
+    font-family: Futura-Bold-Italic;
+    font-size: xx-large;
+}
+
+.WorkoutsPageButton{
+    cursor: pointer;
+    background-size: cover;
+    border: 6px solid#dc54ee; /* Blue */
+    background-color:white;
+    color: black;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}
+
+.WorkoutsPageButton:hover .BarbellImage{
+    opacity: 0;
+    transition: 0.20s;
+}
+
+.WorkoutsPageButton:hover .NavFromHomeArrow{
+    opacity: 1;
+    transition: 0.35s;
+}
+
+.NavFromHomeArrow{
+    font-size: 70px;
+    margin-top: -9.5vh;
+    opacity: 0;
+}
+
+.BarbellImage{
+    margin-top: 4vh;
+    height: 7vh;
+    width: 10vh;
 }
 
 .MealsPageButton{
     border: 3px solid #4CAF50; /* Green */
     background-color:white;
     color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 8px;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    padding-left: 5vh;
+    padding-right: 5vh;
 }
