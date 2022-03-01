@@ -2,6 +2,7 @@ import React from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import './Home.css'
 import { Link, useNavigate, useParams, useLocation} from 'react-router-dom';
+import HomePageImage from '../images/HomePageImage.jpg'
 // How to use react-router-dom:
 // https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
 //import Button from 'react-bootstrap/Button'
@@ -12,9 +13,10 @@ export default function Home(props) {
   const {currentUser} = useAuth();
   console.log(currentUser);
   return (
-    <div>
+    <body className='HomePage'>
+      <div>
       <div className='HomeScreenHeader'>
-        Home Page
+        Git-Fit
       </div>
       <div className='HomePageButtons'>
         <Link to="/workouts">
@@ -28,6 +30,7 @@ export default function Home(props) {
           </button>
         </Link>
       </div>
-    </div>
+      </div>
+    </body>
   )
 }
