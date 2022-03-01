@@ -4,7 +4,6 @@ import Signup from './components/Screens/Signup';
 
 import NewInfo from './components/Screens/NewInfo';
 import Home from './components/Screens/Home';
-
 import {Routes, Route, BrowserRouter as Router} from "react-router-dom";
 import PrivateRoute from './components/Screens/PrivateRoute';
 
