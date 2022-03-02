@@ -15,7 +15,22 @@
     margin-bottom: 10px;
 }
 
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+}
+
+
+
 .signUpBackground{
+    background-image: url('../images/facilities_JWC_1156x420.jpg');
     background-color: #E3EDFF;
-    height: 100vh
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
 }

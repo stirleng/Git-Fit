@@ -56,59 +56,65 @@ function Signup() {
       setLoading(false)
   }
 
-  return (
-    <div className='signUpBackground'>
+  return ( 
+    <>
+      <section id="About">
+        <div className='signUpBackground'>
+          <div>
+            <h1>What is GitFit!</h1>
+            <h2>Nulla aliquip nulla proident elit officia sunt cillum. 
+              Exercitation aliqua id ut duis tempor. Dolore labore minim 
+              culpa nisi aute sit incididunt cillum duis eu nostrud nulla
+              proident adipisicing. Excepteur in dolore irure proident 
+              duis ut quis aliquip duis duis minim ex incididunt nisi. 
+              Deserunt officia magna ut excepteur duis cupidatat amet 
+              cillum aliquip aliqua voluptate fugiat veniam. Deserunt 
+              reprehenderit proident et dolore irure aute. 
+              Reprehenderit quis aliqua eiusmod ex adipisicing reprehenderit 
+              esse ullamco deserunt.</h2>
+          </div>
+      </div>
+    </section>
+    <section id="signup">
       <div className='container'>
-            <h1>Sign Up Page</h1>
-            <form onSubmit={handleSubmit} >
-              <div id='inputFieldContainer'>
-                <input 
-                  className='inputBox' 
-                  placeholder='Enter your email!'
-                  type="text"
-                  value={email}
-                  onChange={(e) =>setEmail(e.target.value)}
-                />
-                <input 
-                  className='inputBox'
-                  placeholder='Enter your password!'
-                  type="password"
-                  value={password}
-                  onChange={(e) =>setPassword(e.target.value)}
-                />
-                <input 
-                  className='inputBox'
-                  placeholder='Confirm your password!'
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) =>setConfirmPassword(e.target.value)}
-                />
-                
-                {loading? 
-                <h1>Signing up, Please wait :D</h1>:
-                <input type="submit" />}
+              <form onSubmit={handleSubmit} >
+                <div id='inputFieldContainer'>
+                  <input 
+                    className='inputBox' 
+                    placeholder='Enter your email!'
+                    type="text"
+                    value={email}
+                    onChange={(e) =>setEmail(e.target.value)}
+                  />
+                  <input 
+                    className='inputBox'
+                    placeholder='Enter your password!'
+                    type="password"
+                    value={password}
+                    onChange={(e) =>setPassword(e.target.value)}
+                  />
+                  <input 
+                    className='inputBox'
+                    placeholder='Confirm your password!'
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) =>setConfirmPassword(e.target.value)}
+                  />
+                  
+                  {loading? 
+                  <h1>Signing up, Please wait :D</h1>:
+                  <input type="submit" />}
+                </div>
+              </form>
+              {error && <h1>{error}</h1>}
+              {success && <h1>Successfully Signedup</h1>}
+              <div>
+                Already have an account? <Link to='/signin'>Sign In</Link>
               </div>
-            </form>
-            {error && <h1>{error}</h1>}
-            {success && <h1>Successfully Signedup</h1>}
-            <div>
-              Already have an account? <Link to='/signin'>Sign In</Link>
-            </div>
-        </div>
-        <div>
-          <h1>What is GitFit!</h1>
-          <h2>Nulla aliquip nulla proident elit officia sunt cillum. 
-            Exercitation aliqua id ut duis tempor. Dolore labore minim 
-            culpa nisi aute sit incididunt cillum duis eu nostrud nulla
-             proident adipisicing. Excepteur in dolore irure proident 
-             duis ut quis aliquip duis duis minim ex incididunt nisi. 
-             Deserunt officia magna ut excepteur duis cupidatat amet 
-             cillum aliquip aliqua voluptate fugiat veniam. Deserunt 
-             reprehenderit proident et dolore irure aute. 
-             Reprehenderit quis aliqua eiusmod ex adipisicing reprehenderit 
-             esse ullamco deserunt.</h2>
-        </div>
-    </div>
+          </div>
+    </section>
+  </>
+    
     
   );
 }
