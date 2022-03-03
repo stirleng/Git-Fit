@@ -1,6 +1,8 @@
 import {AuthProvider} from './contexts/AuthContext';
 import SignIn from './components/Screens/SignIn';
 import Signup from './components/Screens/Signup';
+import Workouts from './components/Screens/Workouts';
+import Meals from './components/Screens/Meals';
 
 import NewInfo from './components/Screens/NewInfo';
 import Home from './components/Screens/Home';
@@ -18,6 +20,8 @@ function App() {
                     <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>}/>
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/signin" element={<SignIn/>}/>
+                    <Route path="/workouts" element={<Workouts/>}/>
+                    <Route path="/meals" element={<Meals/>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
                 </Routes>
             </AuthProvider>
