@@ -88,7 +88,11 @@ function Signup() {
                     placeholder='Enter your email!'
                     type="text"
                     value={email}
-                    onChange={(e) =>setEmail(e.target.value)}
+                    // onChange={(e) =>setEmail(e.target.value)}
+                    onChange={ (e) => {
+                      setEmail(e.target.value)
+                      console.log(email)
+                    }}
                   />
                   <input 
                     className='inputBox'
