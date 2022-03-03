@@ -59,7 +59,7 @@ function Signup() {
   }
 
   return ( 
-    <>
+    <div id="body">
       <section id="About">
         <div id="About-Text">
               <h1>What is GitFit!</h1>
@@ -117,7 +117,7 @@ function Signup() {
               </div>
           </div>
     </section>
-  </>
+  </div>
     
     
   );
