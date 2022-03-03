@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { Link, useNavigate} from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'
+import RunningVid from "../videos/signup_background.mp4"
+import BackgroundImage from "../images/facilities_JWC_1156x420.jpg"
 import './signup.css'
 
 
@@ -59,23 +61,25 @@ function Signup() {
   return ( 
     <>
       <section id="About">
-        <div className='signUpBackground'>
-          <div>
-            <h1>What is GitFit!</h1>
-            <h2>Nulla aliquip nulla proident elit officia sunt cillum. 
-              Exercitation aliqua id ut duis tempor. Dolore labore minim 
-              culpa nisi aute sit incididunt cillum duis eu nostrud nulla
-              proident adipisicing. Excepteur in dolore irure proident 
-              duis ut quis aliquip duis duis minim ex incididunt nisi. 
-              Deserunt officia magna ut excepteur duis cupidatat amet 
-              cillum aliquip aliqua voluptate fugiat veniam. Deserunt 
-              reprehenderit proident et dolore irure aute. 
-              Reprehenderit quis aliqua eiusmod ex adipisicing reprehenderit 
-              esse ullamco deserunt.</h2>
-          </div>
-      </div>
+        <div id="About-Text">
+              <h1>What is GitFit!</h1>
+              <h2><br/>GitFit is a web app that promotes a healthy living style! <br/> <br/>
+                We make it easy to organize your workout experience and maximize your time! <br/> <br/>
+                Sign up with us today and we will help you reach your goal!
+              </h2>
+        </div>
+        <div id="video-container">
+          <video id="background-video" loop autoPlay muted>
+            <source src={RunningVid} type='video/mp4'/>
+          </video> 
+        </div>      
     </section>
+
     <section id="signup">
+      <div id="signup-background"></div>
+      <div id="intro-back">
+          <h1 id="intro-text">Sign up with Git-Fit and Begin with your Journey!</h1>
+        </div>  
       <div className='container'>
               <form onSubmit={handleSubmit} >
                 <div id='inputFieldContainer'>
@@ -103,7 +107,7 @@ function Signup() {
                   
                   {loading? 
                   <h1>Signing up, Please wait :D</h1>:
-                  <input type="submit" />}
+                  <input className='inputBox' type="submit" />}
                 </div>
               </form>
               {error && <h1>{error}</h1>}

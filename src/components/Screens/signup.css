@@ -11,26 +11,93 @@
     margin-top: 20px;
 }
 
+#background-video{
+    object-fit: cover;
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
+    filter: blur(8px);
+}
+
 .inputBox {
     margin-bottom: 10px;
+    height: 25px;
+    width: 300px;
+    border-radius: 20px;
+    background-color:#E3EDFF
+}
+
+#About {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 section{
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     text-align: center;
     width: 100%;
     height: 100vh;
 }
 
+#video-container {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
 
+#About-Text{
+    z-index: 1;
+    background:#E3EDFF ;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 50px;
+}
 
-.signUpBackground{
+/* #signup {
+    background-image: url('../images/facilities_JWC_1156x420.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    filter: blur(8px);
+} */
+
+#signup-background {
+    background-image: url('../images/facilities_JWC_1156x420.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    filter: blur(8px);
+    z-index: -1;
+    position: absolute;
+    
+
+}
+
+#background-image{
+    background-size: cover;
+}
+
+/* .signUpBackground{
     background-image: url('../images/facilities_JWC_1156x420.jpg');
     background-color: #E3EDFF;
     background-size: cover;
     height: 100vh;
     width: 100vw;
+} */
+
+#intro-back{
+    background: #E3EDFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
 }
