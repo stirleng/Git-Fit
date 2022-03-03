@@ -42,9 +42,11 @@ export default function Home(props) {
         </Link>
       </div>
       <div className='HomePageSuggestionContainer'>
-        Today's Plan:
+        <div className='HomePageSuggestionBoxTitle'>
+          Today's Plan:
+        </div>
         <br></br>
-        WorkoutPlaceHolder + MealPlaceHolder
+        WorkoutPlaceHolder + MealsPlaceHolder
       </div>
     </body>
   )
