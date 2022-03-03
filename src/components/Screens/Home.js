@@ -4,6 +4,7 @@ import './Home.css'
 import { Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 import '../images/HomePageBackground.jpg'
 import '../images/BarbellImage.png'
+import '../images/AppleImage.png'
 // How to use react-router-dom:
 // https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
 //import Button from 'react-bootstrap/Button'
@@ -33,6 +34,11 @@ export default function Home(props) {
         <Link to="/meals">
           <button type="button" className='HomePageButtons MealsPageButton'>
                 Your Meals
+                <br></br>
+                <img src={require('../images/AppleImage.png')} className='AppleImage'/>
+                <div className='NavFromHomeArrow'>
+                 &#8594;
+                </div>
           </button>
         </Link>
       </div>

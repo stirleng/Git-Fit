@@ -95,10 +95,26 @@
     opacity: 0;
 }
 
+.MealsPageButton:hover .AppleImage{
+    opacity: 0;
+    transition: 0.20s;
+}
+
+.MealsPageButton:hover .NavFromHomeArrow{
+    opacity: 1;
+    transition: 0.35s;
+}
+
 .BarbellImage{
     margin-top: 4vh;
     height: 7vh;
     width: 10vh;
+}
+
+.AppleImage{
+    margin-top: 4vh;
+    height: 8vh;
+    width: 8vh;
 }
 
 .MealsPageButton{
@@ -107,6 +123,6 @@
     color: black;
     padding-top: 5vh;
     padding-bottom: 5vh;
-    padding-left: 5vh;
-    padding-right: 5vh;
+    padding-left: 8vh;
+    padding-right: 8vh;
 }
