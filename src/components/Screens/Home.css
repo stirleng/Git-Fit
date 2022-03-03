@@ -33,11 +33,9 @@
 }
 
 .HomeScreenHeader{
-    display:flex;
-    justify-content: center;
-    height: 10vh;
-    padding-top: 2vh;
-    padding-bottom: 9vh;
+    text-align: center;
+    height: 6vh;
+    padding-bottom: 15vh;
     background-color: #2b87ff5d;
     /*margin-left: 50vh;
     margin-right: 50vh;*/
@@ -52,7 +50,7 @@
 .HomePageButtonContainer{
     display: flex;
     justify-content: space-evenly;
-    margin-top:10vh;
+    margin-top: 4vh;
 }
 
 .HomePageButtons{
@@ -69,7 +67,6 @@
 
 .WorkoutsPageButton{
     cursor: pointer;
-    background-size: cover;
     border-color: #dc54ee;
     background-color:white;
     color: black;
@@ -118,6 +115,7 @@
 }
 
 .MealsPageButton{
+    cursor: pointer;
     border-color: #4CAF50;
     background-color:white;
     color: black;
@@ -129,12 +127,26 @@
 
 .HomePageSuggestionContainer{
     display: flex;
-    justify-content: center;
-    text-align: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: white;
+    width: 40vh;
+    height: 17vh;
     margin-top: 7vh;
-    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3vh;
+    padding-left: 7vh;
+    padding-right: 7vh;
+    padding-bottom: 7vh;
+    border-style: solid;
+    border-width: 10px;
     border-color: #ec5d70;
-    border-radius: 5px;
-    margin-left: 75vh;
-    margin-right: 75vh;
+    border-radius: 20px;   
+}
+
+.HomePageSuggestionBoxTitle{
+    text-align: center;
+    font-family: Futura-Book;
+    font-size: x-large;
 }
