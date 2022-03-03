@@ -7,11 +7,12 @@ export default function Workouts(props) {
     const {currentUser} = useAuth();
     console.log(currentUser);
     return (
-      <div>
-        <div className='WorkoutScreenHeader'>
-          Workout Page
+      <body>
+        <div>
+          <div>
+            Workout Page
+          </div>
         </div>
-      </div>
+      </body>
     )
   }
-  
