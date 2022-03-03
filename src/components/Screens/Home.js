@@ -16,7 +16,6 @@ export default function Home(props) {
   console.log(currentUser);
   return (
     <body className='HomePage'>
-      <div>
       <div className='HomeScreenHeader'>
         Git-Fit
       </div>
@@ -42,6 +41,10 @@ export default function Home(props) {
           </button>
         </Link>
       </div>
+      <div className='HomePageSuggestionContainer'>
+        Today's Plan:
+        <br></br>
+        WorkoutPlaceHolder + MealPlaceHolder
       </div>
     </body>
   )

@@ -122,7 +122,19 @@
     background-color:white;
     color: black;
     padding-top: 5vh;
-    padding-bottom: 5vh;
-    padding-left: 8vh;
-    padding-right: 8vh;
+    padding-bottom: 4.2vh;
+    padding-left: 8.5vh;
+    padding-right: 8.5vh;
+}
+
+.HomePageSuggestionContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 7vh;
+    background-color: white;
+    border-color: #ec5d70;
+    border-radius: 5px;
+    margin-left: 75vh;
+    margin-right: 75vh;
 }
