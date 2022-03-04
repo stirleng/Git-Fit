@@ -7,4 +7,9 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-weight: 550;
+}
+
+#bottom-layer, #top-layer {
+    grid-area: 1 / 1;
 }
