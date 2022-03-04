@@ -1,3 +1,13 @@
+@font-face {
+    font-family: Futura-Book;
+    src: url(../fonts/futura/Futura\ Book\ font.ttf);
+    font-style: italic;
+}
+
+h1{
+    font-style: normal;
+}
+
 body{
     background-image: 
 	  linear-gradient(to right bottom, 
@@ -6,12 +16,15 @@ body{
      url('../images/janssSteps.jpg');
      background-size: cover;
      height: 100vh;
+     font-family: Futura-Book;
+     font-style: italic
 }
 
 #inputFieldContainer {
     flex-direction: column;
     display: flex;
     margin-top: 20px;
+    color:aliceblue;
 }
 
 #body{
@@ -23,7 +36,27 @@ body{
 }
 
 #dualField{
-    flex-direction: column;
+    flex-direction: row;
     display: flex;
     margin-top: 20px;
+    width: 50vh;
+}
+
+.armFlex{
+        height: 1vh;
+        width: 1h;
+}
+
+button{
+    background-color: white;
+    margin-top: 10px;
+    background-image:url(../images/shoe.jpg);
+    background-position:70% 43%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-style:normal;
+    font-size: 100%;
+    height:25vh;
+    width:40vh;
+
+    text-align:right;
 }

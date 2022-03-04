@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './newinfo.css'
+import '../images/shoe.jpg'
 import '../images/janssSteps.jpg'
 
 export default function NewInfo() {
@@ -21,7 +22,7 @@ export default function NewInfo() {
     const [age, setAge] = useState('');
 
     return (
-     <div id='body'>
+     <div id='body' className = "style">
             <h1> New User Info</h1>
 
             <div> Enter your name 
@@ -98,7 +99,13 @@ export default function NewInfo() {
                     </div>
             </div>
             <div>
-                <button onClick={handleSubmit} align='mid'>Submit info</button>
+                <button onClick={handleSubmit} 
+                align='mid'>
+                    <div id='submit'>
+                       <b> Submit info </b>
+                    </div>
+                <div> &#8594;</div>
+                </button>
             </div>
         </div>
 
