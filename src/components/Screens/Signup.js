@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { Link, useNavigate} from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'
 import RunningVid from "../videos/signup_background.mp4"
-import BackgroundImage from "../images/facilities_JWC_1156x420.jpg"
 import './signup.css'
 
 
@@ -13,7 +12,7 @@ function Signup() {
 
 
 
-  const {signUp} = useAuth();
+  const {signUp, firstSignUp, currentUser} = useAuth();
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("");
@@ -49,6 +48,7 @@ function Signup() {
         setError('')
         setLoading(true)
         await signUp(email, password)
+        firstSignUp(currentUser.uid, currentUser.email)
         setSuccess(true)
         return navigate('/newinfo')
       }catch(err){
@@ -88,7 +88,11 @@ function Signup() {
                     placeholder='Enter your email!'
                     type="text"
                     value={email}
-                    onChange={(e) =>setEmail(e.target.value)}
+                    // onChange={(e) =>setEmail(e.target.value)}
+                    onChange={ (e) => {
+                      setEmail(e.target.value)
+                      console.log(email)
+                    }}
                   />
                   <input 
                     className='inputBox'

@@ -1,6 +1,96 @@
+@font-face {
+    font-family: Futura-Heavy-Italic;
+    src: url(../fonts/futura/Futura\ Heavy\ Italic\ font.ttf);
+    font-style: italic;
+}
+
+.WorkoutPage{
+    background-image: 
+    linear-gradient(to left bottom, 
+    rgba(81, 215, 252, 0.4),
+    rgba(12, 25, 187, 0.6)),
+    url('../images/Powell-Cat.jpeg');
+    background-position: center right;
+    background-size: cover;
+    height: 100vh;
+}
+
 .WorkoutScreenHeader{
     display:flex;
     justify-content: center;
     height: 10vh;
+    padding-top: 2vh;
+    padding-bottom: 9vh;
     background-color: #2b87ff5d;
+    /*margin-left: 50vh;
+    margin-right: 50vh;*/
+    color: #2774AE;
+    -webkit-text-stroke-color: #FFD100;
+    -webkit-text-stroke-width: 3px;
+    font-size: 60px;
+    font-weight: bolder;
+    font-family: Futura-Heavy-Italic;
+}
+
+.WorkoutPageButtonContainer{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top:10vh;
+}
+
+/*TODO: GET BUTTON SPACING RIGHT*/
+.WorkoutPageButtons{
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-width: 4px;
+    border-radius: 14px;
+    font-size: large;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    margin-right: 2vh;
+    margin-left: 2vh;
+}
+
+.SearchButton{
+    cursor: pointer;
+    background-size: cover;
+    border-color: #9900ff;
+    background-color:white;
+    color: black;
+}
+
+.RandomButton{
+    cursor: pointer;
+    background-size: cover;
+    border-color: #9900ff;
+    background-color:white;
+    color: black;
+}
+
+.UploadButton{
+    cursor: pointer;
+    background-size: cover;
+    border-color: #9900ff;
+    background-color:white;
+    color: black;
+}
+
+.HistoryButton{
+    cursor: pointer;
+    background-size: cover;
+    border-color: #9900ff;
+    background-color:white;
+    color: black;
+}
+
+.PlanButton{
+    cursor: pointer;
+    background-size: cover;
+    border-color: #9900ff;
+    background-color:white;
+    color: black;
 }
