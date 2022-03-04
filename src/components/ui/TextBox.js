@@ -2,7 +2,7 @@ import React from 'react';
 import {InputAdornment, TextField, ThemeProvider} from '@mui/material';
 import {createTheme} from "@mui/material";
 
-export const muiTheme = createTheme({
+const muiTheme = createTheme({
     typography: {
         allVariants: {
             margin: 0,
@@ -12,7 +12,7 @@ export const muiTheme = createTheme({
             webKitFontSmoothing: 'antialiased',
             mozOsxFontSmoothing: 'grayscale',
             textTransform: 'none',
-            fontWeight: 400,
+            fontWeight: 550,
             fontSize: '1rem',
             lineHeight: '1.4375em',
         },

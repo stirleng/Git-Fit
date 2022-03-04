@@ -12,7 +12,7 @@ const muiTheme = createTheme({
                 webKitFontSmoothing: 'antialiased',
                 mozOsxFontSmoothing: 'grayscale',
                 textTransform: 'none',
-                fontWeight: 400,
+                fontWeight: 650,
                 fontSize: '1rem',
                 lineHeight: '1.4375em',
             },
