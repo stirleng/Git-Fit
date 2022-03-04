@@ -1,0 +1,29 @@
+body{
+    background-image: 
+	  linear-gradient(to right bottom, 
+     rgba(76, 216, 255, 0.8),
+     rgba(12, 85, 187, 0.8)),
+     url('../images/janssSteps.jpg');
+     background-size: cover;
+     height: 100vh;
+}
+
+#inputFieldContainer {
+    flex-direction: column;
+    display: flex;
+    margin-top: 20px;
+}
+
+#body{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    flex-direction: column;
+}
+
+#dualField{
+    flex-direction: column;
+    display: flex;
+    margin-top: 20px;
+}
