@@ -47,7 +47,7 @@ body{
         width: 1h;
 }
 
-button{
+.shoe{
     background-color: white;
     margin-top: 10px;
     background-image:url(../images/shoe.jpg);
@@ -59,4 +59,11 @@ button{
     width:40vh;
 
     text-align:right;
+}
+
+h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-variant:small-caps;
+    font-size: 300%;
+    margin-top: 10px;
 }

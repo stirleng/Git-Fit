@@ -23,7 +23,7 @@ export default function NewInfo() {
 
     return (
      <div id='body' className = "style">
-            <h1> New User Info</h1>
+            <h1> New User Information</h1>
 
             <div> Enter your name 
                 <div id='inputFieldContainer'>
@@ -99,7 +99,7 @@ export default function NewInfo() {
                     </div>
             </div>
             <div>
-                <button onClick={handleSubmit} 
+                <button className='shoe' onClick={handleSubmit} 
                 align='mid'>
                     <div id='submit'>
                        <b> Submit info </b>
