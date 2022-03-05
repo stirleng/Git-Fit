@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+#api Keys
+/src/firebase.js
+
 # production
 /build
 

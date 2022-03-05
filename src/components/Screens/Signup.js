@@ -12,7 +12,7 @@ function Signup() {
 
 
 
-  const {signUp, firstSignUp, currentUser} = useAuth();
+  const {signUp} = useAuth();
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("");
@@ -32,9 +32,6 @@ function Signup() {
 
       setSuccess(false);
 
-      console.log(password);
-      console.log(confirmPassword);
-
       
 
       if (password !== confirmPassword){
@@ -48,7 +45,6 @@ function Signup() {
         setError('')
         setLoading(true)
         await signUp(email, password)
-        firstSignUp(currentUser.uid, currentUser.email)
         setSuccess(true)
         return navigate('/newinfo')
       }catch(err){
@@ -91,7 +87,6 @@ function Signup() {
                     // onChange={(e) =>setEmail(e.target.value)}
                     onChange={ (e) => {
                       setEmail(e.target.value)
-                      console.log(email)
                     }}
                   />
                   <input 

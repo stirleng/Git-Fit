@@ -21,14 +21,15 @@ export function AuthProvider({children}) {
     return auth.signInWithEmailAndPassword(email,password)
   }
 
-  function firstSignUp(userUID, userEmail){
+
+  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age){
     return db.collection("users").doc(userUID).set({
-      Name: "",
-      Weight: 0,
-      Height_ft: 0,
-      Height_in: 0,
-      Age: 0,
-      Email: userEmail
+      Name: Name,
+      Email: Email,
+      Weight: Weight,
+      Height_ft: Height_ft,
+      Height_in: Height_in,
+      Age: Age
     })
   }
 
@@ -47,7 +48,7 @@ export function AuthProvider({children}) {
       currentUser,
       signUp,
       signIn,
-      firstSignUp,
+      setInfo,
   }
 
   return (

@@ -1,25 +1,60 @@
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 import './newinfo.css'
 import '../images/shoe.jpg'
 import '../images/janssSteps.jpg'
 
 export default function NewInfo() {
 
+    const {currentUser, setInfo} = useAuth()
+
     let navigate = useNavigate();
 
-    function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         //Check that inches < 12, input types are correct
+        setError("")
+        setLoading(true)
+
+        if (name === ""){
+            setError("Need a name")
+            setLoading(false)
+            return
+        }
+        if (inches > 11 || inches < 0){
+            setError("Inches must be between 0 and 11")
+            setLoading(false)
+            return
+        }
+
+        try{
+            //setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age)
+            await setInfo(currentUser.uid, currentUser.email, name, weight, feet, inches, age)
+            setLoading(false)
+            console.log("Success")
+        }catch(err){
+            setError(err.message)
+        }
+        
+        
+
+        setLoading(false)
 
         //go to home page
         return navigate('/')
     }
 
+    //backend state
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+
     const [name, setName] = useState('');
-    const [weight, setWeight] = useState('');
-    const [feet, setFeet] = useState('');
-    const [inches, setInches] = useState('');
-    const [age, setAge] = useState('');
+    const [weight, setWeight] = useState(0);
+    const [feet, setFeet] = useState(0);
+    const [inches, setInches] = useState(0);
+    const [age, setAge] = useState(0);
+    
 
     return (
      <div id='body' className = "style">
@@ -34,7 +69,6 @@ export default function NewInfo() {
                     value={name}
                     onChange={(e) =>{
                         setName(e.target.value)
-                        console.log(name)
                         }
                     }
                   />
@@ -47,11 +81,11 @@ export default function NewInfo() {
                   <input 
                     className='inputBox' 
                     placeholder='   Age'
-                    type="text"
+                    type="number"
                     value={age}
                     onChange={(e) =>{
                         setAge(e.target.value)
-                        console.log(age)
+                        
                         }
                     }
                   />
@@ -64,7 +98,9 @@ export default function NewInfo() {
                   <input
                     className='inputBox' 
                     placeholder='   Feet'
-                    type="text"
+                    type="number"
+                    min="0"
+                    max="10"
                     value={feet}
                     onChange={(e) =>{
                         setFeet(e.target.value)
@@ -75,7 +111,9 @@ export default function NewInfo() {
                 <input 
                     className='inputBox' 
                     placeholder='   Inches'
-                    type="text"
+                    type="number"
+                    min="0"
+                    max="10"
                     value={inches}
                     onChange={(e) =>{
                         setInches(e.target.value)
@@ -89,7 +127,7 @@ export default function NewInfo() {
                 <input
                     className='inputBox'
                     placeholder='   Weight'
-                    tpye='text'
+                    type='number'
                     value={weight}
                     onChange={(e) =>
                         setWeight(e.target.value)
@@ -98,7 +136,8 @@ export default function NewInfo() {
                 </div>
                     </div>
             </div>
-            <div>
+            {loading? <h1>Submitting info, please wait!</h1>:
+                <div>
                 <button className='shoe' onClick={handleSubmit} 
                 align='mid'>
                     <div id='submit'>
@@ -107,6 +146,10 @@ export default function NewInfo() {
                 <div> &#8594;</div>
                 </button>
             </div>
+            }   
+            {error?
+            <h1>{error}</h1>:
+            <></>}
         </div>
 
     )
