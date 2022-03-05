@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import firebase from 'firebase/compat/app'
 import './newinfo.css'
 import '../images/shoe.jpg'
 import '../images/janssSteps.jpg'
@@ -12,6 +13,11 @@ export default function NewInfo() {
     let navigate = useNavigate();
 
     async function handleSubmit(e) {
+
+        var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+
+
+        
         e.preventDefault()
         //Check that inches < 12, input types are correct
         setError("")
@@ -29,8 +35,8 @@ export default function NewInfo() {
         }
 
         try{
-            //setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age)
-            await setInfo(currentUser.uid, currentUser.email, name, weight, feet, inches, age)
+            //setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, TimeStamp)
+            await setInfo(currentUser.uid, currentUser.email, name, weight, feet, inches, age, myTimestamp)
             setLoading(false)
             console.log("Success")
         }catch(err){
