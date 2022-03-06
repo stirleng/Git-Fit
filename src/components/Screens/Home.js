@@ -23,11 +23,13 @@ export default function Home(props) {
   
   const {currentUser} = useAuth();  
   const [user, setUser] = useState({})
+  const [userSeconds, setUserSeconds] = useState(0)
 
-  function fetchUser(){
-    db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
+  async function fetchUser(){
+    await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
       if (snapshot){
         setUser(snapshot.data())
+        setUserSeconds(snapshot.data().Start_Date.seconds)
       }
     })
   }
@@ -37,23 +39,9 @@ export default function Home(props) {
 
   console.log(user)
   const currentDate = new Date(2023, 6, 1).getTime() / 1000; //In real time change to new Date() to get current Date
-  const userTimeStamp = user.Start_Date.seconds;
-  const diffSecond = currentDate - userTimeStamp;
+  const diffSecond = currentDate - userSeconds;
   const daySinceStart = Math.floor(diffSecond / (3600*24))
-  console.log(daySinceStart)
 
-//   const diff = currentDate - userTimeStamp;
-//   console.log(diff)
-//  console.log(user.Start_Date.seconds)
-//  console.log(new Date())
-  //const userRef = getDocument(currentUser.uid);
-  //console.log(userRef.data)
-
-  // async function receiveUser(){
-  //   userRef = await getUser(currentUser.uid)
-  // }
-  
-  // console.log(userRef.data())
 
 
 
