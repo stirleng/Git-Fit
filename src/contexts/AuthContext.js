@@ -26,10 +26,10 @@ export function AuthProvider({children}) {
     return db.collection("users").doc(userUID).set({
       Name: Name,
       Email: Email,
-      Weight: Weight,
-      Height_ft: Height_ft,
-      Height_in: Height_in,
-      Age: Age,
+      Weight: parseFloat(Weight),
+      Height_ft: parseFloat(Height_ft),
+      Height_in: parseFloat(Height_in),
+      Age: parseFloat(Age),
       Start_Date: myTimestamp,
     })
   }
@@ -51,6 +51,16 @@ export function AuthProvider({children}) {
     })
   }
 
+  function setWorkout(category, caloriesBurned, intensity, name, workoutLink){
+    const newName = name.replaceAll(' ', '_')
+    return db.collection("workout").doc(newName).set({
+      Name: name,
+      Category: category,
+      Calories_Burned: parseFloat(caloriesBurned),
+      Intensity: intensity,
+      Link: workoutLink
+    })
+  }
 
   useEffect(()=> {
    const unsubscribe =  auth.onAuthStateChanged(user => {
@@ -67,7 +77,8 @@ export function AuthProvider({children}) {
       signIn,
       setInfo,
       getUser,
-      setMeal
+      setMeal,
+      setWorkout
 
   }
 
