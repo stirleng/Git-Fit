@@ -4,13 +4,13 @@ import EmailIcon from '@mui/icons-material/Email';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import TextBox from "../ui/TextBox";
 import MyButton from "../ui/Button"
-import classes from './SignIn.module.css'
-import './Home.css'
+import styles from './SignIn.module.css'
+import globalStyles from '../styles/Global.module.css'
 import {Link, useNavigate, useLocation} from 'react-router-dom';
 
 function SignIn() {
-    const commonProps = {className: classes.inputBox, textColor: 'black', bgColor: 'white', width: 375, height: 40};
-    const buttonProps = {className: classes.inputBox, textColor: 'white', bgColor: '#e0b100', width: 375, height: 50};
+    const commonProps = {className: styles.inputBox, textColor: 'black', bgColor: 'white', width: 375, height: 40};
+    const buttonProps = {className: styles.inputBox, textColor: 'white', bgColor: '#e0b100', width: 375, height: 50};
 
 
     const [email, setEmail] = useState("");
@@ -46,22 +46,25 @@ function SignIn() {
         return navigate('/');
     }
 
-    return (<div className={classes.wrapper}>
-        <div id='bottom-layer' className={classes.signInBackground}/>
-        <div id='top-layer' className={classes.slide}
-            style={{background: '#e0b100',
-                transform: 'rotate(7deg) translate(-12%, -5%)'}}/>
+    return (<div className={styles.wrapper}>
+        <div id='bottom-layer' className={styles.signInBackground}/>
+        <div id='top-layer' className={styles.slide}
+             style={{
+                 background: '#e0b100',
+                 transform: 'rotate(7deg) translate(-12%, -5%)'
+             }}/>
 
-        <div id='top-layer' className={classes.slide}/>
+        <div id='top-layer' className={styles.slide}/>
 
-        <div id='top-layer' className={classes.rowContainer}>
-        <div className={`${classes.logo} ${classes.card}`}
-             style={{padding: '0 9px 0 5px',}}>
-            Git-Fit
-        </div>
-        <h2 style={{padding: '0 30px 0 30px'}}>
-            Sign In
-        </h2>
+        <div id='top-layer' className={styles.rowContainer}>
+            <div id='top-layer' className={styles.test}/>
+            <div className={`${globalStyles.logo} ${globalStyles.card}`}
+                 style={{padding: '0 9px 0 5px',}}>
+                Git-Fit
+            </div>
+            <h2 style={{padding: '0 30px 0 30px'}}>
+                Sign In
+            </h2>
             <h2 style={{paddingRight: '30px'}}>
                 Sign Up
             </h2>
@@ -70,8 +73,8 @@ function SignIn() {
             </h2>
         </div>
 
-        <div id='top-layer' className={classes.container}>
-            <div className={classes.card}>
+        <div id='top-layer' className={styles.container}>
+            <div className={globalStyles.card}>
                 <form onSubmit={handleSubmit}>
                     <h1>Welcome back!</h1>
                     <TextBox {...commonProps}

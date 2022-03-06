@@ -48,21 +48,9 @@
     z-index: -1;
 }
 
-.card {
+.test {
     border-radius: 5px;
-    background: #ffffff;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.45);
-    padding: 20px;
-    width: fit-content;
-    height: fit-content;
-}
-
-.logo {
-    color: #2774AE;
-    -webkit-text-stroke-color: #FFD100;
-    -webkit-text-stroke-width: 1px;
-    font-size: 43px;
-    font-weight: bolder;
-    font-family: Futura-Heavy-Italic;
+    background: #2774AE;
+    box: polygon(0 0, 100% 0, 86% 100%, 0% 100%);
 }
 
