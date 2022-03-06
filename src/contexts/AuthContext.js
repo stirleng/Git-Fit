@@ -22,18 +22,45 @@ export function AuthProvider({children}) {
   }
 
 
-  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age){
+  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp){
     return db.collection("users").doc(userUID).set({
       Name: Name,
       Email: Email,
-      Weight: Weight,
-      Height_ft: Height_ft,
-      Height_in: Height_in,
-      Age: Age
+      Weight: parseFloat(Weight),
+      Height_ft: parseFloat(Height_ft),
+      Height_in: parseFloat(Height_in),
+      Age: parseFloat(Age),
+      Start_Date: myTimestamp,
     })
   }
 
+  function getUser(userUID){
+    return db.collection("users").doc(userUID).get()
+  }
 
+  function setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories){
+    const newDishName = dishName.replaceAll(' ','_')
+    return db.collection("meals").doc(newDishName).set({
+      DishName: dishName,
+      isVegetarian: isVegetarian,
+      isWhiteMeat: isWhiteMeat,
+      link: recipeLink,
+      Protein: proteinSource,
+      Protein_Grams: parseFloat(gramOfProtein),
+      Calories: parseFloat(calories),
+    })
+  }
+
+  function setWorkout(category, caloriesBurned, intensity, name, workoutLink){
+    const newName = name.replaceAll(' ', '_')
+    return db.collection("workout").doc(newName).set({
+      Name: name,
+      Category: category,
+      Calories_Burned: parseFloat(caloriesBurned),
+      Intensity: intensity,
+      Link: workoutLink
+    })
+  }
 
   useEffect(()=> {
    const unsubscribe =  auth.onAuthStateChanged(user => {
@@ -49,6 +76,10 @@ export function AuthProvider({children}) {
       signUp,
       signIn,
       setInfo,
+      getUser,
+      setMeal,
+      setWorkout
+
   }
 
   return (

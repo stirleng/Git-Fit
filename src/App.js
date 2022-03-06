@@ -4,6 +4,7 @@ import Signup from './components/Screens/Signup';
 import Workouts from './components/Screens/Workouts';
 import Meals from './components/Screens/Meals';
 import UploadWorkout from './components/Screens/UploadWorkout';
+import UploadMeal from './components/Screens/UploadMeal';
 
 import NewInfo from './components/Screens/NewInfo';
 import Home from './components/Screens/Home';
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/uploadworkout" element={<PrivateRoute><UploadWorkout/></PrivateRoute>}/>
                     <Route path="/meals" element={<PrivateRoute><Meals/></PrivateRoute>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
+                    <Route path="/uploadmeal" element = {<PrivateRoute><UploadMeal/></PrivateRoute>} />
                 </Routes>
             </AuthProvider>
         </Router>

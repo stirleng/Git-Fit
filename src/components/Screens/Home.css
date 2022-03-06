@@ -150,3 +150,16 @@
     font-family: Futura-Book;
     font-size: x-large;
 }
+
+#welcome_message{
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+#message_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

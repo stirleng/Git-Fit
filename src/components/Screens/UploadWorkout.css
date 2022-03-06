@@ -14,3 +14,19 @@
     font-weight: bolder;
     font-family: Futura-Heavy-Italic;
 }
+
+#category-input{
+    margin-left: 20px;
+}
+
+#category-question{
+    font-size: 20px;
+}
+
+#select-container{
+    margin-top: 2rem
+}
+
+#single-input{
+    margin-top: 2rem;
+}
