@@ -4,7 +4,7 @@ import styles from './Meals.module.css'
 import globalStyles from '../styles/Global.module.css'
 import {Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 import bgWaveSvg from '../images/bruin_colored_waves.svg'
-import baked_haddock from '../images/meals/Baked_Haddock_recipe_prvw.png'
+import baked_haddock from '../images/Baked_Haddock_recipe_prvw.png'
 
 export default function Meals(props) {
     const {currentUser} = useAuth();
@@ -22,7 +22,6 @@ export default function Meals(props) {
     function nextpage() {
         return navigate('/uploadmeal')
     }
-
 
     return (<div className={globalStyles.wrapper}>
             <div id='bottom-layer' className={styles.mealsBackground}/>
@@ -48,9 +47,9 @@ export default function Meals(props) {
                      alt="baked_haddock"/>
             </div>
             <div id='top-layer' className={styles.container__right}>
-                <h1>You have been sentenced to:</h1>
+                <h1>You have been sentenced to: BAKED HADDOCK</h1>
             </div>
-            <div className='UploadMealButton'>
+            <div id='top-layer' className='UploadMealButton'>
                 <button onClick={nextpage}>Upload your own meal!</button>
             </div>
         </div>

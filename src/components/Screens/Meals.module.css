@@ -28,7 +28,7 @@
 .container__right {
     position: absolute;
     right: 0;
-    width: 50%;
+    width: 45%;
     height: 100vh;
     display: flex;
     justify-content: center;
