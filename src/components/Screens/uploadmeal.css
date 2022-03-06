@@ -1,0 +1,31 @@
+#input-container {
+    margin-top: 2rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
+}
+
+#single-input{
+    display: flex;
+    flex-direction: row;
+    font-size: 8px;
+}
+
+#input-question{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.inputBox{
+    margin-top: 10px
+}
+
+#title-container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
+}

@@ -16,6 +16,8 @@ export default function UploadMeal() {
   const [recipeLink, setRecipeLink] = useState("");
   const [proteinSource, setProteinSource] = useState("")
   const [dishName, setDishName] = useState("")
+  const [gramOfProtein, setGramOfProtein] = useState(0)
+  const [calories, setCalories] = useState(0)
 
   async function handleSubmit(e) {
    
@@ -41,9 +43,11 @@ export default function UploadMeal() {
     }
 
 
+
+
     try{
-        //setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource)
-        await setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource)
+        //setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories)
+        await setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories )
         setLoading(false)
         console.log("Success")
     }catch(err){
@@ -56,16 +60,21 @@ export default function UploadMeal() {
   
   return (
     <div>
-        <div>UploadMeal</div>
+        <div id="title-container">
+            <h1>Upload your meal!</h1>
+        </div>
 
         <div id="input-container">
-            <input 
-            className='inputBox'
-            placeholder='Name of your Dish!'
-            type="text"
-            value={dishName}
-            onChange={(e) =>setDishName(e.target.value)}
-            />
+
+            <div id="single-input">
+                <h1 id="input-question">Name of your dish!</h1>
+                <input 
+                className='inputBox'
+                type="text"
+                value={dishName}
+                onChange={(e) =>setDishName(e.target.value)}
+                />
+            </div>
 
             <div id="vegetarian-container">
                 <input 
@@ -89,21 +98,50 @@ export default function UploadMeal() {
                 <label for="isWhiteMeat">Is this dish Whitemeat based?</label>
             </div>
 
-            <input 
-            className='inputBox'
-            placeholder='Recipe Link? (accept allrecipe.com link)'
-            type="text"
-            value={recipeLink}
-            onChange={(e) =>setRecipeLink(e.target.value)}
-            />
+            <div id="single-input">
+                <h1 id="input-question">Recipe Link? (accept allrecipe.com link)</h1>
+                <input 
+                className='inputBox'
+                placeholder='...allrecipes.com'
+                type="text"
+                value={recipeLink}
+                onChange={(e) =>setRecipeLink(e.target.value)}
+                />
+            </div>
 
-             <input 
-            className='inputBox'
-            placeholder='Protein Source?'
-            type="text"
-            value={proteinSource}
-            onChange={(e) =>setProteinSource(e.target.value)}
-            />
+            <div id="single-input">
+                <h1 id="input-question">Protein Source?</h1>
+                <input 
+                className='inputBox'
+                placeholder='Beef, Chicken, Tofu, etc'
+                type="text"
+                value={proteinSource}
+                onChange={(e) =>setProteinSource(e.target.value)}
+                />
+            </div>
+
+            <div id="single-input">
+                <h1 id="input-question">How much grams of proteins?</h1>
+                <input 
+                className='inputBox'
+                placeholder='How much grams of proteins?'
+                type="number"
+                value={gramOfProtein}
+                onChange={(e) =>setGramOfProtein(e.target.value)}
+                />
+            </div>
+            
+
+            <div id="single-input">
+                <h1 id="input-question">How much calories?</h1>
+                <input 
+                className='inputBox'
+                placeholder='How much grams of proteins?'
+                type="number"
+                value={calories}
+                onChange={(e) =>setCalories(e.target.value)}
+                />
+            </div>
 
         </div>
 

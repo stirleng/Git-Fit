@@ -38,14 +38,16 @@ export function AuthProvider({children}) {
     return db.collection("users").doc(userUID).get()
   }
 
-  function setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource){
+  function setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories){
     const newDishName = dishName.replaceAll(' ','_')
     return db.collection("meals").doc(newDishName).set({
       DishName: dishName,
       isVegetarian: isVegetarian,
       isWhiteMeat: isWhiteMeat,
       link: recipeLink,
-      Protein: proteinSource
+      Protein: proteinSource,
+      Protein_Grams: parseFloat(gramOfProtein),
+      Calories: parseFloat(calories),
     })
   }
 

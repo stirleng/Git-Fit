@@ -16,7 +16,7 @@ export default function NewInfo() {
 
         var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
 
-
+        
         
         e.preventDefault()
         //Check that inches < 12, input types are correct
