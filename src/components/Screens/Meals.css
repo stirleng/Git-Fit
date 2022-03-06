@@ -1,6 +1,28 @@
+@font-face {
+    font-family: Futura-Medium-Italic;
+    src: url(../fonts/futura/Futura\ Medium\ Italic\ font.ttf);
+    font-style: italic;
+}
+
 .MealScreenHeader{
-    display:flex;
-    justify-content: center;
-    height: 10vh;
+    text-align: center;
+    height: 6vh;
+    padding-bottom: 8vh;
     background-color: #2b87ff5d;
+    color: #2774AE;
+    -webkit-text-stroke-color: #FFD100;
+    -webkit-text-stroke-width: 3px;
+    font-size: 100px;
+    font-weight: bolder;
+    font-family: Futura-Heavy-Italic;
+}
+
+.MealsBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.UploadMealButton{
+    margin: auto;
 }

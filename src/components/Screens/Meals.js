@@ -11,15 +11,14 @@ export default function Workouts(props) {
       return navigate('/uploadmeal')
     }
     return (
-      <div>
+      <body className='MealsBody'>
         <div className='MealScreenHeader'>
           Meal Page
+          <br></br>
         </div>
-
-        
-        <div>
+        <div className='UploadMealButton'>
           <button onClick={nextpage}>Upload your own meal!</button>
         </div>
-      </div>
+      </body>
     )
   }
