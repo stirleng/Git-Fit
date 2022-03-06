@@ -38,15 +38,15 @@ export function AuthProvider({children}) {
     return db.collection("users").doc(userUID).get()
   }
 
-  async function getDocument(userUID) {
-    // [START firestore_data_get_as_map]
-    const userRef = db.collection('users').doc(userUID);
-    const doc = await userRef.get().then((snapshot) =>{
-      console.log(snapshot.data())
-    });
-    console.log(doc.data)
-    return doc;
-    // [END firestore_data_get_as_map]
+  function setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource){
+    const newDishName = dishName.replaceAll(' ','_')
+    return db.collection("meals").doc(newDishName).set({
+      DishName: dishName,
+      isVegetarian: isVegetarian,
+      isWhiteMeat: isWhiteMeat,
+      link: recipeLink,
+      Protein: proteinSource
+    })
   }
 
 
@@ -65,7 +65,8 @@ export function AuthProvider({children}) {
       signIn,
       setInfo,
       getUser,
-      getDocument,
+      setMeal
+
   }
 
   return (
