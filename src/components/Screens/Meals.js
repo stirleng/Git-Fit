@@ -1,17 +1,25 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useAuth} from '../../contexts/AuthContext'
 import styles from './Meals.module.css'
 import globalStyles from '../styles/Global.module.css'
 import {Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 import bgWaveSvg from '../images/bruin_colored_waves.svg'
 import baked_haddock from '../images/Baked_Haddock_recipe_prvw.png'
+import { db } from '../../firebase';
 
 export default function Meals(props) {
     const {currentUser} = useAuth();
-    console.log(currentUser);
     let navigate = useNavigate();
 
+  
+
     useEffect(() => {
+
+
+
+
+
+
         document.body.setAttribute('style',
             `position: fixed; top: -$(this.windowOffset)px; left: 0; right: 0;`);
         return () => {

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect} from 'react'
 import { db, auth } from '../firebase';
+import firebase from 'firebase/compat/app'
 
 const AuthContext = React.createContext()
 
@@ -31,6 +32,9 @@ export function AuthProvider({children}) {
       Height_in: parseFloat(Height_in),
       Age: parseFloat(Age),
       Start_Date: myTimestamp,
+      Leg_Days: 0,
+      Chest_Days: 0,
+      Arms_Days: 0
     })
   }
 
@@ -48,6 +52,12 @@ export function AuthProvider({children}) {
       Protein: proteinSource,
       Protein_Grams: parseFloat(gramOfProtein),
       Calories: parseFloat(calories),
+    })
+  }
+
+  function updateData(path){
+    return db.collection("data").doc(path).update({
+      count: firebase.firestore.FieldValue.increment(1)
     })
   }
 
@@ -78,7 +88,8 @@ export function AuthProvider({children}) {
       setInfo,
       getUser,
       setMeal,
-      setWorkout
+      setWorkout,
+      updateData
 
   }
 
