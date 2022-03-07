@@ -1,6 +1,6 @@
 import React,  {useState, useEffect} from 'react'
 import { useAuth } from '../../contexts/AuthContext'
-import { db } from '../../firebase';
+import { db, collection, getDocs, query, where, limit, useFirestoreDocument, QuerySnapshot} from '../../firebase';
 import './Home.css'
 import { Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 import '../images/HomePageBackground.jpg'
@@ -37,13 +37,27 @@ export default function Home(props) {
     fetchUser();              
   }, [])
 
-  console.log(user)
+  //console.log(user)
   const currentDate = new Date(2023, 6, 1).getTime() / 1000; //In real time change to new Date() to get current Date
   const diffSecond = currentDate - userSeconds;
   const daySinceStart = Math.floor(diffSecond / (3600*24))
 
+  // const mealsCollectionRef = collection(db, "meals")
+  // const mealRef = doc(mealsCollectionRef, "Chicken_Curry")
+  // const meal = useFirestoreDocument(["meals", "Chicken_Curry"], mealRef)
 
+  const [meal, setMealName] = useState("")
 
+  async function fetchMealSuggestion(){
+    await db.collection("meals").doc("Chicken_Curry").get().then((snapshot) =>{
+      if (snapshot){
+        setMealName(snapshot.data().DishName)
+      }
+    })
+  }
+  useEffect(()=>{
+    fetchMealSuggestion();              
+  }, [])
 
   return (
     <body className='HomePage'>
@@ -77,7 +91,7 @@ export default function Home(props) {
           Today's Plan:
         </div>
         <br></br>
-        WorkoutPlaceHolder + MealsPlaceHolder
+        WorkoutPlaceHolder + {meal}
       </div>
       {/* Someone style this message container lol I cant*/}
       <div id="message_container">
