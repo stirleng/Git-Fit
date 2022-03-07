@@ -11,10 +11,12 @@ export function useAuth() {
 export function AuthProvider({children}) {
 
   const [currentUser, setCurrentUser] = useState();
+  const [test, setTest] = useState(0)
   // const [loading, setLoading] = useState(true);
 
   function signUp(email,password){
-     return auth.createUserWithEmailAndPassword(email,password)
+    setTest(2)
+    return auth.createUserWithEmailAndPassword(email,password)
   }
   
   function signIn(email, password){
@@ -37,6 +39,7 @@ export function AuthProvider({children}) {
   function getUser(userUID){
     return db.collection("users").doc(userUID).get()
   }
+  
 
   function setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories){
     const newDishName = dishName.replaceAll(' ','_')
@@ -62,6 +65,7 @@ export function AuthProvider({children}) {
     })
   }
 
+  
   useEffect(()=> {
    const unsubscribe =  auth.onAuthStateChanged(user => {
         setCurrentUser(user)
@@ -78,7 +82,9 @@ export function AuthProvider({children}) {
       setInfo,
       getUser,
       setMeal,
-      setWorkout
+      setWorkout,
+      test,
+      
 
   }
 

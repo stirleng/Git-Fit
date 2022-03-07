@@ -24,7 +24,26 @@ export default function Home(props) {
   const {currentUser} = useAuth();  
   const [user, setUser] = useState({})
   const [userSeconds, setUserSeconds] = useState(0)
+  const [suggestionMeal, setSuggestionMeal] = useState("")
 
+
+  const [meals, setMeals] = useState([])
+  async function fetchMeals(){
+    //fetch 40 random meals
+    await db.collection("meals").orderBy("Calories").startAt(0).limit(40).get().then((snapshot) =>{
+      if(snapshot){
+        const tempMeals =[]
+        snapshot.forEach(documentSnapshot =>{
+          tempMeals.push(documentSnapshot.data())      
+        })
+        // console.log(tempMeals)
+        const randInt = Math.floor( Math.random()*40)
+        setSuggestionMeal(tempMeals[randInt].DishName)
+        setMeals(tempMeals)
+      }
+    })
+  }
+ 
   async function fetchUser(){
     await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
       if (snapshot){
@@ -34,30 +53,23 @@ export default function Home(props) {
     })
   }
   useEffect(()=>{
-    fetchUser();              
+    fetchUser();
+    fetchMeals();
   }, [])
+
+
+
+
 
   //console.log(user)
   const currentDate = new Date(2023, 6, 1).getTime() / 1000; //In real time change to new Date() to get current Date
   const diffSecond = currentDate - userSeconds;
   const daySinceStart = Math.floor(diffSecond / (3600*24))
 
-  // const mealsCollectionRef = collection(db, "meals")
-  // const mealRef = doc(mealsCollectionRef, "Chicken_Curry")
-  // const meal = useFirestoreDocument(["meals", "Chicken_Curry"], mealRef)
 
-  const [meal, setMealName] = useState("")
 
-  async function fetchMealSuggestion(){
-    await db.collection("meals").doc("Chicken_Curry").get().then((snapshot) =>{
-      if (snapshot){
-        setMealName(snapshot.data().DishName)
-      }
-    })
-  }
-  useEffect(()=>{
-    fetchMealSuggestion();              
-  }, [])
+ 
+
 
   return (
     <body className='HomePage'>
@@ -91,7 +103,7 @@ export default function Home(props) {
           Today's Plan:
         </div>
         <br></br>
-        WorkoutPlaceHolder + {meal}
+        WorkoutPlaceHolder + {suggestionMeal}
       </div>
       {/* Someone style this message container lol I cant*/}
       <div id="message_container">
