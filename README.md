@@ -7,3 +7,4 @@
 4. npm install firebase
 5. npm install @mui/material@5.4.3 @mui/icons-material@5.4.2
 6. npm install react-router-dom@6
+7. npm install axios cheerio

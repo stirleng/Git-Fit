@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect} from 'react'
 import { db, auth } from '../firebase';
+import firebase from 'firebase/compat/app'
 
 const AuthContext = React.createContext()
 
@@ -11,10 +12,12 @@ export function useAuth() {
 export function AuthProvider({children}) {
 
   const [currentUser, setCurrentUser] = useState();
+  const [test, setTest] = useState(0)
   // const [loading, setLoading] = useState(true);
 
   function signUp(email,password){
-     return auth.createUserWithEmailAndPassword(email,password)
+    setTest(2)
+    return auth.createUserWithEmailAndPassword(email,password)
   }
   
   function signIn(email, password){
@@ -31,12 +34,16 @@ export function AuthProvider({children}) {
       Height_in: parseFloat(Height_in),
       Age: parseFloat(Age),
       Start_Date: myTimestamp,
+      Leg_Days: 0,
+      Chest_Days: 0,
+      Arms_Days: 0
     })
   }
 
   function getUser(userUID){
     return db.collection("users").doc(userUID).get()
   }
+  
 
   function setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories){
     const newDishName = dishName.replaceAll(' ','_')
@@ -51,6 +58,12 @@ export function AuthProvider({children}) {
     })
   }
 
+  function updateData(path){
+    return db.collection("data").doc(path).update({
+      count: firebase.firestore.FieldValue.increment(1)
+    })
+  }
+
   function setWorkout(category, caloriesBurned, intensity, name, workoutLink){
     const newName = name.replaceAll(' ', '_')
     return db.collection("workout").doc(newName).set({
@@ -62,6 +75,7 @@ export function AuthProvider({children}) {
     })
   }
 
+  
   useEffect(()=> {
    const unsubscribe =  auth.onAuthStateChanged(user => {
         setCurrentUser(user)
@@ -78,7 +92,9 @@ export function AuthProvider({children}) {
       setInfo,
       getUser,
       setMeal,
-      setWorkout
+      setWorkout,
+      test,
+      
 
   }
 

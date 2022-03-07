@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import "./uploadmeal.css"
 
+
 export default function UploadMeal() {
 
-  const {setMeal} = useAuth()
+  const {setMeal, updateData} = useAuth()
 
   //variables to set error messages/render
   const [error, setError] = useState("")
@@ -48,6 +49,7 @@ export default function UploadMeal() {
     try{
         //setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories)
         await setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories )
+        await updateData("mealsCount")
         setLoading(false)
         console.log("Success")
     }catch(err){

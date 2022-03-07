@@ -116,7 +116,7 @@ export default function UploadWorkout(props) {
         </div>
 
         <div id="submit-container">
-            {loading? <h1>Uploading your meal, please wait!</h1> : 
+            {loading? <h1>Uploading your workout, please wait!</h1> : 
             <button onClick={handleSubmit} >
                 submit
             </button>
