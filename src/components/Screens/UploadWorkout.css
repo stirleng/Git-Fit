@@ -24,9 +24,17 @@
 }
 
 #select-container{
-    margin-top: 2rem
+    margin-top: 2vh
 }
 
 #single-input{
-    /*margin-top: 2rem;*/
+    margin-top: 2vh;
+}
+
+#inputbox{
+    font-size: 20px;
+}
+
+textarea {
+    resize: none;
 }

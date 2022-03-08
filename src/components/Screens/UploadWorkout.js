@@ -68,7 +68,6 @@ export default function UploadWorkout(props) {
         <div id="title-container">
             <h1>Upload your favorite workout!</h1>
         </div>
-
         <div id="input-container">
 
             <div id="single-input">
@@ -97,7 +96,7 @@ export default function UploadWorkout(props) {
 
            <div id="select-container">
                <label id="category-question" for="selectCategory">Intensity Level?</label>
-               <select name="selectCategoty" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
+               <select name="selectCategory" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
                    <option value="low">Low</option>
                    <option value="medium">Medium</option>
                    <option value="high">High</option>
@@ -129,10 +128,13 @@ export default function UploadWorkout(props) {
                     <textarea
                         maxlength ="10000"
                         rows="5"
-                        className='inputBox'
+                        cols="40"
+                        className='inputbox'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                    />
+                    >
+                        Default text here
+                    </textarea>
                 </div>
             </div>
             <div id="single-input">
@@ -159,8 +161,8 @@ export default function UploadWorkout(props) {
             <h1>{error}</h1>    
         </div>
         }
-        
-
+        <div>
+        </div>
     </div>
     )
 }
