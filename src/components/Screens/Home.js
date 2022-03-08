@@ -11,6 +11,7 @@ import '../images/AppleImage.png'
 //import Button from 'react-bootstrap/Button'
 
 import firebase from 'firebase/compat/app'
+import { FieldValue } from 'firebase/firestore';
 
 export default function Home(props) {
   let navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function Home(props) {
   const [userArmsDayCount, setUserArmsDayCount] = useState(0)
   const [userChestDayCount, setUserChestDayCount] = useState(0)
   const [userLegDayCount, setUserLegDayCount] = useState(0)
+  const [workoutSuggestion, setWorkoutSuggestion] = useState("Squat") //TODO: default should be empty string
+  //const [workoutType, setWorkoutType] = useState("")
 
 
   const [meals, setMeals] = useState([])
@@ -59,7 +62,43 @@ export default function Home(props) {
     })
   }
 
+  async function CompletePlan(){
+    var workoutType
+    await db.collection("workout").doc(workoutSuggestion).get().then((snapshot) =>{
+      if(snapshot){
+        workoutType = snapshot.data().Category
+      }
+    })
+    switch (workoutType)
+    {
+      case "bicep":
+      case "tricep":
+      case "shoulder":
+      case "arm":
+        await db.collection("users").doc(currentUser.uid).update({
+          Arms_Days: userArmsDayCount + 1
+        })
+        break
+      case "back":
+      case "abs":
+      case "chest":
+        await db.collection("users").doc(currentUser.uid).update({
+          Chest_Days: userChestDayCount + 1
+        })
+        break
+      case "cardio":
+      case "leg":
+        console.log("here")
+        await db.collection("users").doc(currentUser.uid).update({
+          Leg_Days: userLegDayCount + 1
+        })
+        break
+    }
+    fetchUser()
+  }
+
   useEffect(()=>{
+    setWorkoutSuggestion("Squat")   //TODO: remove here and replace with a function that produces a random workout
     fetchUser();
     fetchMeals();
   }, [])
@@ -105,24 +144,28 @@ export default function Home(props) {
           </button>
         </Link>
       </div>
-      <div className='HomePageSuggestionContainer'>
-        <div className='HomePageSuggestionBoxTitle'>
-          Today's Plan:
+      <div id='HomePageSuggestionAndCompletionContainer'>
+        <div className='HomePageSuggestionContainer'>
+          <div className='HomePageSuggestionBoxTitle'>
+            Today's Plan:
+          </div>
+          <div id='WorkoutSuggestionHeader'>
+            Workout for Today:
+          </div>
+          <div id='WorkoutSuggestion'>
+            {workoutSuggestion}
+          </div>
+          <div>
+            Your Next Meal:
+          </div>
+          <div id='MealSuggestion'>
+            {suggestionMeal}
+          </div>
         </div>
-        <div id='WorkoutSuggestionHeader'>
-          Workout for Today:
-        </div>
-        <div id='WorkoutSuggestion'>
-          WorkoutPlaceHolder
-        </div>
-        <div>
-          Your Next Meal:
-        </div>
-        <div id='MealSuggestion'>
-          {suggestionMeal}
-        </div>
+        <button id='HomePageCompleteSuggestionButton' onClick={() => {CompletePlan()}}>
+          Complete Plan
+        </button>
       </div>
-      {/* Someone style this message container lol I cant*/}
       <div id="message_container">
         <h1 id="welcome_message">Welcome back, {user.Name}! It has been {daySinceStart} days since you started this journey!</h1>
       </div>
