@@ -125,21 +125,29 @@
     padding-right: 8.5vh;
 }
 
+#HomePageSuggestionAndCompletionContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 4vh;
+    margin-left: 24vh;
+}
+
 .HomePageSuggestionContainer{
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-bottom: 2vh;
     background: white;
     width: 40vh;
     height: 20vh;
-    margin-top: 7vh;
-    margin-left: auto;
-    margin-right: auto;
     padding-top: 3vh;
-    padding-left: 5vh;
-    padding-right: 5vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
     padding-bottom: 3vh;
+    margin-right: 5vh;
     border-style: solid;
     border-width: 7px;
     border-color: #f06f80;
@@ -170,17 +178,42 @@
     font-size: x-large;
 }
 
+#HomePageCompleteSuggestionButton{
+    font-family: Futura-Book;
+    font-size: 15px;
+    font-weight: bolder;
+    text-align: center;
+    background: white;
+    width: 20vh;
+    height: 10vh;
+    padding: 2vh;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #f7a5b0;
+    border-radius: 20px;   
+    opacity: 1;
+}
+
+#HomePageCompleteSuggestionButton:hover{
+    background-color: rgb(226, 226, 226);
+    transition: 0.25s;
+}
+
 #welcome_message{
-    align-self: center;
-    align-items: center;
+    text-align: center;
     justify-content: center;
     font-size: 40px;
 }
 
 #message_container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 10px;
+    border-width: 5px;
+    margin-bottom: 2vh;
+    width: 120vh;
 }
 
 #WorkoutDayCountContainer{
@@ -188,6 +221,7 @@
     justify-content: center;
     flex-direction: row;
     justify-content: space-around;
+    margin-top: 3vh;
     margin-right: 15vh;
     margin-left: 15vh;
 }
@@ -196,9 +230,9 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     background: white;
-    width: 40vh;
+    width: 20vh;
     height: 20vh;
     margin-left: auto;
     margin-right: auto;
