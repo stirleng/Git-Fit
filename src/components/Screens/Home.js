@@ -39,28 +39,38 @@ export default function Home(props) {
 
   const [meals, setMeals] = useState([]) //single meal object
   const [mealArray, setMealArray] = useState([]) //array of meals object
+  const [highProteinMealArray, setHighProteinMealArray] = useState([])
+  const [medProteinMealArray, setmedProteinMealArray] = useState([])
+  const [lowProteinMealArray, setlowProteinMealArray] = useState([])
+  
 
   const [workout, setWorkout] = useState(null) //single workout object
   const [workoutArray, setWorkoutArray] = useState([]) //array of workout object
+  const [chestArray, setChestArray] = useState([]);
+  const [legArray, setLegArray] = useState([]);
+  const [armArray, setArmArray] = useState([]);
 
-  async function fetchMealsandWorkout(){
+  async function fetchUserMealsandWorkout(){
 
-    //await db.collection("workout")
+    var localADC = 0
+    var localCDC = 0
+    var localLDC = 0
 
-    //fetch 40 random meals
-    await db.collection("meals").orderBy("Calories").startAt(0).limit(40).get().then((snapshot) =>{
-      if(snapshot){
-        const tempMeals =[]
-        snapshot.forEach(documentSnapshot =>{
-          tempMeals.push(documentSnapshot.data())      
-        })
-        // console.log(tempMeals)
-        setMealArray(tempMeals)
-        const randInt = Math.floor( Math.random()*40)
-        setSuggestionMeal(tempMeals[randInt].DishName)
-        setMeals(tempMeals)
+    var localIntensity = ""
+
+    await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
+      if (snapshot){
+        setUser(snapshot.data())
+        localADC = snapshot.data().Arms_Days
+        localCDC = snapshot.data().Chest_Days
+        localLDC = snapshot.data().Leg_Days
+        setUserSeconds(snapshot.data().Start_Date.seconds)
+        setUserArmsDayCount(snapshot.data().Arms_Days)
+        setUserChestDayCount(snapshot.data().Chest_Days)
+        setUserLegDayCount(snapshot.data().Leg_Days)
       }
     })
+    //await db.collection("workout")
 
     await db.collection("workout").get().then((snapshot) =>{
       if (snapshot){
@@ -68,12 +78,105 @@ export default function Home(props) {
         snapshot.forEach(documentSnapshot =>{
           tempWork.push(documentSnapshot.data())      
         })
+        //saving the original copy of all the workout
         setWorkoutArray(tempWork)
-        const randInt = Math.floor(Math.random()*(tempWork.length - 1))
-        setWorkoutSuggestion(tempWork[randInt].Name);
-        setWorkout(tempWork[randInt])
+
+
+        //randomly selecting based on the current lowest day
+        let workoutLowestStringArray = []
+        let workoutLowestNum = Math.min(localADC, Math.min(localCDC, localLDC))
+        switch (workoutLowestNum){
+          case localADC:
+            workoutLowestStringArray.push("bicep")
+            workoutLowestStringArray.push("tricep")
+            workoutLowestStringArray.push("shoulder")
+            workoutLowestStringArray.push("arm")
+            break;
+          case localCDC:
+            workoutLowestStringArray.push("back")
+            workoutLowestStringArray.push("abs")
+            workoutLowestStringArray.push("chest")
+            break;
+          default:
+            workoutLowestStringArray.push("leg")
+            workoutLowestStringArray.push("cardio")
+        }
+
+        let finalWorkoutString = workoutLowestStringArray[Math.floor(Math.random() * workoutLowestStringArray.length)]
+
+        let filterArray = [];
+        let tempChestArray = [];
+        let tempArmArray = [];
+        let tempLegArray = [];
+        for (let i = 0; i < tempWork.length; i++){
+            let curCategory = tempWork[i].Category
+            if (curCategory === finalWorkoutString){
+              filterArray.push(tempWork[i])
+            }
+            switch(curCategory){
+                case "bicep":
+                case "tricep":
+                case "shoulder":
+                case "arm":
+                  tempArmArray.push(tempWork[i])
+                  break
+                case "back":
+                case "abs":
+                case "chest":
+                  tempChestArray.push(tempWork[i])
+                  break
+                case "cardio":
+                case "leg":
+                tempLegArray.push(tempWork[i])
+             }
+          }
+        const randInt = Math.floor(Math.random()*(filterArray.length))
+        localIntensity = filterArray[randInt].Intensity;
+        setWorkoutSuggestion(filterArray[randInt].Name);
+        setWorkout(filterArray[randInt])
+        
+        setChestArray(tempChestArray);
+        setArmArray(tempArmArray);
+        setLegArray(tempLegArray)
       }
     })
+
+    //fetch all meals
+    await db.collection("meals").get().then((snapshot) =>{
+      if(snapshot){
+        const tempMeals =[]
+        snapshot.forEach(documentSnapshot =>{
+          tempMeals.push(documentSnapshot.data())      
+        })
+        // console.log(tempMeals)
+        setMealArray(tempMeals)
+        let tempLowP = [];
+        let tempMedP = [];
+        let tempHighP = [];
+        for (let i = 0; i < 40; i++){
+          let curProtein = tempMeals[i].Protein_Grams
+          if (curProtein < 3){
+            tempLowP.push(tempMeals[i])
+          }else if (curProtein < 9){
+            tempMedP.push(tempMeals[i])
+          }else{
+            tempHighP.push(tempMeals[i])
+          }
+        }
+
+        
+        let tempFilterP = localIntensity === "high" ? tempHighP: localIntensity === "medium"? tempMedP: tempLowP
+        const randInt = Math.floor( Math.random()*tempFilterP.length)
+        setSuggestionMeal(tempFilterP[randInt].DishName)
+        setMeals(tempFilterP[randInt])
+
+        setHighProteinMealArray(tempHighP);
+        setmedProteinMealArray(tempMedP);
+        setlowProteinMealArray(tempLowP);
+      }
+    })
+
+    
 
   }
  
@@ -91,16 +194,16 @@ export default function Home(props) {
 
   async function CompletePlan(){
 
-    console.log(workout.Category)
+  
 
-    var workoutType
-    // await db.collection("workout").doc(workoutSuggestion).get().then((snapshot) =>{
-    //   if(snapshot){
-    //     workoutType = snapshot.data().Category
-    //   }
-    // })
+    var workoutType = workout.Category
 
-    workoutType = workout.Category
+    
+    var localADC = userArmsDayCount
+    var localCDC = userChestDayCount
+    var localLDC = userLegDayCount
+    
+
 
     switch (workoutType)
     {
@@ -108,6 +211,7 @@ export default function Home(props) {
       case "tricep":
       case "shoulder":
       case "arm":
+        localADC += 1;
         await db.collection("users").doc(currentUser.uid).update({
           Arms_Days: firebase.firestore.FieldValue.increment(1)
         })
@@ -116,6 +220,7 @@ export default function Home(props) {
       case "back":
       case "abs":
       case "chest":
+        localCDC += 1
         await db.collection("users").doc(currentUser.uid).update({
           Chest_Days: firebase.firestore.FieldValue.increment(1)
         })
@@ -123,6 +228,7 @@ export default function Home(props) {
         break
       case "cardio":
       case "leg":
+        localLDC +=1
         await db.collection("users").doc(currentUser.uid).update({
           Leg_Days: firebase.firestore.FieldValue.increment(1)
         })
@@ -130,22 +236,44 @@ export default function Home(props) {
         break
     }
 
-    //getting new meal
-    const randIntMeal = Math.floor( Math.random()*40)
-    setSuggestionMeal(mealArray[randIntMeal].DishName)
-    setMeals(mealArray[randIntMeal])
-
-    const randIntWorkout = Math.floor(Math.random()*(workoutArray.length - 1))
+    //getting new workout based on lowest
+    let workoutLowestNum = Math.min(localADC, Math.min(localCDC, localLDC))
+    let lowestArray = []
+    switch(workoutLowestNum){
+      case localADC:
+        lowestArray = armArray
+        break;
+      case localCDC:
+        lowestArray = chestArray
+        break;
+      default:
+        lowestArray = legArray
+    }
+    const randIntWorkout = Math.floor(Math.random()*(lowestArray.length))
     setWorkoutSuggestion(workoutArray[randIntWorkout].Name);
-    setWorkout(workoutArray[randIntWorkout])
+    setWorkout(lowestArray[randIntWorkout])
+
+    let localIntensity = lowestArray[randIntWorkout].Intensity
+
+    //getting new meal
+    
+    let tempMealFilter = localIntensity === "high" ? highProteinMealArray: localIntensity === "medium"? medProteinMealArray: lowProteinMealArray
+    const randIntMeal = Math.floor( Math.random()*tempMealFilter.length)
+    // console.log(tempMealFilter.length)
+    // console.log("---------")
+    // console.log(randIntMeal)
+    // console.log("********************")
+    setSuggestionMeal(tempMealFilter[randIntMeal].DishName)
+    setMeals(tempMealFilter[randIntMeal])
+
+    
 
     //fetchUser()
   }
 
   useEffect(()=>{
     // setWorkoutSuggestion("Squat")   //TODO: remove here and replace with a function that produces a random workout
-    fetchUser();
-    fetchMealsandWorkout();
+    fetchUserMealsandWorkout();
   }, [])
 
 
@@ -197,14 +325,14 @@ export default function Home(props) {
           <div id='WorkoutSuggestionHeader'>
             Workout for Today:
           </div>
-         {workout === null ? 
+          {workout === null ? 
             <div id='WorkoutSuggestion'>
               <h1>Null</h1> 
             </div>:
             <div id="WorkoutSuggestion">
               {workout.Name}
             </div>
-            }
+          }
           <div>
             Your Next Meal:
           </div>
