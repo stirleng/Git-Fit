@@ -28,16 +28,11 @@ export default function Home(props) {
 
 
   const [meals, setMeals] = useState([])
-<<<<<<< HEAD
   async function fetchMealsandWorkout(){
 
     //await db.collection("workout")
 
     //fetch 40 random meals
-=======
-  async function fetchMeals(){
-    //fetch 1 random meal from 40 meals ordered by Calorie count
->>>>>>> b937c72e4fd2ffff98d4f724c119efb6b03cceb2
     await db.collection("meals").orderBy("Calories").startAt(0).limit(40).get().then((snapshot) =>{
       if(snapshot){
         const tempMeals =[]
