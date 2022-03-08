@@ -49,7 +49,7 @@ export default function UploadMeal() {
     try{
         //setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories)
         await setMeal(dishName, isVegetarian, isWhiteMeat, recipeLink, proteinSource, gramOfProtein, calories )
-        await updateData("mealsCount")
+        await updateData("mealsCount")  //TODO: isn't this out of date? do we still have mealsCount
         setLoading(false)
         console.log("Success")
     }catch(err){

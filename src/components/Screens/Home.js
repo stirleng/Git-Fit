@@ -29,7 +29,7 @@ export default function Home(props) {
 
   const [meals, setMeals] = useState([])
   async function fetchMeals(){
-    //fetch 40 random meals
+    //fetch 1 random meal from 40 meals ordered by Calorie count
     await db.collection("meals").orderBy("Calories").startAt(0).limit(40).get().then((snapshot) =>{
       if(snapshot){
         const tempMeals =[]
@@ -102,8 +102,18 @@ export default function Home(props) {
         <div className='HomePageSuggestionBoxTitle'>
           Today's Plan:
         </div>
-        <br></br>
-        WorkoutPlaceHolder + {suggestionMeal}
+        <div id='WorkoutSuggestionHeader'>
+          Workout for Today:
+        </div>
+        <div id='WorkoutSuggestion'>
+          WorkoutPlaceHolder
+        </div>
+        <div>
+          Your Next Meal:
+        </div>
+        <div id='MealSuggestion'>
+          {suggestionMeal}
+        </div>
       </div>
       {/* Someone style this message container lol I cant*/}
       <div id="message_container">
