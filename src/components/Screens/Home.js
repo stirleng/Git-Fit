@@ -25,6 +25,9 @@ export default function Home(props) {
   const [user, setUser] = useState({})
   const [userSeconds, setUserSeconds] = useState(0)
   const [suggestionMeal, setSuggestionMeal] = useState("")
+  const [userArmsDayCount, setUserArmsDayCount] = useState(0)
+  const [userChestDayCount, setUserChestDayCount] = useState(0)
+  const [userLegDayCount, setUserLegDayCount] = useState(0)
 
 
   const [meals, setMeals] = useState([])
@@ -49,9 +52,13 @@ export default function Home(props) {
       if (snapshot){
         setUser(snapshot.data())
         setUserSeconds(snapshot.data().Start_Date.seconds)
+        setUserArmsDayCount(snapshot.data().Arms_Days)
+        setUserChestDayCount(snapshot.data().Chest_Days)
+        setUserLegDayCount(snapshot.data().Leg_Days)
       }
     })
   }
+
   useEffect(()=>{
     fetchUser();
     fetchMeals();
@@ -118,6 +125,26 @@ export default function Home(props) {
       {/* Someone style this message container lol I cant*/}
       <div id="message_container">
         <h1 id="welcome_message">Welcome back, {user.Name}! It has been {daySinceStart} days since you started this journey!</h1>
+      </div>
+      <div id='WorkoutDayCountContainer'>
+        <div className='WorkoutDayCountBox' id='ArmWorkoutDayCountBox'>
+          <div className='WorkoutDayCount'>
+            {userArmsDayCount}
+          </div>
+          Arm Days
+        </div>
+        <div className='WorkoutDayCountBox' id='ChestWorkoutDayCountBox'>
+          <div className='WorkoutDayCount'>
+            {userChestDayCount}
+          </div>
+          Chest Days
+        </div>
+        <div className='WorkoutDayCountBox' id='LegWorkoutDayCountBox'>
+          <div className='WorkoutDayCount'>
+            {userLegDayCount}
+          </div>
+          Leg Days
+        </div>
       </div>
     </body>
   )
