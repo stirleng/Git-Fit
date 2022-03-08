@@ -178,6 +178,12 @@ export default function Home(props) {
                 </div>
           </button>
         </Link>
+        <Link to="/stats">
+          <button type = "button" className = "numbers">
+          <b>Your numbers</b>
+          <br></br>
+          </button>
+        </Link>
         <Link to="/meals">
           <button type="button" className='HomePageButtons MealsPageButton'>
                 Your Meals

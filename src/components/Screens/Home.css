@@ -260,3 +260,12 @@
 #LegWorkoutDayCountBox{
     border-color: #ecee73;
 }
+
+.numbers{
+    font-style: italic;
+    background-color: white;
+    padding-top: 3vh;
+    padding-bottom: 2vh;
+    margin-top: 15vh;
+    background-image: url('../images/graph.png');
+}
