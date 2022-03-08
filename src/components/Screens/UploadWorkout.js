@@ -2,6 +2,8 @@ import React, {useRef, useEffect, useState}from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import './UploadWorkout.css'
 import { Link, useNavigate, useParams, useLocation} from 'react-router-dom';
+// Added geofire for recording locations and searching nearby
+const geofire = require('geofire-common');
 
 export default function UploadWorkout(props) {
     const {setWorkout} = useAuth();
@@ -20,7 +22,10 @@ export default function UploadWorkout(props) {
     const [description, setDescription] = useState("")
     // sets variable description with empty string, updated by SetDescription function
     // useState means it rerenders whenever value is changed
-    const [location, setLocation] = useState("")
+    const [location, setLocation] = useState(null) 
+    const [latitude, setLatitude] = useState(null)
+    const [longitude, setLongitude] = useState(null)
+    const [locationHash, setLocationHash] = useState(null)
     //TODO: Make calories, link, intensity, description, fields optional
 
     async function handleSubmit(e){
@@ -51,9 +56,14 @@ export default function UploadWorkout(props) {
             setLoading(false)
         }
 
+        // TODO: CREATE CHECKS ON LAT AND LONG OR DELETE
+        if (latitude !== null && longitude !==null){
+            //TODO: check bounds
+            setLocationHash(geofire.geohashForLocation([latitude, longitude]))
+        }
         try{
             //setWorkout(category, caloriesBurned, intensity, name, workoutLink)
-            await setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, location)
+            await setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, latitude, longitude, locationHash)
             setLoading(false)
             console.log("Success")
         }catch(err){
@@ -124,26 +134,43 @@ export default function UploadWorkout(props) {
             </div>
             <div id="single-input">
                 <h1 id="input-question">Description</h1>
-                <div class="grow-wrap">
-                    <textarea
-                        maxlength ="10000"
-                        rows="5"
-                        cols="40"
-                        className='inputbox'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    >
-                        Default text here
-                    </textarea>
-                </div>
+                <textarea
+                    maxlength ="10000"
+                    rows="5"
+                    cols="40"
+                    className='inputbox'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                >
+                    Default text here
+                </textarea>
             </div>
             <div id="single-input">
                 <h1 id="input-question">Location</h1>
                 <input
                 className='inputBox'
                 type="text"
+                placeholder="TODO: lat, long or address & geocode"
                 value={location}
                 donChange={(e) => setLocation(e.target.value)}
+                />
+            </div>
+            <div id="single-input">
+                <h1 id="input-question">Latiutude</h1>
+                <input
+                className='inputBox'
+                type="text"
+                value={latitude}
+                donChange={(e) => setLatitude(e.target.value)}
+                />
+            </div>
+            <div id="single-input">
+                <h1 id="input-question">Longitude</h1>
+                <input
+                className='inputBox'
+                type="text"
+                value={longitude}
+                donChange={(e) => setLongitude(e.target.value)}
                 />
             </div>
         </div>
