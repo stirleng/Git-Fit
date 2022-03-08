@@ -25,15 +25,24 @@ export default function Home(props) {
   const {currentUser} = useAuth();  
   const [user, setUser] = useState({})
   const [userSeconds, setUserSeconds] = useState(0)
-  const [suggestionMeal, setSuggestionMeal] = useState("")
   const [userArmsDayCount, setUserArmsDayCount] = useState(0)
   const [userChestDayCount, setUserChestDayCount] = useState(0)
   const [userLegDayCount, setUserLegDayCount] = useState(0)
-  const [workoutSuggestion, setWorkoutSuggestion] = useState("Squat") //TODO: default should be empty string
+
+  //both of these can just get replaced by meals.name or workout.name
+  const [suggestionMeal, setSuggestionMeal] = useState("") //meal name
+  const [workoutSuggestion, setWorkoutSuggestion] = useState("") //workout name, 
+
+  
   //const [workoutType, setWorkoutType] = useState("")
 
 
-  const [meals, setMeals] = useState([])
+  const [meals, setMeals] = useState([]) //single meal object
+  const [mealArray, setMealArray] = useState([]) //array of meals object
+
+  const [workout, setWorkout] = useState(null) //single workout object
+  const [workoutArray, setWorkoutArray] = useState([]) //array of workout object
+
   async function fetchMealsandWorkout(){
 
     //await db.collection("workout")
@@ -46,11 +55,26 @@ export default function Home(props) {
           tempMeals.push(documentSnapshot.data())      
         })
         // console.log(tempMeals)
+        setMealArray(tempMeals)
         const randInt = Math.floor( Math.random()*40)
         setSuggestionMeal(tempMeals[randInt].DishName)
         setMeals(tempMeals)
       }
     })
+
+    await db.collection("workout").get().then((snapshot) =>{
+      if (snapshot){
+        const tempWork = [];
+        snapshot.forEach(documentSnapshot =>{
+          tempWork.push(documentSnapshot.data())      
+        })
+        setWorkoutArray(tempWork)
+        const randInt = Math.floor(Math.random()*(tempWork.length - 1))
+        setWorkoutSuggestion(tempWork[randInt].Name);
+        setWorkout(tempWork[randInt])
+      }
+    })
+
   }
  
   async function fetchUser(){
@@ -66,12 +90,18 @@ export default function Home(props) {
   }
 
   async function CompletePlan(){
+
+    console.log(workout.Category)
+
     var workoutType
-    await db.collection("workout").doc(workoutSuggestion).get().then((snapshot) =>{
-      if(snapshot){
-        workoutType = snapshot.data().Category
-      }
-    })
+    // await db.collection("workout").doc(workoutSuggestion).get().then((snapshot) =>{
+    //   if(snapshot){
+    //     workoutType = snapshot.data().Category
+    //   }
+    // })
+
+    workoutType = workout.Category
+
     switch (workoutType)
     {
       case "bicep":
@@ -79,29 +109,41 @@ export default function Home(props) {
       case "shoulder":
       case "arm":
         await db.collection("users").doc(currentUser.uid).update({
-          Arms_Days: userArmsDayCount + 1
+          Arms_Days: firebase.firestore.FieldValue.increment(1)
         })
+        setUserArmsDayCount(userArmsDayCount +1)
         break
       case "back":
       case "abs":
       case "chest":
         await db.collection("users").doc(currentUser.uid).update({
-          Chest_Days: userChestDayCount + 1
+          Chest_Days: firebase.firestore.FieldValue.increment(1)
         })
+        setUserChestDayCount(userChestDayCount + 1)
         break
       case "cardio":
       case "leg":
-        console.log("here")
         await db.collection("users").doc(currentUser.uid).update({
-          Leg_Days: userLegDayCount + 1
+          Leg_Days: firebase.firestore.FieldValue.increment(1)
         })
+        setUserLegDayCount(userLegDayCount+1)
         break
     }
-    fetchUser()
+
+    //getting new meal
+    const randIntMeal = Math.floor( Math.random()*40)
+    setSuggestionMeal(mealArray[randIntMeal].DishName)
+    setMeals(mealArray[randIntMeal])
+
+    const randIntWorkout = Math.floor(Math.random()*(workoutArray.length - 1))
+    setWorkoutSuggestion(workoutArray[randIntWorkout].Name);
+    setWorkout(workoutArray[randIntWorkout])
+
+    //fetchUser()
   }
 
   useEffect(()=>{
-    setWorkoutSuggestion("Squat")   //TODO: remove here and replace with a function that produces a random workout
+    // setWorkoutSuggestion("Squat")   //TODO: remove here and replace with a function that produces a random workout
     fetchUser();
     fetchMealsandWorkout();
   }, [])
@@ -155,9 +197,14 @@ export default function Home(props) {
           <div id='WorkoutSuggestionHeader'>
             Workout for Today:
           </div>
-          <div id='WorkoutSuggestion'>
-            {workoutSuggestion}
-          </div>
+         {workout === null ? 
+            <div id='WorkoutSuggestion'>
+              <h1>Null</h1> 
+            </div>:
+            <div id="WorkoutSuggestion">
+              {workout.Name}
+            </div>
+            }
           <div>
             Your Next Meal:
           </div>
