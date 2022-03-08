@@ -28,7 +28,10 @@ export default function Home(props) {
 
 
   const [meals, setMeals] = useState([])
-  async function fetchMeals(){
+  async function fetchMealsandWorkout(){
+
+    //await db.collection("workout")
+
     //fetch 40 random meals
     await db.collection("meals").orderBy("Calories").startAt(0).limit(40).get().then((snapshot) =>{
       if(snapshot){
@@ -54,7 +57,7 @@ export default function Home(props) {
   }
   useEffect(()=>{
     fetchUser();
-    fetchMeals();
+    fetchMealsandWorkout();
   }, [])
 
 
@@ -62,9 +65,9 @@ export default function Home(props) {
 
 
   //console.log(user)
-  const currentDate = new Date(2023, 6, 1).getTime() / 1000; //In real time change to new Date() to get current Date
+  const currentDate = new Date().getTime() / 1000; //In real time change to new Date() to get current Date
   const diffSecond = currentDate - userSeconds;
-  const daySinceStart = Math.floor(diffSecond / (3600*24))
+  const daySinceStart = Math.floor(diffSecond / (3600*24)) + 1
 
 
 
