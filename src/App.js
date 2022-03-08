@@ -71,6 +71,7 @@ function App() {
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/signin" element={<SignIn/>}/>
                     <Route path="/workouts" element={<PrivateRoute><Workouts/></PrivateRoute>}/>
+                    <Route path="/workoutplan" element={<PrivateRoute><WorkoutPlan/></PrivateRoute>}/>
                     <Route path="/uploadworkout" element={<PrivateRoute><UploadWorkout/></PrivateRoute>}/>
                     <Route path="/meals" element={<PrivateRoute><Meals/></PrivateRoute>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
