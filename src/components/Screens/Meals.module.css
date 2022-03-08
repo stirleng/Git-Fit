@@ -64,6 +64,7 @@
 
 .UploadMealButton {
     margin: auto;
-    margin-top: 10vh;
-    background-color:white;
+    margin-top: 90vh;
+    margin-left: 10vh;
+    cursor: pointer;
 }
