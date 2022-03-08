@@ -64,14 +64,17 @@ export function AuthProvider({children}) {
     })
   }
 
-  function setWorkout(category, caloriesBurned, intensity, name, workoutLink){
+  function setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, location){
     const newName = name.replaceAll(' ', '_')
     return db.collection("workout").doc(newName).set({
       Name: name,
       Category: category,
       Calories_Burned: parseFloat(caloriesBurned),
       Intensity: intensity,
-      Link: workoutLink
+      Link: workoutLink,
+      Description: description,
+      //TODO: Use geohash to store + search nearby locations in firebase
+      Location: location
     })
   }
 

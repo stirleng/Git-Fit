@@ -1,0 +1,14 @@
+.body{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 40px;
+    font-style:normal;
+    font-size: medium;
+}
+
+.select{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    align-items: center;
+
+}

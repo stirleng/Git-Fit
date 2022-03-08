@@ -34,6 +34,26 @@ export default function NewInfo() {
             return
         }
 
+        //inclusive! lightest and heaviest recorded humans' weights
+        if (weight < 9 || weight > 1400)
+        {
+            setError("Please enter a valid human weight")
+            setLoading(false)
+            return
+        }
+        if (age < 0 || age > 123)
+        {
+            setError("Please enter a valid age")
+            setLoading(false)
+            return
+        }
+        if (feet < 0 || feet > 10)
+        {
+            setError("Please enter a valid number of feet")
+            setLoading(false)
+            return
+        }
+
         try{
             //setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, TimeStamp)
             await setInfo(currentUser.uid, currentUser.email, name, weight, feet, inches, age, myTimestamp)
@@ -97,7 +117,20 @@ export default function NewInfo() {
                   />
                   </div>
                   </div>
-
+                  <div>
+                Enter your weight (lbs)
+                <div id = "inputFieldContainer">
+                <input
+                    className='inputBox'
+                    placeholder='   Weight'
+                    type='number'
+                    value={weight}
+                    onChange={(e) =>
+                        setWeight(e.target.value)
+                    }
+                    />
+                </div>
+                    </div>
         <div>
             Enter your height
             <div id='dualField'>
@@ -127,20 +160,6 @@ export default function NewInfo() {
                     }
                   />   
             </div>
-        <div>
-                Enter your weight (lbs)
-                <div id = "inputFieldContainer">
-                <input
-                    className='inputBox'
-                    placeholder='   Weight'
-                    type='number'
-                    value={weight}
-                    onChange={(e) =>
-                        setWeight(e.target.value)
-                    }
-                    />
-                </div>
-                    </div>
             </div>
             {loading? <h1>Submitting info, please wait!</h1>:
                 <div>

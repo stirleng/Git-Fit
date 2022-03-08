@@ -6,6 +6,7 @@ import Workouts from './components/Screens/Workouts';
 import Meals from './components/Screens/Meals';
 import UploadWorkout from './components/Screens/UploadWorkout';
 import UploadMeal from './components/Screens/UploadMeal';
+import WorkoutPlan from './components/Screens/WorkoutPlan';
 
 import NewInfo from './components/Screens/NewInfo';
 import Home from './components/Screens/Home';
@@ -70,6 +71,7 @@ function App() {
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/signin" element={<SignIn/>}/>
                     <Route path="/workouts" element={<PrivateRoute><Workouts/></PrivateRoute>}/>
+                    <Route path="/workoutplan" element={<PrivateRoute><WorkoutPlan/></PrivateRoute>}/>
                     <Route path="/uploadworkout" element={<PrivateRoute><UploadWorkout/></PrivateRoute>}/>
                     <Route path="/meals" element={<PrivateRoute><Meals/></PrivateRoute>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>

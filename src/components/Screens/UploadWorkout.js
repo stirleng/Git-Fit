@@ -1,21 +1,27 @@
-import React, {useState}from 'react'
+import React, {useRef, useEffect, useState}from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import './UploadWorkout.css'
 import { Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 
 export default function UploadWorkout(props) {
     const {setWorkout} = useAuth();
-
-
+    
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
   
     //input to db
-    const [catergoy, setCategory] = useState("chest");
+    const [category, setCategory] = useState("chest");
     const [caloriesBurned, setCaloriesBurned] = useState(0);
     const [intensity, setIntensity] = useState("low");
     const [name, setName] = useState("");
     const [workoutLink, setWorkoutLink] = useState("")
+
+    //Claire's edits, if it doesn't compile, try deleting these
+    const [description, setDescription] = useState("")
+    // sets variable description with empty string, updated by SetDescription function
+    // useState means it rerenders whenever value is changed
+    const [location, setLocation] = useState("")
+    //TODO: Make calories, link, intensity, description, fields optional
 
     async function handleSubmit(e){
         e.preventDefault()
@@ -32,15 +38,22 @@ export default function UploadWorkout(props) {
             setLoading(false)
             return
         }
-        if(!workoutLink.includes("youtube.com")){
-            setError("invalid link, use youtube")
+        // Must contain either description or link
+        if (workoutLink !== "" || description !== ""){
+            if(!workoutLink.includes("youtube.com" || "strava.com")){
+                // TODO: I think we should kill this check, plenty of valid workout/route sources
+                setError("invalid link, use youtube or strava")
+                setLoading(false)
+                return
+            }
+        }
+        else{
             setLoading(false)
-            return
         }
 
         try{
             //setWorkout(category, caloriesBurned, intensity, name, workoutLink)
-            await setWorkout(catergoy, caloriesBurned, intensity, name, workoutLink)
+            await setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, location)
             setLoading(false)
             console.log("Success")
         }catch(err){
@@ -49,7 +62,6 @@ export default function UploadWorkout(props) {
 
         setLoading(false)
     }
-
 
     return (
         <div>
@@ -71,7 +83,7 @@ export default function UploadWorkout(props) {
 
            <div id="select-container">
                <label id="category-question" for="selectCategory">Select the category for your workout</label>
-               <select name="selectCategoty" id="category-input" value={catergoy} onChange={(e) =>setCategory(e.target.value)}>
+               <select name="selectCategoty" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
                    <option value="chest">Chest</option>
                    <option value="back">Back</option>
                    <option value="bicep">Bicep</option>
@@ -111,8 +123,27 @@ export default function UploadWorkout(props) {
                 onChange={(e) =>setWorkoutLink(e.target.value)}
                 />
             </div>
-            
-
+            <div id="single-input">
+                <h1 id="input-question">Description</h1>
+                <div class="grow-wrap">
+                    <textarea
+                        maxlength ="10000"
+                        rows="5"
+                        className='inputBox'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div id="single-input">
+                <h1 id="input-question">Location</h1>
+                <input
+                className='inputBox'
+                type="text"
+                value={location}
+                donChange={(e) => setLocation(e.target.value)}
+                />
+            </div>
         </div>
 
         <div id="submit-container">
