@@ -45,7 +45,6 @@ export default function UploadWorkout(props) {
         }
         // Must contain either description or link
         if (workoutLink !== "" || description !== ""){
-            console.log(workoutLink.includes("strava.com"))
             if(!(workoutLink.includes("youtube.com") || workoutLink.includes("strava.com"))){
                 // TODO: I think we should kill this check, plenty of valid workout/route sources
                 setError("invalid link, use youtube or strava")
@@ -62,8 +61,6 @@ export default function UploadWorkout(props) {
         if (latitude !== null && longitude !== null){
             //TODO: check bounds
             try{
-                console.log('AHHHHHH')
-                console.log(typeof parseInt(latitude));
                 setLocationHash(geofire.geohashForLocation([parseInt(latitude), parseInt(longitude)]))
             }
             catch(err){
@@ -76,7 +73,6 @@ export default function UploadWorkout(props) {
             //setWorkout(category, caloriesBurned, intensity, name, workoutLink)
             await setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, latitude, longitude, locationHash)
             setLoading(false)
-            console.log("Success")
         }catch(err){
             setError(err.message)
         }
@@ -167,7 +163,7 @@ export default function UploadWorkout(props) {
                 />
             </div>
             <div id="single-input">
-                <h1 id="input-question">Latiutude</h1>
+                <h1 id="input-question">Latitude</h1>
                 <input
                 className='inputBox'
                 type="text"
@@ -188,8 +184,8 @@ export default function UploadWorkout(props) {
 
         <div id="submit-container">
             {loading? <h1>Uploading your workout, please wait!</h1> : 
-            <button onClick={handleSubmit} >
-                submit
+            <button id='SubmitButton' onClick={handleSubmit} >
+                Submit Workout
             </button>
             }
         </div>

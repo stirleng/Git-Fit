@@ -9,7 +9,7 @@ export default function Workouts(props) {
     return (
       <body className='WorkoutPage'>
         <div className='WorkoutScreenHeader'>
-          Workout Page
+          Your Workouts
         </div>
         <div className='WorkoutPageButtonContainer'>
           <Link to="/workoutsearch">
