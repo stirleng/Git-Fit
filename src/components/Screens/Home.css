@@ -34,11 +34,8 @@
 
 .HomeScreenHeader{
     text-align: center;
-    height: 6vh;
-    padding-bottom: 15vh;
+    padding-bottom: 1.5vh;
     background-color: #2b87ff5d;
-    /*margin-left: 50vh;
-    margin-right: 50vh;*/
     color: #2774AE;
     -webkit-text-stroke-color: #FFD100;
     -webkit-text-stroke-width: 3px;
@@ -195,7 +192,7 @@
 }
 
 #HomePageCompleteSuggestionButton:hover{
-    background-color: rgb(226, 226, 226);
+    background-color: rgb(236, 236, 236);
     transition: 0.25s;
 }
 
