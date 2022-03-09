@@ -45,7 +45,8 @@ export default function UploadWorkout(props) {
         }
         // Must contain either description or link
         if (workoutLink !== "" || description !== ""){
-            if(!workoutLink.includes("youtube.com" || "strava.com")){
+            console.log(workoutLink.includes("strava.com"))
+            if(!(workoutLink.includes("youtube.com") || workoutLink.includes("strava.com"))){
                 // TODO: I think we should kill this check, plenty of valid workout/route sources
                 setError("invalid link, use youtube or strava")
                 setLoading(false)
@@ -54,12 +55,22 @@ export default function UploadWorkout(props) {
         }
         else{
             setLoading(false)
+            return
         }
 
         // TODO: CREATE CHECKS ON LAT AND LONG OR DELETE
-        if (latitude !== null && longitude !==null){
+        if (latitude !== null && longitude !== null){
             //TODO: check bounds
-            setLocationHash(geofire.geohashForLocation([latitude, longitude]))
+            try{
+                console.log('AHHHHHH')
+                console.log(typeof parseInt(latitude));
+                setLocationHash(geofire.geohashForLocation([parseInt(latitude), parseInt(longitude)]))
+            }
+            catch(err){
+                setError(err.message)
+                setLoading(false)
+                return
+            }
         }
         try{
             //setWorkout(category, caloriesBurned, intensity, name, workoutLink)
@@ -124,7 +135,7 @@ export default function UploadWorkout(props) {
             </div>
 
             <div id="single-input">
-                <h1 id="input-question">Youtube Link of the workout!</h1>
+                <h1 id="input-question">Youtube or Strava link of the workout!</h1>
                 <input 
                 className='inputBox'
                 type="text"
@@ -152,7 +163,7 @@ export default function UploadWorkout(props) {
                 type="text"
                 placeholder="TODO: lat, long or address & geocode"
                 value={location}
-                donChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => setLocation(e.target.value)}
                 />
             </div>
             <div id="single-input">
@@ -161,7 +172,7 @@ export default function UploadWorkout(props) {
                 className='inputBox'
                 type="text"
                 value={latitude}
-                donChange={(e) => setLatitude(e.target.value)}
+                onChange={(e) => setLatitude(e.target.value)}
                 />
             </div>
             <div id="single-input">
@@ -170,7 +181,7 @@ export default function UploadWorkout(props) {
                 className='inputBox'
                 type="text"
                 value={longitude}
-                donChange={(e) => setLongitude(e.target.value)}
+                onChange={(e) => setLongitude(e.target.value)}
                 />
             </div>
         </div>

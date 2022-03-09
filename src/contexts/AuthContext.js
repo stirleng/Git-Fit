@@ -78,7 +78,7 @@ export function AuthProvider({children}) {
       //TODO: Use geohash to store + search nearby locations in firebase
       Latitude: latitude,
       Longitude: longitude,
-      Location: locationHash
+      LocationHash: locationHash
     })
   }
 
