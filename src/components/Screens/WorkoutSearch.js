@@ -59,15 +59,6 @@ export default function queryHashes(props) {
     //return html
     return(
         <body>
-            <div className='single-input' id='WorkoutNameEntry'>
-                <h1 id="input-question">Name of your Workout!</h1>
-                <input 
-                className='inputBox'
-                type="text"
-                // value={name}
-                // onChange={(e) =>setName(e.target.value)}
-                />
-            </div>
             <div className='single-input' id='CoordinateEntryContainer'>
                 <div id='LatitudeEntry'>
                     <h1 id="input-question">Latitude</h1>
@@ -116,6 +107,11 @@ export default function queryHashes(props) {
             <div className='single-input' id='SearchResults'>
 
             </div>
+            {0? <h1>Uploading your workout, please wait!</h1> : 
+            <button id='SubmitButton' onClick={1} >
+                Submit Workout
+            </button>
+            }
         </body>
     )
 }
