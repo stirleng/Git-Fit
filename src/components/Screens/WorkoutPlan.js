@@ -35,8 +35,7 @@ export default function WorkoutPlan (){
     //run onces on loading the page to fetch all the workouts into workoutArray
     //then populate display array through randomly choosing 6 workouts from workoutArray
     async function onRender(){
-
-        await db.collection("workout").get().then((snapshot) =>{
+        await db.collection("workout").where('Category', '==', pref).get().then((snapshot) =>{
             if(snapshot){
               const tempWork =[]
               snapshot.forEach(documentSnapshot =>{
@@ -66,7 +65,7 @@ export default function WorkoutPlan (){
 
 
     async function handleClick(e){
-
+        onRender()
         // const workouts = collection(db, "workout")
 
         // e.preventDefault()
@@ -102,10 +101,21 @@ export default function WorkoutPlan (){
                     onClick={(e) => {handleClick(e)}}>
                     Get your workout    
                 </button>
-                {displayArray.length === 6 && 
-                <h1>{displayArray[0].Name}</h1>
+                {displayArray[0] != null && 
+                <h1>{displayArray[0].Name}</h1>}
+                {displayArray[1] != null && 
+                <h1>{displayArray[1].Name}</h1>
                 }
-              
+                {displayArray[2] != null && 
+                <h1>{displayArray[2].Name}</h1>}
+                {displayArray[3] != null && 
+                <h1>{displayArray[3].Name}</h1>
+                }
+                {displayArray[4] != null && 
+                <h1>{displayArray[4].Name}</h1>}
+                {displayArray[5] != null && 
+                <h1>{displayArray[5].Name}</h1>
+                }
             </div>
          </div>
              </div>
