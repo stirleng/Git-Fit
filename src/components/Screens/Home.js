@@ -277,23 +277,12 @@ export default function Home(props) {
   }
 
   useEffect(()=>{
-    // setWorkoutSuggestion("Squat")   //TODO: remove here and replace with a function that produces a random workout
     fetchUserMealsandWorkout();
   }, [])
 
-
-
-
-
-  //console.log(user)
-  const currentDate = new Date().getTime() / 1000; //In real time change to new Date() to get current Date
+  const currentDate = new Date().getTime() / 1000;
   const diffSecond = currentDate - userSeconds;
   const daySinceStart = Math.floor(diffSecond / (3600*24)) + 1
-
-
-
- 
-
 
   return (
     <body className='HomePage'>
@@ -312,7 +301,7 @@ export default function Home(props) {
           </button>
         </Link>
         <Link to="/stats">
-          <button type = "button" className = "numbers">
+          <button className = "numbers">
           <b>Your numbers</b>
           <br></br>
           </button>
