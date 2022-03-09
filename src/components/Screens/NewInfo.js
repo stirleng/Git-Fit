@@ -65,7 +65,7 @@ export default function NewInfo() {
         }
 
         try{
-            //set info usage: setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, TimeStamp)
+            //set info usage: setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex, bmr)
             console.log(myTimestamp)
             await setInfo(currentUser.uid, currentUser.email, name, weight,feet, inches, age, myTimestamp, sex, bmr)
             setLoading(false)

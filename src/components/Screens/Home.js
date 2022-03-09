@@ -12,16 +12,12 @@ import '../images/AppleImage.png'
 
 import firebase from 'firebase/compat/app'
 import { FieldValue } from 'firebase/firestore';
+import { next } from 'cheerio/lib/api/traversing';
 
 export default function Home(props) {
   let navigate = useNavigate();
 
  
-  // const diffTime = Math.abs(date2 - date1);
-  // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-  // console.log(diffTime + " milliseconds");
-  // console.log(diffDays + " days");
-  
   const {currentUser} = useAuth();  
   const [user, setUser] = useState({})
   const [userSeconds, setUserSeconds] = useState(0)
@@ -35,20 +31,24 @@ export default function Home(props) {
 
   
   //const [workoutType, setWorkoutType] = useState("")
-
-
   const [meals, setMeals] = useState([]) //single meal object
   const [mealArray, setMealArray] = useState([]) //array of meals object
   const [highProteinMealArray, setHighProteinMealArray] = useState([])
   const [medProteinMealArray, setmedProteinMealArray] = useState([])
   const [lowProteinMealArray, setlowProteinMealArray] = useState([])
-  
+
+  //current meal's protein count
+  const [mealProtein, setMealProtein] = useState(0);
 
   const [workout, setWorkout] = useState(null) //single workout object
   const [workoutArray, setWorkoutArray] = useState([]) //array of workout object
   const [chestArray, setChestArray] = useState([]);
   const [legArray, setLegArray] = useState([]);
   const [armArray, setArmArray] = useState([]);
+
+  //proteinConsumed is current user's total protein consumed, get updated by adding current meal's protein to
+  //proteinConsumed after completing current plan
+  const [proteinConsumed, setProteinConsumed] = useState(0)
 
   async function fetchUserMealsandWorkout(){
 
@@ -68,6 +68,7 @@ export default function Home(props) {
         setUserArmsDayCount(snapshot.data().Arms_Days)
         setUserChestDayCount(snapshot.data().Chest_Days)
         setUserLegDayCount(snapshot.data().Leg_Days)
+        setProteinConsumed(parseFloat(snapshot.data().Proteins_Consumed).toFixed(2))
       }
     })
     //await db.collection("workout")
@@ -179,7 +180,9 @@ export default function Home(props) {
         const randInt = Math.floor( Math.random()*tempFilterP.length)
         setSuggestionMeal(tempFilterP[randInt].DishName)
         setMeals(tempFilterP[randInt])
+      
 
+        setMealProtein(tempFilterP[randInt].Protein_Grams)
         setHighProteinMealArray(tempHighP);
         setmedProteinMealArray(tempMedP);
         setlowProteinMealArray(tempLowP);
@@ -190,30 +193,22 @@ export default function Home(props) {
 
   }
  
-  async function fetchUser(){
-    await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
-      if (snapshot){
-        setUser(snapshot.data())
-        setUserSeconds(snapshot.data().Start_Date.seconds)
-        setUserArmsDayCount(snapshot.data().Arms_Days)
-        setUserChestDayCount(snapshot.data().Chest_Days)
-        setUserLegDayCount(snapshot.data().Leg_Days)
-      }
-    })
-  }
+
 
   async function CompletePlan(){
-
-  
-
-    var workoutType = workout.Category
-
     
+    var workoutType = workout.Category    
     var localADC = userArmsDayCount
     var localCDC = userChestDayCount
     var localLDC = userLegDayCount
     
-
+    await db.collection("users").doc(currentUser.uid).update({
+      Proteins_Consumed: firebase.firestore.FieldValue.increment(mealProtein)
+    })
+    //updating proteinConsumed
+    const nextProteinCount = parseFloat(proteinConsumed) + parseFloat(mealProtein)
+    const cleanProteinCount = nextProteinCount.toFixed(2)
+    setProteinConsumed(cleanProteinCount)
 
     switch (workoutType)
     {
@@ -274,6 +269,7 @@ export default function Home(props) {
     // console.log("********************")
     setSuggestionMeal(tempMealFilter[randIntMeal].DishName)
     setMeals(tempMealFilter[randIntMeal])
+    setMealProtein(tempMealFilter[randIntMeal].Protein_Grams)
 
     
 
@@ -379,7 +375,9 @@ export default function Home(props) {
           <div className='WorkoutDayCount'>
             {userLegDayCount}
           </div>
-          Leg Days
+          Leg Days 
+          <br></br>
+          testing here, delete this later {proteinConsumed}
         </div>
       </div>
     </body>
