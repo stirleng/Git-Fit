@@ -12,17 +12,18 @@ export default function WorkoutSearch(props) {
     const [loading, setLoading] = useState(false)
   
     //input to db
-    const [category, setCategory] = useState("chest");
-    const [caloriesBurned, setCaloriesBurned] = useState(0);
+    const [category, setCategory] = useState("cardio");
+    const [caloriesBurned, setCaloriesBurned] = useState(1); // Default search cal > 1
     const [intensity, setIntensity] = useState("low");
-    const [searchRadius, setSearchRadius] = useState(0)
-    const [latitude, setLatitude] = useState(null)
-    const [longitude, setLongitude] = useState(null)
-    const [searchResults, setSearchResults] = useState([])
+    const [searchRadius, setSearchRadius] = useState(1); // Default search radius 1km
+    const [latitude, setLatitude] = useState(34);
+    const [longitude, setLongitude] = useState(-118); // Default location is in la
+    const [distFiltered, setDistFiltered] = useState([])
+    const [searchResults, setSearchResults] = useState([]);
 
     // queryHashes takes in lat, lng, dist, and returns docs for 
     // workouts within dist of [lat,lng]
-    async function queryHashes(lat=34, lng=-118, dist=10) {
+    async function queryHashes(lat, lng, dist) {
         //js/react goes here
 
         // CODE from https://firebase.google.com/docs/firestore/solutions/geoqueries
@@ -64,30 +65,45 @@ export default function WorkoutSearch(props) {
             }
             return matchingDocs;
         }).then((matchingDocs) => {
-        // Process the matching documents
-            console.log("docs")
-            console.log(matchingDocs[0].get('Description'))
+            // Process the matching documents
+            if (matchingDocs){
+                const tempDocs = [];
+                matchingDocs.forEach(documentSnapshot =>{
+                    tempDocs.push(documentSnapshot.data())      
+                })
+                setDistFiltered(tempDocs)
+            }
         });
     }
+
     async function search(type, intensity, calories, lat, lng, dist){
         // query document snapshot array
         const filteredDocs = []
         if (lat != null && lng !=null){
-            const matchingDocs = queryHashes(lat, lng, dist)
-            console.log(matchingDocs)
-            matchingDocs.forEach(doc =>{
+            queryHashes(lat, lng, dist)
+            distFiltered.forEach(doc =>{
                 if (doc.Category === type && doc.Intensity === intensity && doc.Calories_Burned >= calories){
                     filteredDocs.push(doc);
                 }
             })
         }
         else{
-            const filteredDocs = await db.collections['workout']
-            .where('Category', '==', type)
-            .where('Intensity', '==', intensity).get();
+            await db.collection("workout").where('Category', '==', type)
+            .where('Intensity', '==', intensity)
+            .get().then((snapshot) =>{
+                if (snapshot){
+                  const tempSearch = [];
+                  snapshot.forEach(documentSnapshot =>{
+                    tempSearch.push(documentSnapshot.data())      
+                  })
+                  //saving the original copy of all the workout
+                  filteredDocs = tempSearch;
+                }
+            })
         }
+        console.log("filtered")
         console.log(filteredDocs)
-        return filteredDocs
+        setSearchResults(filteredDocs)
     }
 
     async function handleSubmit(e){
@@ -100,9 +116,17 @@ export default function WorkoutSearch(props) {
             setLoading(false)
             return
         }
-        setSearchResults(search(category, intensity, caloriesBurned, latitude, longitude, searchRadius))
-        console.log(searchResults[0].Name)
+        try{
+            search(category, intensity, caloriesBurned, latitude, longitude, searchRadius)
+        }
+        catch(err){
+            setError(err.message)
+            setLoading(false)
+            return
+        }
         setLoading(false)
+        console.log("search Results")
+        console.log(searchResults)
     }
 
     return (

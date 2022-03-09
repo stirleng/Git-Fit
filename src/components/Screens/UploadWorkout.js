@@ -12,7 +12,7 @@ export default function UploadWorkout(props) {
     const [loading, setLoading] = useState(false)
   
     //input to db
-    const [category, setCategory] = useState("chest");
+    const [category, setCategory] = useState("cardio");
     const [caloriesBurned, setCaloriesBurned] = useState(0);
     const [intensity, setIntensity] = useState("low");
     const [name, setName] = useState("");
