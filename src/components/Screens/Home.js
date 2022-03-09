@@ -377,7 +377,6 @@ export default function Home(props) {
           </div>
           Leg Days 
           <br></br>
-          testing here, delete this later {proteinConsumed}
         </div>
       </div>
     </body>
