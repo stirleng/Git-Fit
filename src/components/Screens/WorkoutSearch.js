@@ -57,63 +57,120 @@ function queryHashes(props) {
     });
 }
 
-export default function WorkoutSearch(props){
-    //return html
-    return(
-        <body>
-            <div className='single-input' id='CoordinateEntryContainer'>
-                <div id='LatitudeEntry'>
-                    <h1 id="input-question">Latitude</h1>
-                    <input
-                    className='inputBox'
-                    type="text"
-                    //value={latitude}
-                    //onChange={(e) => setLatitude(e.target.value)}
-                    />
-                </div>
-                <div id='LongitudeEntry'>
-                    <h1 id="input-question">Longitude</h1>
-                    <input
-                    className='inputBox'
-                    type="text"
-                    // value={longitude}
-                    // onChange={(e) => setLongitude(e.target.value)}
-                    />
-                </div>
-            </div>
-            <div className='single-input' id='SearchRadiusEntry'>
+export default function UploadWorkout(props) {
+    const {setWorkout} = useAuth();
+    
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+  
+    //input to db
+    const [category, setCategory] = useState("chest");
+    const [caloriesBurned, setCaloriesBurned] = useState(0);
+    const [intensity, setIntensity] = useState("low");
+    const [searchRadius, setSearchRadius] = useState(0)
+    const [latitude, setLatitude] = useState(null)
+    const [longitude, setLongitude] = useState(null)
+    //TODO: Make calories, link, intensity, description, fields optional
 
-            </div>
-            <div className='single-input' id='WorkoutIntensityEntry'>
-            <h1 id="input-question">Calories burned in 1 hour?</h1>
+    async function handleSubmit(e){
+        e.preventDefault()
+        setError("")
+        setLoading(true)
+
+        if(caloriesBurned <= 0){
+            setError("Calories burned can't be 0 or a negative number")
+            setLoading(false)
+            return
+        }
+
+
+        setLoading(false)
+    }
+
+    return (
+        <div>
+        <div id="title-container">
+            <h1>Search for your favorite workout!</h1>
+        </div>
+        <div id="input-container">
+
+           <div id="select-container">
+               <label id="category-question" for="selectCategory">Select the category for your workout</label>
+               <select name="selectCategoty" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
+                   <option value="chest">Chest</option>
+                   <option value="back">Back</option>
+                   <option value="bicep">Bicep</option>
+                   <option value="shoulder">Shoulder</option>
+                   <option value="tricep">Tricep</option>
+                   <option value="leg">Leg</option>
+                   <option value="cardio">Cardio</option>
+                   <option value="abs">Abs</option>
+                </select>
+           </div>
+
+           <div id="select-container">
+               <label id="category-question" for="selectCategory">Intensity Level?</label>
+               <select name="selectCategory" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
+                   <option value="low">Low</option>
+                   <option value="medium">Medium</option>
+                   <option value="high">High</option>
+                </select>
+           </div>
+
+           <div id="single-input">
+                <h1 id="input-question">Calories burned in 1 hour?</h1>
                 <input 
                 className='inputBox'
                 type="number"
-                // value={caloriesBurned}
-                // onChange={(e) =>setCaloriesBurned(e.target.value)}
+                value={caloriesBurned}
+                onChange={(e) =>setCaloriesBurned(e.target.value)}
                 />
             </div>
-            <div className='single-input' id='WorkoutTypeEntry'>
-                <label id="category-question" for="selectCategory">Select the category for your workout</label>
-                {/* <select name="selectCategory" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
-                    <option value="chest">Chest</option>
-                    <option value="back">Back</option>
-                    <option value="bicep">Bicep</option>
-                    <option value="shoulder">Shoulder</option>
-                    <option value="tricep">Tricep</option>
-                    <option value="leg">Leg</option>
-                    <option value="cardio">Cardio</option>
-                    <option value="abs">Abs</option>
-                    </select> */}
-                </div>
-            <div className='single-input' id='SearchResults'>
 
+            <div id="single-input">
+                <h1 id="input-question">Latitude</h1>
+                <input
+                className='inputBox'
+                type="text"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+                />
             </div>
-            {0? <h1>Uploading your workout, please wait!</h1> : 
-            <button id='SubmitButton' onClick={1} >
+            <div id="single-input">
+                <h1 id="input-question">Longitude</h1>
+                <input
+                className='inputBox'
+                type="text"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                />
+            </div>
+            <div id="single-input">
+                <h1 id="input-question">Search Radius</h1>
+                <input
+                className='inputBox'
+                type="text"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                />
+            </div>
+        </div>
+
+        <div id="submit-container">
+            {loading? <h1>Uploading your workout, please wait!</h1> : 
+            <button id='SubmitButton' onClick={handleSubmit} >
                 Submit Workout
             </button>
             }
-        </body>
+        </div>
+
+        {error && 
+        <div id="error-container">
+            <h1>{error}</h1>    
+        </div>
+        }
+        <div>
+        </div>
+    </div>
     )
 }
