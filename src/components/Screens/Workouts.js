@@ -17,19 +17,9 @@ export default function Workouts(props) {
               Workout Search
             </button>
           </Link>
-          <Link to="/randomworkout">
-            <button type="button" className='WorkoutPageButtons RandomButton'>
-              Random Workout
-            </button>
-          </Link>
           <Link to="/uploadworkout">
             <button type="button" className='WorkoutPageButtons UploadButton'>
               Upload Workout
-            </button>
-          </Link>
-          <Link to="/workouthistory">
-            <button type="button" className='WorkoutPageButtons HistoryButton'>
-              Workout History
             </button>
           </Link>
           <Link to="/workoutplan">
