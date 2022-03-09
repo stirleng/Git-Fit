@@ -4,14 +4,15 @@ import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/compat/app'
 import {db} from '../../firebase'
-import {  collection, getDocs, query, where, limit } from 'firebase/firestore'
+import {  collection, getDocs, query, where, limit, doc } from 'firebase/firestore'
 
 export default function WorkoutPlan (){
 
     const {setPlan} = useAuth()
-    const [pref, setPref] = useState('')
+    const [pref, setPref] = useState('chest')
     const [workoutArray, setWorkoutArray] = useState([]);
     const [displayArray, setDisplayArray] = useState([]);
+    const [displayArrayLength, setDisplayArrayLength] = useState(-1)
 
     //to shuffle array
     function shuffle(array) {
@@ -39,22 +40,25 @@ export default function WorkoutPlan (){
         await db.collection("workout").get().then((snapshot) =>{
             if(snapshot){
               const tempWork =[]
+              const allWork = []
               snapshot.forEach(documentSnapshot =>{
-                tempWork.push(documentSnapshot.data())      
+                console.log(documentSnapshot.data().Category)
+                allWork.push(documentSnapshot.data())
+                if (documentSnapshot.data().Category === pref){
+                  console.log(documentSnapshot.data())
+                  tempWork.push(documentSnapshot.data()) 
+                }       
               })
               
-              setWorkoutArray(tempWork)
+              
+              setWorkoutArray(allWork)
 
               //choosing 6 random workout
-              const arrSize = tempWork.length - 7;
-              const randInt = Math.floor(Math.random()*arrSize);
-              const arraySix = [];
-              for (let i = randInt; i < randInt + 6; i++){
-                arraySix.push(tempWork[i]);
-              }
 
-              shuffle(arraySix);
-              setDisplayArray(arraySix)
+              shuffle(tempWork);
+              console.log(tempWork)
+              setDisplayArray(tempWork)
+              setDisplayArrayLength(tempWork.length)
              
             }
           })
@@ -68,20 +72,23 @@ export default function WorkoutPlan (){
 
 
     async function handleClick(e){
+        console.log(workoutArray)
 
-        // const workouts = collection(db, "workout")
+        console.log(pref)
+        
+        const prefArray = [];
 
-        // e.preventDefault()
-//
-        // if (pref == ''){
-        //         alert("Please select a category")
-        //         return
-        // }
+        for (let i = 0; i < workoutArray.length; i++){
+          if (workoutArray[i].Category === pref){
+            prefArray.push(workoutArray[i]);
+          }
+        }
 
-        // const plan =  query(workouts, where("Category", "==", pref), limit(6));
-        // const getPlan = await getDocs(plan)
-
-        // getPlan.forEach((doc) => {console.log(doc.data())})
+        shuffle(prefArray);
+        setDisplayArray(prefArray)
+        setDisplayArrayLength(prefArray.length)
+        
+    
     }
 
 
@@ -104,8 +111,15 @@ export default function WorkoutPlan (){
                     onClick={(e) => {handleClick(e)}}>
                     Get your workout    
                 </button>
-                {displayArray.length === 6 && 
-                <h1>{displayArray[0].Name}</h1>
+                {displayArray.length === displayArrayLength && 
+                <div>
+                    <h1>{displayArray[0].Name}</h1>
+                    <h1>{displayArray[1].Name}</h1>
+                    <h1>{displayArray[2].Name}</h1>
+
+                </div>
+                
+                
                 }
               
             </div>

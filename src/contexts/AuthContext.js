@@ -38,7 +38,6 @@ export function AuthProvider({children}) {
       Chest_Days: 0,
       Arms_Days: 0,
       Sex: sex,
-      BMR: bmr,
       Proteins_Consumed: 0
     })
   }
