@@ -20,7 +20,7 @@ export default function Stats() {
     let uid = currentUser.uid
 
     let userData = []
-    
+
     //access user info in the backend
         async function onRender(){
             await db.collection("users").doc(uid).get().then((snapshot) =>{
@@ -42,6 +42,21 @@ export default function Stats() {
     let weight = 0.453592 * userData[3]
     let height = 2.54 * (12 * userData[1] + userData[2])
 
+    const [userSeconds, setUserSeconds] = useState(0)
+    async function getUserSeconds(){
+        await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
+            if (snapshot){
+              setUserSeconds(snapshot.data().Start_Date.seconds)
+            }
+        })
+    }
+    const currentDate = new Date().getTime() / 1000;
+    const diffSecond = currentDate - userSeconds;
+    const daySinceStart = Math.floor(diffSecond / (3600*24)) + 1
+    
+    useEffect(()=>{
+        getUserSeconds()
+      }, [])
 
     let bmr = 0
     if (sex =='m')
@@ -57,6 +72,7 @@ export default function Stats() {
 
     return(
         <div>
+            Days since you created your account: {daySinceStart}
             <div>
                 <button type="button" onClick={(e) => {}}>
                     try
