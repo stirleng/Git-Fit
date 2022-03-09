@@ -21,7 +21,8 @@ export default function Stats() {
 
     let userData = []
     
-await        async function onRender(){
+    //access user info in the backend
+        async function onRender(){
             await db.collection("users").doc(uid).get().then((snapshot) =>{
                         userData.push(snapshot.get("Age"))
                          userData.push(snapshot.get("Height_ft"))
@@ -32,9 +33,10 @@ await        async function onRender(){
               })
             }
     
-            onRender()
+     onRender()
 
-          console.log(userData)
+     //doesn't update the array (?)
+    console.log(userData)
     let age = userData[0]//getUserData(uid)
     let sex = 'm'//currentUser.sex
     let weight = 0.453592 * userData[3]
