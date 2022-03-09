@@ -102,7 +102,7 @@ export default function WorkoutSearch(props) {
         return filteredDocs
     }
 
-    async function handleSubmit(e){
+    function handleSubmit(e){
         e.preventDefault()
         setError("")
         setLoading(true)
@@ -115,6 +115,8 @@ export default function WorkoutSearch(props) {
         try{
             search(category, intensity, caloriesBurned, latitude, longitude, searchRadius).then((results)=>{
                 setSearchResults(results)
+                console.log("search Results")
+                console.log(searchResults)
             })
         }
         catch(err){
@@ -123,8 +125,6 @@ export default function WorkoutSearch(props) {
             return
         }
         setLoading(false)
-        console.log("search Results")
-        console.log(searchResults)
     }
 
     return (
@@ -198,7 +198,7 @@ export default function WorkoutSearch(props) {
 
         <div id="submit-container">
             {loading? <h1>Searching, please wait!</h1> : 
-            <button id='SubmitButton' onClick={handleSubmit} >
+            <button id='SubmitButton' onClick={(e) =>handleSubmit(e)}>
                 Search
             </button>
             }
