@@ -55,10 +55,9 @@ export default function Meals(props) {
                      alt="baked_haddock"/>
             </div>
             <div id='top-layer' className={styles.container__right}>
-                <h1>You have been sentenced to: BAKED HADDOCK</h1>
             </div>
-            <div id='top-layer' className={styles.UploadMealButton}>
-                <button onClick={nextpage}>Upload your own meal!</button>
+            <div id='top-layer'>
+                <button className={styles.UploadMealButton} onClick={nextpage}>Upload your own meal!</button>
             </div>
         </div>
         // <div>
