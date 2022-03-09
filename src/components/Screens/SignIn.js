@@ -1,21 +1,23 @@
 import {useAuth} from '../../contexts/AuthContext';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import TextBox from "../ui/TextBox";
 import MyButton from "../ui/Button"
 import styles from './SignIn.module.css'
 import globalStyles from '../styles/Global.module.css'
-import {Link, useNavigate, useLocation} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {Paper} from "@mui/material";
+import Logo from "../ui/Logo";
 
 function SignIn() {
     const commonProps = {className: styles.inputBox, textColor: 'black', bgColor: 'white', width: 375, height: 40};
     const buttonProps = {className: styles.inputBox, textColor: 'white', bgColor: '#e0b100', width: 375, height: 50};
 
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {signIn} = useAuth();
+
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -29,21 +31,21 @@ function SignIn() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        /*        auth.signInWithEmailAndPassword(email, password)
-                    .catch(function(error) {
-                        // Handle Errors here.
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
-                        if (errorCode === 'auth/wrong-password')
-                            alert('Wrong password.');
-                        else
-                            alert(errorMessage);
-                        console.log(error);
-                    });
-                e.preventDefault()*/
+        let errorMessage;
 
-        await signIn(email, password);
-        return navigate('/');
+        await signIn(email, password)
+            .then(() => {
+                if (!errorMessage) navigate('/')
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                errorMessage = error.code;
+                if (error.code === 'auth/wrong-password')
+                    alert('Wrong password.');
+                else
+                    alert(error.message);
+                console.log(error.message);
+            });
     }
 
     return (<div className={styles.wrapper}>
@@ -56,25 +58,10 @@ function SignIn() {
 
         <div id='top-layer' className={styles.slide}/>
 
-        <div id='top-layer' className={styles.rowContainer}>
-            <div id='top-layer' className={styles.test}/>
-            <div className={`${globalStyles.logo} ${globalStyles.card}`}
-                 style={{padding: '0 9px 0 5px',}}>
-                Git-Fit
-            </div>
-            <h2 style={{padding: '0 30px 0 30px'}}>
-                Sign In
-            </h2>
-            <h2 style={{paddingRight: '30px'}}>
-                Sign Up
-            </h2>
-            <h2 style={{paddingRight: '30px'}}>
-                About
-            </h2>
-        </div>
+        <Logo id='top-layer'/>
 
         <div id='top-layer' className={styles.container}>
-            <div className={globalStyles.card}>
+            <Paper style={{padding: '20px'}} elevation={5}>
                 <form onSubmit={handleSubmit}>
                     <h1>Welcome back!</h1>
                     <TextBox {...commonProps}
@@ -91,7 +78,7 @@ function SignIn() {
                               value={'SIGN IN!'}/>
                     Need an account? <Link to="/signup">Sign Up</Link>
                 </form>
-            </div>
+            </Paper>
         </div>
     </div>);
 }

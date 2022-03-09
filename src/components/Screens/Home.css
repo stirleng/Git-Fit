@@ -264,10 +264,11 @@
 }
 
 .numbers{
-    font-style: italic;
+    margin-top: 10vh;
     background-color: white;
-    padding-top: 3vh;
-    padding-bottom: 2vh;
-    margin-top: 15vh;
-    background-image: url('../images/graph.png');
+    font-family: Futura-Medium-Italic;
+    font-size: 20px;
+    border-width: 4px;
+    border-radius: 10px;
+    padding: 3vh;
 }
