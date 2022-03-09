@@ -48,7 +48,7 @@ export default function MealSelector(props) {
             const mealsRef = db.collection('meals');
             const docs = (await mealsRef.limit(40).get()).docs;
 
-            for (let i = docs.length - 1; i > 0; i--) {
+            for (let i = 0; i < docs.length - 1; i++) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [docs[i], docs[j]] = [docs[j], docs[i]];
             }
