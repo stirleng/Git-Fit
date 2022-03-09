@@ -7,15 +7,16 @@ const geofire = require('geofire-common');
 
 // Geofire reference/instructions
 
-// TODO: Is this how i name a function even if multiple search functions defined?
-function queryHashes(props) {
+// queryHashes takes in lat, lng, dist, and returns docs for 
+// workouts within dist of [lat,lng]
+function queryHashes(lat=34, lng=-118, dist=10) {
     //js/react goes here
 
     // CODE from https://firebase.google.com/docs/firestore/solutions/geoqueries
     // TODO: Edit code so it... actually works
     // find workouts within x km of lat, lng
-    const center = [34.001, -118] // TODO: replace placeholder values with user location
-    const radiusInM = 100*1000 // 100 km TODO: Replace with variable distance
+    const center = [lat, lng] // TODO: replace placeholder values with user location
+    const radiusInM = dist*1000 // 100 km TODO: Replace with variable distance
 
     // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
     // a separate query for each pair. There can be up to 9 pairs of bounds
@@ -55,6 +56,9 @@ function queryHashes(props) {
         console.log("docs")
         console.log(matchingDocs[0].get('Description'))
     });
+}
+function search(type, intensity, calories, lat, lng, dist){
+    const workoutsRef = db.collection('workouts');
 }
 
 export default function WorkoutSearch(props){
