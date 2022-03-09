@@ -6,7 +6,9 @@ import Workouts from './components/Screens/Workouts';
 import Meals from './components/Screens/Meals';
 import UploadWorkout from './components/Screens/UploadWorkout';
 import UploadMeal from './components/Screens/UploadMeal';
+import WorkoutSearch from './components/Screens/WorkoutSearch';
 import WorkoutPlan from './components/Screens/WorkoutPlan';
+import Stats from './components/Screens/Stats';
 
 import NewInfo from './components/Screens/NewInfo';
 import Home from './components/Screens/Home';
@@ -73,9 +75,11 @@ function App() {
                     <Route path="/workouts" element={<PrivateRoute><Workouts/></PrivateRoute>}/>
                     <Route path="/workoutplan" element={<PrivateRoute><WorkoutPlan/></PrivateRoute>}/>
                     <Route path="/uploadworkout" element={<PrivateRoute><UploadWorkout/></PrivateRoute>}/>
+                    <Route path="/workoutsearch" element={<PrivateRoute><WorkoutSearch/></PrivateRoute>}/> 
                     <Route path="/meals" element={<PrivateRoute><Meals/></PrivateRoute>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
                     <Route path="/uploadmeal" element={<PrivateRoute><UploadMeal/></PrivateRoute>}/>
+                    <Route path="/stats" element={<PrivateRoute><Stats/></PrivateRoute>}/>
                 </Routes>
             </AuthProvider>
         </Router>

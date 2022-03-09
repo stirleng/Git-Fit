@@ -86,7 +86,7 @@ export default function UploadMeal() {
                 value={isVegetarian}
                 onChange={() =>setIsVegetarian(!isVegetarian)}
                 />
-                <label for="isVegetarian">Is this dish Vegetarian?</label>
+                <label for="isVegetarian">Is this dish vegetarian?</label>
             </div>
 
             <div id="whitemeat-container">
@@ -97,11 +97,11 @@ export default function UploadMeal() {
                 value={isWhiteMeat}
                 onChange={() =>setIsWhiteMeat(!isWhiteMeat)}
                 />
-                <label for="isWhiteMeat">Is this dish Whitemeat based?</label>
+                <label for="isWhiteMeat">Is this dish white-meat-based?</label>
             </div>
 
             <div id="single-input">
-                <h1 id="input-question">Recipe Link? (accept allrecipe.com link)</h1>
+                <h1 id="input-question">Recipe Link? (from allrecipe.com link)</h1>
                 <input 
                 className='inputBox'
                 placeholder='...allrecipes.com'
@@ -123,7 +123,7 @@ export default function UploadMeal() {
             </div>
 
             <div id="single-input">
-                <h1 id="input-question">How much grams of proteins?</h1>
+                <h1 id="input-question">How many grams of protein?</h1>
                 <input 
                 className='inputBox'
                 placeholder='How much grams of proteins?'
@@ -135,7 +135,7 @@ export default function UploadMeal() {
             
 
             <div id="single-input">
-                <h1 id="input-question">How much calories?</h1>
+                <h1 id="input-question">How many calories?</h1>
                 <input 
                 className='inputBox'
                 placeholder='How much grams of proteins?'
@@ -149,8 +149,8 @@ export default function UploadMeal() {
 
         <div id="submit-container">
             {loading? <h1>Uploading your meal, please wait!</h1> : 
-            <button onClick={handleSubmit}>
-                submit
+            <button id='SubmitButton' onClick={handleSubmit}>
+                Submit Meal
             </button>
             }
         </div>

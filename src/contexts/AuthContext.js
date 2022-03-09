@@ -25,7 +25,7 @@ export function AuthProvider({children}) {
   }
 
 
-  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp){
+  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex, bmr){
     return db.collection("users").doc(userUID).set({
       Name: Name,
       Email: Email,
@@ -36,7 +36,10 @@ export function AuthProvider({children}) {
       Start_Date: myTimestamp,
       Leg_Days: 0,
       Chest_Days: 0,
-      Arms_Days: 0
+      Arms_Days: 0,
+      Sex: sex,
+      BMR: bmr,
+      Proteins_Consumed: 0
     })
   }
 
@@ -64,7 +67,7 @@ export function AuthProvider({children}) {
     })
   }
 
-  function setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, location){
+  function setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, latitude, longitude, locationHash){
     const newName = name.replaceAll(' ', '_')
     return db.collection("workout").doc(newName).set({
       Name: name,
@@ -74,7 +77,9 @@ export function AuthProvider({children}) {
       Link: workoutLink,
       Description: description,
       //TODO: Use geohash to store + search nearby locations in firebase
-      Location: location
+      Latitude: latitude,
+      Longitude: longitude,
+      LocationHash: locationHash
     })
   }
 

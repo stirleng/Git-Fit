@@ -14,7 +14,11 @@ export default function NewInfo() {
 
     async function handleSubmit(e) {
 
-        var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        // var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        
+
+        const myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        
 
         
         
@@ -25,6 +29,12 @@ export default function NewInfo() {
 
         if (name === ""){
             setError("Need a name")
+            setLoading(false)
+            return
+        }
+        if (sex == '')
+        {
+            setError("Please select a sex")
             setLoading(false)
             return
         }
@@ -55,16 +65,27 @@ export default function NewInfo() {
         }
 
         try{
-            //setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, TimeStamp)
-            await setInfo(currentUser.uid, currentUser.email, name, weight, feet, inches, age, myTimestamp)
+            //set info usage: setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex, bmr)
+            console.log(myTimestamp)
+            await setInfo(currentUser.uid, currentUser.email, name, weight,feet, inches, age, myTimestamp, sex, bmr)
             setLoading(false)
             console.log("Success")
         }catch(err){
             setError(err.message)
         }
         
-        
 
+    //get height in cm
+    let height = ((12 * feet + inches) * 2.54)
+     if (sex =='m')
+    {
+        let value = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+        setBmr(e.target.value)
+    }
+    else{
+        setBmr(447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age))
+    }
+    console.log(bmr)
         setLoading(false)
 
         //go to home page
@@ -80,6 +101,8 @@ export default function NewInfo() {
     const [feet, setFeet] = useState(0);
     const [inches, setInches] = useState(0);
     const [age, setAge] = useState(0);
+    const [sex, setSex] = useState('');
+    const [bmr, setBmr] = useState(0)
     
 
     return (
@@ -100,7 +123,16 @@ export default function NewInfo() {
                   />
              </div>
           </div>
-
+        <div>
+            Enter your sex
+            <div id = "select">
+                <select onClick={(e) => {setSex(e.target.value)}}>
+                    Workout Preference
+                    <option value=''>Select</option>
+                    <option value = "f">F</option>
+                    <option value = 'm'>M</option>
+                </select>
+            </div>
         <div>
             Enter your age
             <div id='inputFieldContainer'>
@@ -115,9 +147,9 @@ export default function NewInfo() {
                         }
                     }
                   />
-                  </div>
-                  </div>
-                  <div>
+            </div>
+        </div>
+       <div>
                 Enter your weight (lbs)
                 <div id = "inputFieldContainer">
                 <input
@@ -152,7 +184,7 @@ export default function NewInfo() {
                     placeholder='   Inches'
                     type="number"
                     min="0"
-                    max="10"
+                    max="11"
                     value={inches}
                     onChange={(e) =>{
                         setInches(e.target.value)
@@ -176,6 +208,6 @@ export default function NewInfo() {
             <h1>{error}</h1>:
             <></>}
         </div>
-
+    </div>
     )
 }
