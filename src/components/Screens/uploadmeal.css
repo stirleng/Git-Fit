@@ -13,6 +13,18 @@
     font-size: 8px;
 }
 
+#submit-container{
+    width: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+}
+
+#SubmitButton{
+    font-size: 23px;
+    font-family: Futura-Bold;
+}
+
 #input-question{
     margin-right: 10px;
     margin-bottom: 10px;

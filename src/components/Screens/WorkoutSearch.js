@@ -59,7 +59,63 @@ export default function queryHashes(props) {
     //return html
     return(
         <body>
+            <div className='single-input' id='WorkoutNameEntry'>
+                <h1 id="input-question">Name of your Workout!</h1>
+                <input 
+                className='inputBox'
+                type="text"
+                // value={name}
+                // onChange={(e) =>setName(e.target.value)}
+                />
+            </div>
+            <div className='single-input' id='CoordinateEntryContainer'>
+                <div id='LatitudeEntry'>
+                    <h1 id="input-question">Latitude</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    //value={latitude}
+                    //onChange={(e) => setLatitude(e.target.value)}
+                    />
+                </div>
+                <div id='LongitudeEntry'>
+                    <h1 id="input-question">Longitude</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    // value={longitude}
+                    // onChange={(e) => setLongitude(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className='single-input' id='SearchRadiusEntry'>
 
+            </div>
+            <div className='single-input' id='WorkoutIntensityEntry'>
+            <h1 id="input-question">Calories burned in 1 hour?</h1>
+                <input 
+                className='inputBox'
+                type="number"
+                // value={caloriesBurned}
+                // onChange={(e) =>setCaloriesBurned(e.target.value)}
+                />
+            </div>
+            <div className='single-input' id='WorkoutTypeEntry'>
+                <label id="category-question" for="selectCategory">Select the category for your workout</label>
+                {/* <select name="selectCategory" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
+                    <option value="chest">Chest</option>
+                    <option value="back">Back</option>
+                    <option value="bicep">Bicep</option>
+                    <option value="shoulder">Shoulder</option>
+                    <option value="tricep">Tricep</option>
+                    <option value="leg">Leg</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="abs">Abs</option>
+                    </select> */}
+                </div>
+            <div className='single-input' id='SearchResults'>
+
+            </div>
         </body>
     )
 }

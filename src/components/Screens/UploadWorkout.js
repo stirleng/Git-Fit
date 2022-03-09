@@ -163,7 +163,7 @@ export default function UploadWorkout(props) {
                 />
             </div>
             <div id="single-input">
-                <h1 id="input-question">Latiutude</h1>
+                <h1 id="input-question">Latitude</h1>
                 <input
                 className='inputBox'
                 type="text"
@@ -184,8 +184,8 @@ export default function UploadWorkout(props) {
 
         <div id="submit-container">
             {loading? <h1>Uploading your workout, please wait!</h1> : 
-            <button onClick={handleSubmit} >
-                submit
+            <button id='SubmitButton' onClick={handleSubmit} >
+                Submit Workout
             </button>
             }
         </div>
