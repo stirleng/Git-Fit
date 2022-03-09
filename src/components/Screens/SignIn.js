@@ -38,7 +38,6 @@ function SignIn() {
                     alert('Wrong password.');
                 else
                     alert(errorMessage);
-                console.log(error);
             });
         return navigate('/');
     }

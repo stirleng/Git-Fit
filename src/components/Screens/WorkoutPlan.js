@@ -62,8 +62,6 @@ export default function WorkoutPlan (){
 
     useEffect(()=>{
         onRender();
-
-        //console.log(workoutArray)
     }, [])
 
 

@@ -81,9 +81,6 @@ export default function Home(props) {
         })
         //saving the original copy of all the workout
         setWorkoutArray(tempWork)
-
-        console.log(tempWork)
-
         //randomly selecting based on the current lowest day
         let workoutLowestStringArray = []
         let workoutLowestNum = Math.min(localADC, Math.min(localCDC, localLDC))
@@ -105,21 +102,13 @@ export default function Home(props) {
         }
 
         let finalWorkoutString = workoutLowestStringArray[Math.floor(Math.random() * workoutLowestStringArray.length)]
-        
-        console.log(finalWorkoutString)
-
         let filterArray = [];
         let tempChestArray = [];
         let tempArmArray = [];
         let tempLegArray = [];
         for (let i = 0; i < tempWork.length; i++){
             let curCategory = tempWork[i].Category
-            console.log("------------")
-            console.log(finalWorkoutString)
-            console.log(curCategory)
-            console.log("--------------")
             if (curCategory === finalWorkoutString){
-              console.log("pushed")
               filterArray.push(tempWork[i])
             }
             switch(curCategory){
@@ -139,7 +128,6 @@ export default function Home(props) {
                 tempLegArray.push(tempWork[i])
              }
           }
-        console.log(filterArray)
         const randInt = Math.floor(Math.random()*(filterArray.length))
         localIntensity = filterArray[randInt].Intensity;
         setWorkoutSuggestion(filterArray[randInt].Name);
@@ -159,7 +147,6 @@ export default function Home(props) {
         snapshot.forEach(documentSnapshot =>{
           tempMeals.push(documentSnapshot.data())      
         })
-        // console.log(tempMeals)
         setMealArray(tempMeals)
         let tempLowP = [];
         let tempMedP = [];
@@ -260,20 +247,11 @@ export default function Home(props) {
     let localIntensity = lowestArray[randIntWorkout].Intensity
 
     //getting new meal
-    
     let tempMealFilter = localIntensity === "high" ? highProteinMealArray: localIntensity === "medium"? medProteinMealArray: lowProteinMealArray
     const randIntMeal = Math.floor( Math.random()*tempMealFilter.length)
-    // console.log(tempMealFilter.length)
-    // console.log("---------")
-    // console.log(randIntMeal)
-    // console.log("********************")
     setSuggestionMeal(tempMealFilter[randIntMeal].DishName)
     setMeals(tempMealFilter[randIntMeal])
     setMealProtein(tempMealFilter[randIntMeal].Protein_Grams)
-
-    
-
-    //fetchUser()
   }
 
   useEffect(()=>{
