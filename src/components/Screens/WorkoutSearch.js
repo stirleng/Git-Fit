@@ -8,7 +8,7 @@ const geofire = require('geofire-common');
 // Geofire reference/instructions
 
 // TODO: Is this how i name a function even if multiple search functions defined?
-export default function queryHashes(props) {
+function queryHashes(props) {
     //js/react goes here
 
     // CODE from https://firebase.google.com/docs/firestore/solutions/geoqueries
@@ -55,7 +55,9 @@ export default function queryHashes(props) {
         console.log("docs")
         console.log(matchingDocs[0].get('Description'))
     });
+}
 
+export default function WorkoutSearch(props){
     //return html
     return(
         <body>
