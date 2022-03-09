@@ -81,6 +81,7 @@ export default function Home(props) {
         //saving the original copy of all the workout
         setWorkoutArray(tempWork)
 
+        console.log(tempWork)
 
         //randomly selecting based on the current lowest day
         let workoutLowestStringArray = []
@@ -90,7 +91,7 @@ export default function Home(props) {
             workoutLowestStringArray.push("bicep")
             workoutLowestStringArray.push("tricep")
             workoutLowestStringArray.push("shoulder")
-            workoutLowestStringArray.push("arm")
+            //workoutLowestStringArray.push("arm")
             break;
           case localCDC:
             workoutLowestStringArray.push("back")
@@ -103,6 +104,8 @@ export default function Home(props) {
         }
 
         let finalWorkoutString = workoutLowestStringArray[Math.floor(Math.random() * workoutLowestStringArray.length)]
+        
+        console.log(finalWorkoutString)
 
         let filterArray = [];
         let tempChestArray = [];
@@ -110,7 +113,12 @@ export default function Home(props) {
         let tempLegArray = [];
         for (let i = 0; i < tempWork.length; i++){
             let curCategory = tempWork[i].Category
+            console.log("------------")
+            console.log(finalWorkoutString)
+            console.log(curCategory)
+            console.log("--------------")
             if (curCategory === finalWorkoutString){
+              console.log("pushed")
               filterArray.push(tempWork[i])
             }
             switch(curCategory){
@@ -130,6 +138,7 @@ export default function Home(props) {
                 tempLegArray.push(tempWork[i])
              }
           }
+        console.log(filterArray)
         const randInt = Math.floor(Math.random()*(filterArray.length))
         localIntensity = filterArray[randInt].Intensity;
         setWorkoutSuggestion(filterArray[randInt].Name);
@@ -140,6 +149,7 @@ export default function Home(props) {
         setLegArray(tempLegArray)
       }
     })
+
 
     //fetch all meals
     await db.collection("meals").get().then((snapshot) =>{
@@ -210,7 +220,6 @@ export default function Home(props) {
       case "bicep":
       case "tricep":
       case "shoulder":
-      case "arm":
         localADC += 1;
         await db.collection("users").doc(currentUser.uid).update({
           Arms_Days: firebase.firestore.FieldValue.increment(1)

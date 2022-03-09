@@ -25,7 +25,7 @@ export function AuthProvider({children}) {
   }
 
 
-  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp){
+  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex, bmr){
     return db.collection("users").doc(userUID).set({
       Name: Name,
       Email: Email,
@@ -36,7 +36,9 @@ export function AuthProvider({children}) {
       Start_Date: myTimestamp,
       Leg_Days: 0,
       Chest_Days: 0,
-      Arms_Days: 0
+      Arms_Days: 0,
+      Sex: sex,
+      BMR: bmr,
     })
   }
 

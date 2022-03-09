@@ -14,7 +14,11 @@ export default function NewInfo() {
 
     async function handleSubmit(e) {
 
-        var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        // var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        
+
+        const myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        
 
         
         
@@ -61,9 +65,9 @@ export default function NewInfo() {
         }
 
         try{
-            //setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, TimeStamp)
-            await setInfo(currentUser.uid, currentUser.email, name, weight,sex, bmr,
-                 feet, inches, age, myTimestamp)
+            //set info usage: setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, TimeStamp)
+            console.log(myTimestamp)
+            await setInfo(currentUser.uid, currentUser.email, name, weight,feet, inches, age, myTimestamp, sex, bmr)
             setLoading(false)
             console.log("Success")
         }catch(err){
