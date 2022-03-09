@@ -57,10 +57,10 @@ section{
     top: 0;
     left: 0;
     width: 100%;
+    z-index: -1;
 }
 
 #About-Text{
-    z-index: 1;
     background:#E3EDFF ;
     padding-left: 30px;
     padding-right: 30px;
