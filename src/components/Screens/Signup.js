@@ -1,126 +1,100 @@
 import React, {useState} from 'react'
-import { Link, useNavigate} from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext'
+import {Link, useNavigate} from 'react-router-dom';
+import {useAuth} from '../../contexts/AuthContext'
 import RunningVid from "../videos/signup_background.mp4"
 import './signup.css'
-
-
-
+import styles from "./SignIn.module.css";
+import {Paper} from "@mui/material";
+import TextBox from "../ui/TextBox";
+import EmailIcon from "@mui/icons-material/Email";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import MyButton from "../ui/Button";
+import Logo from "../ui/Logo";
 
 
 function Signup() {
+    const commonProps = {className: styles.inputBox, textColor: 'black', bgColor: 'white', width: 450, height: 40};
+    const buttonProps = {className: styles.inputBox, textColor: 'white', bgColor: '#e0b100', width: 450, height: 50};
 
+    const {signUp} = useAuth();
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
+    let navigate = useNavigate();
 
-  const {signUp} = useAuth();
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setLoading(true);
+        let errorMessage;
 
-  //testing purpose for success signups
-  const [success, setSuccess] = useState(false);
+        if (password !== confirmPassword) {
+            alert("Password do no match");
+            setLoading(false); // For consistency...
+            return;
+        }
 
-
-
-  let navigate = useNavigate();
-
-  async function handleSubmit(e){
-
-      e.preventDefault();
-
-      setSuccess(false);
-
-
-      
-
-      if (password !== confirmPassword){
-        setError("Password do no match");
-        return;
-      }
-
-
-
-      try {
-        setError('')
-        setLoading(true)
         await signUp(email, password)
-        setSuccess(true)
-        return navigate('/newinfo')
-      }catch(err){
-        setError(err.message)
-      }
-      
-      setLoading(false)
-  }
+            .then(() => {
+                if (!errorMessage) navigate('/newinfo')
+            })
+            .catch((error) => {
+                errorMessage = error.code;
+                alert(error.message);
+                console.log(error.message);
+            });
 
-  return ( 
-    <div id="body">
-      <section id="About">
-        <div id="About-Text">
-              <h1>What is GitFit!</h1>
-              <h2><br/>GitFit is a web app that promotes a healthy living style! <br/> <br/>
-                We make it easy to organize your workout experience and maximize your time! <br/> <br/>
-                Sign up with us today and we will help you reach your goal!
-              </h2>
-        </div>
-        <div id="video-container">
-          <video id="background-video" loop autoPlay muted>
-            <source src={RunningVid} type='video/mp4'/>
-          </video> 
-        </div>      
-    </section>
+        setLoading(false);
+    }
 
-    <section id="signup">
-      <div id="signup-background"></div>
-      <div id="intro-back">
-          <h1 id="intro-text">Sign up with Git-Fit and Begin with your Journey!</h1>
-        </div>  
-      <div className='container'>
-              <form onSubmit={handleSubmit} >
-                <div id='inputFieldContainer'>
-                  <input 
-                    className='inputBox' 
-                    placeholder='Enter your email!'
-                    type="text"
-                    value={email}
-                    // onChange={(e) =>setEmail(e.target.value)}
-                    onChange={ (e) => {
-                      setEmail(e.target.value)
-                    }}
-                  />
-                  <input 
-                    className='inputBox'
-                    placeholder='Enter your password!'
-                    type="password"
-                    value={password}
-                    onChange={(e) =>setPassword(e.target.value)}
-                  />
-                  <input 
-                    className='inputBox'
-                    placeholder='Confirm your password!'
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) =>setConfirmPassword(e.target.value)}
-                  />
-                  
-                  {loading? 
-                  <h1>Signing up, Please wait :D</h1>:
-                  <input className='inputBox' type="submit" />}
-                </div>
-              </form>
-              {error && <h1>{error}</h1>}
-              {success && <h1>Successfully Signedup</h1>}
-              <div>
-                Already have an account? <Link to='/signin'>Sign In</Link>
-              </div>
-          </div>
-    </section>
-  </div>
-    
-    
-  );
+    return (<div id="body">
+        <section id="About">
+            <div id="About-Text">
+                <h1>What is GitFit!</h1>
+                <h2><br/>GitFit is a web app that promotes a healthy living style! <br/> <br/>
+                    We make it easy to organize your workout experience and maximize your time! <br/> <br/>
+                    Sign up with us today and we will help you reach your goal!
+                </h2>
+            </div>
+            <div id="video-container">
+                <video id="background-video" loop autoPlay muted>
+                    <source src={RunningVid} type='video/mp4'/>
+                </video>
+            </div>
+        </section>
+
+        <section id="signup">
+            <div id="signup-background"/>
+            <div id='top-layer' className='container'>
+                <Paper style={{padding: '20px'}} elevation={5}>
+                    <form onSubmit={handleSubmit}>
+                        <h1>Begin your Journey!</h1>
+                        <TextBox {...commonProps}
+                                 placeholder={'Email'}
+                                 adornment={<EmailIcon/>}
+                                 handler={e => setEmail(e.target.value)}/>
+                        <TextBox {...commonProps}
+                                 type={'password'}
+                                 placeholder={'Enter your password!'}
+                                 adornment={<VpnKeyIcon/>}
+                                 handler={e => setPassword(e.target.value)}/>
+                        <TextBox {...commonProps}
+                                 type={'password'}
+                                 placeholder={'Confirm your password!'}
+                                 adornment={<VpnKeyIcon/>}
+                                 handler={e => setConfirmPassword(e.target.value)}/>
+                        {loading ?
+                            <h1>Signing up, Please wait :D</h1> :
+                            <MyButton {...buttonProps}
+                                      type='submit'
+                                      value={'SIGN UP!'}/>}
+                        Already have an account? <Link to='/signin'>Sign In</Link>
+                    </form>
+                </Paper>
+            </div>
+        </section>
+    </div>);
 }
 
 

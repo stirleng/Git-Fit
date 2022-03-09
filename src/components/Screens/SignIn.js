@@ -29,20 +29,16 @@ function SignIn() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        /*        auth.signInWithEmailAndPassword(email, password)
-                    .catch(function(error) {
-                        // Handle Errors here.
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
-                        if (errorCode === 'auth/wrong-password')
-                            alert('Wrong password.');
-                        else
-                            alert(errorMessage);
-                        console.log(error);
-                    });
-                e.preventDefault()*/
-
-        await signIn(email, password);
+        await signIn(email, password)
+            .catch(function(error) {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                if (errorCode === 'auth/wrong-password')
+                    alert('Wrong password.');
+                else
+                    alert(errorMessage);
+            });
         return navigate('/');
     }
 

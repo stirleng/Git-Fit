@@ -18,11 +18,6 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import {db} from "./firebase";
 
-async function scrapeMeals(url) {
-
-    console.log('done!');
-}
-
 
 function App() {
     useEffect(() => {

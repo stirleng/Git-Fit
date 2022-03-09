@@ -66,10 +66,8 @@ export default function NewInfo() {
 
         try{
             //set info usage: setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex, bmr)
-            console.log(myTimestamp)
             await setInfo(currentUser.uid, currentUser.email, name, weight,feet, inches, age, myTimestamp, sex, bmr)
             setLoading(false)
-            console.log("Success")
         }catch(err){
             setError(err.message)
         }
@@ -85,7 +83,6 @@ export default function NewInfo() {
     else{
         setBmr(447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age))
     }
-    console.log(bmr)
         setLoading(false)
 
         //go to home page
