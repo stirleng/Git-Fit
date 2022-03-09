@@ -18,14 +18,12 @@ export default function WorkoutSearch(props) {
     const [searchRadius, setSearchRadius] = useState(1); // Default search radius 1km
     const [latitude, setLatitude] = useState(34);
     const [longitude, setLongitude] = useState(-118); // Default location is in la
-    const [distFiltered, setDistFiltered] = useState([])
+    const distFiltered = [];
     const [searchResults, setSearchResults] = useState([]);
 
     // queryHashes takes in lat, lng, dist, and returns docs for 
     // workouts within dist of [lat,lng]
     async function queryHashes(lat, lng, dist) {
-        //js/react goes here
-
         // CODE from https://firebase.google.com/docs/firestore/solutions/geoqueries
         // TODO: Edit code so it... actually works
         // find workouts within x km of lat, lng
@@ -44,9 +42,8 @@ export default function WorkoutSearch(props) {
                 .endAt(b[1]);
             promises.push(q.get());
         }
-
         // Collect all the query results together into a single list
-        Promise.all(promises).then((snapshots) => {
+        await Promise.all(promises).then((snapshots) => {
             const matchingDocs = [];
 
             for (const snap of snapshots) {
@@ -64,31 +61,32 @@ export default function WorkoutSearch(props) {
                 }
             }
             return matchingDocs;
-        }).then((matchingDocs) => {
-            // Process the matching documents
+        }).then((matchingDocs)=>{
             if (matchingDocs){
-                const tempDocs = [];
                 matchingDocs.forEach(documentSnapshot =>{
-                    tempDocs.push(documentSnapshot.data())      
+                    distFiltered.push(documentSnapshot.data())      
                 })
-                setDistFiltered(tempDocs)
             }
-        });
+        })
     }
 
     async function search(type, intensity, calories, lat, lng, dist){
         // query document snapshot array
         const filteredDocs = []
         if (lat != null && lng !=null){
-            queryHashes(lat, lng, dist)
-            distFiltered.forEach(doc =>{
+            await queryHashes(lat, lng, dist).then((matchingDocs) => {
+                // Wait for query hash function to finish
+            });
+            for (let i = 0; i < distFiltered.length; i++){
+                let doc = distFiltered[i]
                 if (doc.Category === type && doc.Intensity === intensity && doc.Calories_Burned >= calories){
                     filteredDocs.push(doc);
                 }
-            })
+            }
         }
         else{
-            await db.collection("workout").where('Category', '==', type)
+            await db.collection("workout")
+            .where('Category', '==', type)
             .where('Intensity', '==', intensity)
             .get().then((snapshot) =>{
                 if (snapshot){
@@ -101,9 +99,7 @@ export default function WorkoutSearch(props) {
                 }
             })
         }
-        console.log("filtered")
-        console.log(filteredDocs)
-        setSearchResults(filteredDocs)
+        return filteredDocs
     }
 
     async function handleSubmit(e){
@@ -117,7 +113,9 @@ export default function WorkoutSearch(props) {
             return
         }
         try{
-            search(category, intensity, caloriesBurned, latitude, longitude, searchRadius)
+            search(category, intensity, caloriesBurned, latitude, longitude, searchRadius).then((results)=>{
+                setSearchResults(results)
+            })
         }
         catch(err){
             setError(err.message)
