@@ -22,12 +22,12 @@ export default function queryHashes(props) {
     const bounds = geofire.geohashQueryBounds(center, radiusInM);
     const promises = [];
     for (const b of bounds) {
-    const q = db.collection('workout')
-        .orderBy('geohash')
-        .startAt(b[0])
-        .endAt(b[1]);
+        const q = db.collection('workout')
+            .orderBy('geohash')
+            .startAt(b[0])
+            .endAt(b[1]);
 
-    promises.push(q.get());
+        promises.push(q.get());
     }
 
     // Collect all the query results together into a single list
@@ -48,12 +48,16 @@ export default function queryHashes(props) {
         }
         }
     }
-
+    
     return matchingDocs;
     }).then((matchingDocs) => {
     // Process the matching documents
-    // ...
-    });
+        matchingDocs[0].then((snapshot) =>{
+            if (snapshot){
+                var a = snapshot.data()
+                console.log(a)
+            }
+        });
 
     //return html
     return(
