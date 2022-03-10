@@ -7,34 +7,34 @@
     flex-direction: column;
 }
 
-#single-input{
+#single-input {
     display: flex;
     flex-direction: row;
     font-size: 8px;
 }
 
-#submit-container{
+#submit-container {
     width: 10vh;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2vh;
 }
 
-#SubmitButton{
+#SubmitButton {
     font-size: 23px;
     font-family: Futura-Bold;
 }
 
-#input-question{
+#input-question {
     margin-right: 10px;
     margin-bottom: 10px;
 }
 
-.inputBox{
+.inputBox {
     margin-top: 10px
 }
 
-#title-container{
+#title-container {
     align-items: center;
     display: flex;
     justify-content: center;

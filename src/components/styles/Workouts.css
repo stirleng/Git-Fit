@@ -1,35 +1,34 @@
 @font-face {
     font-family: Futura-Heavy-Italic;
-    src: url(../fonts/futura/Futura\ Heavy\ Italic\ font.ttf);
+    src: url(../assets/fonts/futura/Futura\ Heavy\ Italic\ font.ttf);
     font-style: italic;
 }
 
 @font-face {
     font-family: Futura-Bold-Italic;
-    src: url(../fonts/futura/Futura\ Bold\ Italic\ font.ttf);
+    src: url(../assets/fonts/futura/Futura\ Bold\ Italic\ font.ttf);
     font-style: italic;
 }
 
 @font-face {
     font-family: Futura-Book;
-    src: url(../fonts/futura/Futura\ Book\ font.ttf);
+    src: url(../assets/fonts/futura/Futura\ Book\ font.ttf);
     font-style: italic;
 }
 
 
-.WorkoutPage{
-    background-image: 
-    linear-gradient(to left bottom, 
+.WorkoutPage {
+    background-image: linear-gradient(to left bottom,
     rgba(203, 247, 255, 0.4),
     rgba(12, 25, 187, 0.6)),
-    url('../images/Powell-Cat.jpeg');
+    url('../assets/images/powell_cat.jpeg');
     background-position: center right;
     background-size: cover;
     height: 100vh;
 }
 
-.WorkoutScreenHeader{
-    display:flex;
+.WorkoutScreenHeader {
+    display: flex;
     justify-content: center;
     padding-top: 2vh;
     padding-bottom: 2vh;
@@ -41,17 +40,17 @@
     font-family: Futura-Bold-Italic;
 }
 
-.WorkoutPageButtonContainer{
+.WorkoutPageButtonContainer {
     display: flex;
     justify-content: start;
-    margin-top:10vh;
+    margin-top: 10vh;
     margin-right: 100vh;
     margin-left: 20vh;
     gap: 3vh;
     row-gap: 3vh;
 }
 
-.WorkoutPageButtons{
+.WorkoutPageButtons {
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -69,46 +68,46 @@
     font-family: Futura-Book;
 }
 
-.WorkoutPageButtons:hover{
-    background-color: rgb(236,236,236);
+.WorkoutPageButtons:hover {
+    background-color: rgb(236, 236, 236);
 }
 
-.SearchButton{
+.SearchButton {
     cursor: pointer;
     background-size: cover;
     border-color: #9900ff;
-    background-color:white;
+    background-color: white;
     color: black;
 }
 
-.RandomButton{
+.RandomButton {
     cursor: pointer;
     background-size: cover;
     border-color: #9900ff;
-    background-color:white;
+    background-color: white;
     color: black;
 }
 
-.UploadButton{
+.UploadButton {
     cursor: pointer;
     background-size: cover;
     border-color: #9900ff;
-    background-color:white;
+    background-color: white;
     color: black;
 }
 
-.HistoryButton{
+.HistoryButton {
     cursor: pointer;
     background-size: cover;
     border-color: #9900ff;
-    background-color:white;
+    background-color: white;
     color: black;
 }
 
-.PlanButton{
+.PlanButton {
     cursor: pointer;
     background-size: cover;
     border-color: #9900ff;
-    background-color:white;
+    background-color: white;
     color: black;
 }

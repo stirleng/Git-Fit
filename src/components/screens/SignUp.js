@@ -1,18 +1,17 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import {useAuth} from '../../contexts/AuthContext'
-import RunningVid from "../videos/signup_background.mp4"
-import './signup.css'
-import styles from "./SignIn.module.css";
+import RunningVid from "../assets/videos/signup_background.mp4"
+import '../styles/SignUp.css'
+import styles from "../styles/SignIn.module.css";
 import {Paper} from "@mui/material";
 import TextBox from "../ui/TextBox";
 import EmailIcon from "@mui/icons-material/Email";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import MyButton from "../ui/Button";
-import Logo from "../ui/Logo";
 
 
-function Signup() {
+function SignUp() {
     const commonProps = {className: styles.inputBox, textColor: 'black', bgColor: 'white', width: 450, height: 40};
     const buttonProps = {className: styles.inputBox, textColor: 'white', bgColor: '#e0b100', width: 450, height: 50};
 
@@ -98,4 +97,4 @@ function Signup() {
 }
 
 
-export default Signup;
+export default SignUp;

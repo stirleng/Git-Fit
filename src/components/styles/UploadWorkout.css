@@ -1,11 +1,11 @@
 @font-face {
     font-family: Futura-Medium-Italic;
-    src: url(../fonts/futura/Futura\ Medium\ Italic\ font.ttf);
+    src: url(../assets/fonts/futura/Futura\ Medium\ Italic\ font.ttf);
     font-style: italic;
 }
 
-#upload-screen-header{
-    display:flex;
+#upload-screen-header {
+    display: flex;
     justify-content: center;
     height: 15vh;
     padding: 1vh;
@@ -16,44 +16,44 @@
     font-size: 1.85vw;
 }
 
-#white-background{
+#white-background {
     background-color: white;
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 50%;
-    height:100%;
+    height: 100%;
 }
 
-#submit-container{
+#submit-container {
     width: 10vh;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2vh;
 }
 
-#SubmitButton{
+#SubmitButton {
     font-size: 23px;
     font-family: Futura-Bold;
 }
 
-#category-input{
+#category-input {
     margin-left: 20px;
 }
 
-#category-question{
+#category-question {
     font-size: 20px;
 }
 
-#select-container{
+#select-container {
     margin-top: 2vh
 }
 
-#single-input{
+#single-input {
     margin-top: 2vh;
 }
 
-#inputbox{
+#inputbox {
     font-size: 20px;
 }
 

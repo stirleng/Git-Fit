@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, IconButton, Paper, ThemeProvider} from '@mui/material';
-import {createTheme} from "@mui/material";
+import {IconButton, Paper} from '@mui/material';
 import {useNavigate} from "react-router-dom";
 
 // I want to use 'Button' but it's already taken :(

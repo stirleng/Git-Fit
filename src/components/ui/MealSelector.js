@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Box,
-    Button,
-    Grid,
     Paper,
     Table, TableBody,
     TableCell,
@@ -12,7 +9,7 @@ import {
     ThemeProvider
 } from '@mui/material';
 import {createTheme} from "@mui/material";
-import {db} from "../../firebase";
+import {db} from "../../contexts/firebase";
 
 const muiTheme = createTheme({
     typography: {
@@ -31,7 +28,7 @@ const muiTheme = createTheme({
     },
 });
 
-export default function MealSelector(props) {
+export default function MealSelector() {
     const [meals, setMeals] = useState([]);
 
     const columnNames = ['Dish Name', 'Calories', 'Protein', 'Protein Source', 'Recipe Link'];
