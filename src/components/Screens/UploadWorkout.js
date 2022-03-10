@@ -81,113 +81,113 @@ export default function UploadWorkout(props) {
     }
 
     return (
-        <div>
-        <div id="title-container">
-            <h1>Upload your favorite workout!</h1>
-        </div>
-        <div id="input-container">
+        <div id='white-background'>
+            <div id="upload-screen-header">
+                <h1>Upload Workout</h1>
+            </div>
+            <div id="input-container">
 
-            <div id="single-input">
-                <h1 id="input-question">Name of your Workout!</h1>
-                <input 
-                className='inputBox'
-                type="text"
-                value={name}
-                onChange={(e) =>setName(e.target.value)}
-                />
+                <div id="single-input">
+                    <h1 id="input-question">Name of your Workout!</h1>
+                    <input 
+                    className='inputBox'
+                    type="text"
+                    value={name}
+                    onChange={(e) =>setName(e.target.value)}
+                    />
+                </div>
+
+            <div id="select-container">
+                <label id="category-question" for="selectCategory">Select the category for your workout</label>
+                <select name="selectCategoty" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
+                    <option value="chest">Chest</option>
+                    <option value="back">Back</option>
+                    <option value="bicep">Bicep</option>
+                    <option value="shoulder">Shoulder</option>
+                    <option value="tricep">Tricep</option>
+                    <option value="leg">Leg</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="abs">Abs</option>
+                    </select>
             </div>
 
-           <div id="select-container">
-               <label id="category-question" for="selectCategory">Select the category for your workout</label>
-               <select name="selectCategoty" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
-                   <option value="chest">Chest</option>
-                   <option value="back">Back</option>
-                   <option value="bicep">Bicep</option>
-                   <option value="shoulder">Shoulder</option>
-                   <option value="tricep">Tricep</option>
-                   <option value="leg">Leg</option>
-                   <option value="cardio">Cardio</option>
-                   <option value="abs">Abs</option>
-                </select>
-           </div>
-
-           <div id="select-container">
-               <label id="category-question" for="selectCategory">Intensity Level?</label>
-               <select name="selectCategory" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
-                   <option value="low">Low</option>
-                   <option value="medium">Medium</option>
-                   <option value="high">High</option>
-                </select>
-           </div>
-
-           <div id="single-input">
-                <h1 id="input-question">Calories burned in 1 hour?</h1>
-                <input 
-                className='inputBox'
-                type="number"
-                value={caloriesBurned}
-                onChange={(e) =>setCaloriesBurned(e.target.value)}
-                />
+            <div id="select-container">
+                <label id="category-question" for="selectCategory">Intensity Level?</label>
+                <select name="selectCategory" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    </select>
             </div>
 
             <div id="single-input">
-                <h1 id="input-question">Youtube or Strava link of the workout!</h1>
-                <input 
-                className='inputBox'
-                type="text"
-                value={workoutLink}
-                onChange={(e) =>setWorkoutLink(e.target.value)}
-                />
-            </div>
-            <div id="single-input">
-                <h1 id="input-question">Description</h1>
-                <textarea
-                    maxlength ="10000"
-                    rows="5"
-                    cols="40"
-                    className='inputbox'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                >
-                    Default text here
-                </textarea>
-            </div>
-            <div id="single-input">
-                <h1 id="input-question">Location</h1>
-                <input
-                className='inputBox'
-                type="text"
-                placeholder="TODO: lat, long or address & geocode"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                />
-            </div>
-            <div id="single-input">
-                <h1 id="input-question">Latitude</h1>
-                <input
-                className='inputBox'
-                type="text"
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-                />
-            </div>
-            <div id="single-input">
-                <h1 id="input-question">Longitude</h1>
-                <input
-                className='inputBox'
-                type="text"
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-                />
-            </div>
-        </div>
+                    <h1 id="input-question">Calories burned in 1 hour?</h1>
+                    <input 
+                    className='inputBox'
+                    type="number"
+                    value={caloriesBurned}
+                    onChange={(e) =>setCaloriesBurned(e.target.value)}
+                    />
+                </div>
 
-        <div id="submit-container">
-            {loading? <h1>Uploading your workout, please wait!</h1> : 
-            <button id='SubmitButton' onClick={handleSubmit} >
-                Submit Workout
-            </button>
-            }
+                <div id="single-input">
+                    <h1 id="input-question">Youtube or Strava link of the workout!</h1>
+                    <input 
+                    className='inputBox'
+                    type="text"
+                    value={workoutLink}
+                    onChange={(e) =>setWorkoutLink(e.target.value)}
+                    />
+                </div>
+                <div id="single-input">
+                    <h1 id="input-question">Description</h1>
+                    <textarea
+                        maxlength ="10000"
+                        rows="5"
+                        cols="40"
+                        className='inputbox'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    >
+                        Default text here
+                    </textarea>
+                </div>
+                <div id="single-input">
+                    <h1 id="input-question">Location</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    placeholder="TODO: lat, long or address & geocode"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    />
+                </div>
+                <div id="single-input">
+                    <h1 id="input-question">Latitude</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    value={latitude}
+                    onChange={(e) => setLatitude(e.target.value)}
+                    />
+                </div>
+                <div id="single-input">
+                    <h1 id="input-question">Longitude</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    value={longitude}
+                    onChange={(e) => setLongitude(e.target.value)}
+                    />
+                </div>
+            </div>
+
+            <div id="submit-container">
+                {loading? <h1>Uploading your workout, please wait!</h1> : 
+                <button id='SubmitButton' onClick={handleSubmit} >
+                    Submit Workout
+                </button>
+                }
         </div>
 
         {error && 
@@ -195,8 +195,6 @@ export default function UploadWorkout(props) {
             <h1>{error}</h1>    
         </div>
         }
-        <div>
-        </div>
     </div>
     )
 }
