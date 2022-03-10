@@ -1,12 +1,12 @@
-import React, {useRef, useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {useAuth} from '../../contexts/AuthContext'
-import {db, auth} from '../../contexts/firebase';
+import {db} from '../../contexts/firebase';
 import '../styles/WorkoutSearch.css'
 // Added geofire for recording locations and searching nearby
 const geofire = require('geofire-common');
 
-export default function WorkoutSearch(props) {
-    const {setWorkout} = useAuth();
+export default function WorkoutSearch() {
+
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -74,7 +74,7 @@ export default function WorkoutSearch(props) {
         // query document snapshot array
         let filteredDocs = [];
         if (lat != null && lng != null) {
-            await queryHashes(lat, lng, dist).then((matchingDocs) => {
+            await queryHashes(lat, lng, dist).then(() => {
                 // Wait for query hash function to finish
             });
             for (let i = 0; i < distFiltered.length; i++) {

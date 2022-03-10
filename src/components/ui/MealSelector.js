@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Box,
-    Button,
-    Grid,
     Paper,
     Table, TableBody,
     TableCell,
@@ -31,7 +28,7 @@ const muiTheme = createTheme({
     },
 });
 
-export default function MealSelector(props) {
+export default function MealSelector() {
     const [meals, setMeals] = useState([]);
 
     const columnNames = ['Dish Name', 'Calories', 'Protein', 'Protein Source', 'Recipe Link'];

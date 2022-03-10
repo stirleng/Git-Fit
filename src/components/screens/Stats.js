@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import firebase from 'firebase/compat/app';
 import {useAuth} from '../../contexts/AuthContext'
-import {db, collection, getDocs, query, where, limit, useFirestoreDocument, QuerySnapshot} from '../../contexts/firebase';
+import {db} from '../../contexts/firebase';
 import '../styles/Stats.css'
-import {Link, useNavigate, useParams, useLocation} from 'react-router-dom';
-import {doc, getDoc, DocumentSnapshot, FieldPath, documentId, forEach} from "firebase/firestore";
-import {set, ref} from 'firebase/database'
 
 export default function Stats() {
-    const [userData, setUserData] = useState([]);
+
     const [cal, setCal] = useState(0);
     const [proj, setProj] = useState(0);
     const [protein, setProtein] = useState(0);
@@ -73,7 +69,7 @@ export default function Stats() {
         })
     }
 
-    function changeInfo(tag, val) {
+    function changeInfo() {
 
     }
 
@@ -137,8 +133,8 @@ export default function Stats() {
                         />
                     </div>
 
-                    <button type="button" onClick={(e) => {
-                        changeInfo(toChange, newVal)
+                    <button type="button" onClick={() => {
+                        changeInfo(toChange)
                     }}>
                         Update Info
                     </button>

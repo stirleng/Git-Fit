@@ -9,7 +9,6 @@ import TextBox from "../ui/TextBox";
 import EmailIcon from "@mui/icons-material/Email";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import MyButton from "../ui/Button";
-import Logo from "../ui/Logo";
 
 
 function SignUp() {

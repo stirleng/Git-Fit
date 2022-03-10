@@ -21,7 +21,6 @@ export default function UploadMeal() {
     const [calories, setCalories] = useState(0);
 
     async function handleSubmit(e) {
-
         e.preventDefault();
         setError("");
         setLoading(true);

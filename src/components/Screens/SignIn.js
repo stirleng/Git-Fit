@@ -13,7 +13,6 @@ function SignIn() {
     const commonProps = {className: styles.inputBox, textColor: 'black', bgColor: 'white', width: 375, height: 40};
     const buttonProps = {className: styles.inputBox, textColor: 'white', bgColor: '#e0b100', width: 375, height: 50};
 
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {signIn} = useAuth();

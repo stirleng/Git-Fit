@@ -1,18 +1,15 @@
 import '../styles/WorkoutPlan.css'
 import React, {useState, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
-import firebase from 'firebase/compat/app'
 import {db} from '../../contexts/firebase'
-import {  collection, getDocs, query, where, limit, doc } from 'firebase/firestore'
 
 export default function WorkoutPlan (){
 
-    const {setPlan} = useAuth();
+
     const [pref, setPref] = useState('chest');
     const [workoutArray, setWorkoutArray] = useState([]);
     const [displayArray, setDisplayArray] = useState([]);
-    const [displayArrayLength, setDisplayArrayLength] = useState(-1);
+    const [, setDisplayArrayLength] = useState(-1);
 
     //to shuffle array
     function shuffle(array) {
@@ -66,7 +63,7 @@ export default function WorkoutPlan (){
     }, []);
 
 
-    async function handleClick(e){
+    async function handleClick(){
      
         
         const prefArray = [];
@@ -99,7 +96,7 @@ export default function WorkoutPlan (){
                 </select>
              <div>
                 <button id = "submit" type='button'
-                    onClick={(e) => {handleClick(e)}}>
+                    onClick={(e) => {handleClick()}}>
                     Get your workout    
                 </button>
                 {displayArray[0] != null && 
