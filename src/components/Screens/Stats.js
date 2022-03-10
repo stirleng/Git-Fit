@@ -24,6 +24,7 @@ export default function Stats() {
     const [age, setAge] = useState(0)
     const [toChange, setToChange] = useState('')
     const [newVal, setNewVal] = useState(0)
+    const [error, setError] = useState("")
 
     async function getUserSeconds(){
         await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
@@ -48,13 +49,13 @@ export default function Stats() {
     //access user info in the backend
         async function onRender(){
             await db.collection("users").doc(uid).get().then((snapshot) =>{
-                    setAge(snapshot.get("Age"))
-                    setFeet(snapshot.get("Height_ft"))
-                    setInches(snapshot.get("Height_in"))
-                    setWeight(snapshot.get("Weight"))
-                    setSex(snapshot.get("Sex"))
-                    let name = snapshot.get("Name")
-                    setActiveDays(snapshot.get("Chest_Days") + snapshot.get("Arms_Days") + snapshot.get("Leg_Days"))
+                    setAge(snapshot.doc().Age)
+                    setFeet(snapshot.doc().Height_ft)
+                    setInches(snapshot.doc().Height_in)
+                    setWeight(snapshot.doc().Weight)
+                    setSex(snapshot.doc().Sex)
+                    let name = snapshot.doc().Name
+                    setActiveDays(snapshot.doc().Chest_Days + snapshot.doc().Arms_Days + snapshot.doc().Leg_Days)
 
 
                     let weight_kg = 0.453592 * weight
@@ -74,11 +75,20 @@ export default function Stats() {
                     setProtein(snapshot.get("Proteins_Consumed"))
                     setName(name)
               })
-            }
+        }
     
-            function changeInfo(tag, val){
+        async function changeInfo(tag, val){
+            if (val === ''){
+                setError("please choose which stat you want to update")
+                return
+            }
+
+
                 
-              }
+            await db.collection("users").doc(currentUser.uid).update({
+                [tag] : parseFloat(val),
+            })
+        }
 
         //runs whenever page loads
          useEffect(()=>{
@@ -129,7 +139,7 @@ export default function Stats() {
                 <input 
                     className='inputBox' 
                     placeholder=' New Value'
-                    type="text"
+                    type="number"
                     value={newVal}
                     onChange={(e) =>{
                         setNewVal(e.target.value)

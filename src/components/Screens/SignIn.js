@@ -38,6 +38,7 @@ function SignIn() {
                     alert('Wrong password.');
                 else
                     alert(errorMessage);
+                return
             });
         return navigate('/');
     }
