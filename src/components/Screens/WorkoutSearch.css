@@ -2,30 +2,19 @@
     margin-top: 2vh;
 }
 
-#CoordinateEntryContainer{
-
+#WorkoutSearchPage{
+    background-color: #2b87ff5d;
+    background-size: cover;
+    height: 120vh;
 }
 
-#LatitudeEntry{
-
+#search-results-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    margin-left: 40vw;
 }
 
-#LongitudeEntry{
-
-}
-
-#SearchRadiusEntry{
-
-}
-
-#WorkoutIntensityEntry{
-
-}
-
-#WorkoutTypeEntry{
-
-}
-
-#SearchResults{
-
+#search-results{
+    font-size: large;
 }
