@@ -44,18 +44,23 @@ export default function Stats() {
    // await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
         //access data
     //})
-    let uid = currentUser.uid
+    //let uid = currentUser.uid
 
     //access user info in the backend
         async function onRender(){
-            await db.collection("users").doc(uid).get().then((snapshot) =>{
-                    setAge(snapshot.doc().Age)
-                    setFeet(snapshot.doc().Height_ft)
-                    setInches(snapshot.doc().Height_in)
-                    setWeight(snapshot.doc().Weight)
-                    setSex(snapshot.doc().Sex)
-                    let name = snapshot.doc().Name
-                    setActiveDays(snapshot.doc().Chest_Days + snapshot.doc().Arms_Days + snapshot.doc().Leg_Days)
+
+            await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
+                if(snapshot){
+              
+                    setAge(snapshot.data().Age)
+                    setFeet(snapshot.data().Height_ft)
+                    setInches(snapshot.data().Height_in)
+                    setWeight(snapshot.data().Weight)
+                    setSex(snapshot.data().Sex)
+                    setName(snapshot.data().Name)
+                    setActiveDays(snapshot.data().Chest_Days + snapshot.data().Arms_Days + snapshot.data().Leg_Days)
+                }
+                   
 
 
                     let weight_kg = 0.453592 * weight
@@ -70,10 +75,13 @@ export default function Stats() {
                     else{
                         bmr = 1.55 * (447.593 + (9.247 * weight_kg) + (3.098 * height_cm) - (4.330 * age))
                     }
-                    setCal(bmr.toFixed(2) - 500)
+                    setCal((bmr - 500).toFixed(2))
                     setProj(weight - 5)
                     setProtein(snapshot.get("Proteins_Consumed"))
                     setName(name)
+                    console.log(cal)
+                    console.log(proj)
+                    console.log(name)
               })
         }
     
