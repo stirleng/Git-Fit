@@ -77,10 +77,7 @@ export default function Stats() {
             }
     
             function changeInfo(tag, val){
-                set(ref(db, 'users/' + uid), {
-                    tag: val
-                  });
-                  onRender()
+                
               }
 
         //runs whenever page loads
