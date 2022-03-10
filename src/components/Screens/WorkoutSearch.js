@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState}from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { db, auth } from '../../firebase';
-import './UploadWorkout.css'
+import './WorkoutSearch.css'
 // Added geofire for recording locations and searching nearby
 const geofire = require('geofire-common');
 
@@ -128,89 +128,109 @@ export default function WorkoutSearch(props) {
     }
 
     return (
-        <div>
-        <div id="title-container">
-            <h1>Search for your favorite workout!</h1>
-        </div>
-        <div id="input-container">
+        <div id='WorkoutSearchPage'>
+            <div id="title-container">
+                <h1>Search for your favorite workout!</h1>
+            </div>
+            <div id="input-container">
 
-           <div id="select-container">
-               <label id="category-question" for="selectCategory">Select the category for your workout</label>
-               <select name="selectCategory" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
-                   <option value="chest">Chest</option>
-                   <option value="back">Back</option>
-                   <option value="bicep">Bicep</option>
-                   <option value="shoulder">Shoulder</option>
-                   <option value="tricep">Tricep</option>
-                   <option value="leg">Leg</option>
-                   <option value="cardio">Cardio</option>
-                   <option value="abs">Abs</option>
-                </select>
-           </div>
+            <div id="select-container">
+                <label id="category-question" for="selectCategory">Select the category for your workout</label>
+                <select name="selectCategory" id="category-input" value={category} onChange={(e) =>setCategory(e.target.value)}>
+                    <option value="chest">Chest</option>
+                    <option value="back">Back</option>
+                    <option value="bicep">Bicep</option>
+                    <option value="shoulder">Shoulder</option>
+                    <option value="tricep">Tricep</option>
+                    <option value="leg">Leg</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="abs">Abs</option>
+                    </select>
+            </div>
 
-           <div id="select-container">
-               <label id="category-question" for="selectCategory">Intensity Level?</label>
-               <select name="selectCategory" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
-                   <option value="low">Low</option>
-                   <option value="medium">Medium</option>
-                   <option value="high">High</option>
-                </select>
-           </div>
-
-           <div id="single-input">
-                <h1 id="input-question">Calories burned in 1 hour?</h1>
-                <input 
-                className='inputBox'
-                type="number"
-                value={caloriesBurned}
-                onChange={(e) =>setCaloriesBurned(e.target.value)}
-                />
+            <div id="select-container">
+                <label id="category-question" for="selectCategory">Intensity Level?</label>
+                <select name="selectCategory" id="category-input" value={intensity} onChange={(e) =>setIntensity(e.target.value)}>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    </select>
             </div>
 
             <div id="single-input">
-                <h1 id="input-question">Latitude</h1>
-                <input
-                className='inputBox'
-                type="text"
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-                />
-            </div>
-            <div id="single-input">
-                <h1 id="input-question">Longitude</h1>
-                <input
-                className='inputBox'
-                type="text"
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-                />
-            </div>
-            <div id="single-input">
-                <h1 id="input-question">Search Radius</h1>
-                <input
-                className='inputBox'
-                type="text"
-                value={searchRadius}
-                onChange={(e) => setSearchRadius(e.target.value)}
-                />
-            </div>
-        </div>
+                    <h1 id="input-question">Calories burned in 1 hour?</h1>
+                    <input 
+                    className='inputBox'
+                    type="number"
+                    value={caloriesBurned}
+                    onChange={(e) =>setCaloriesBurned(e.target.value)}
+                    />
+                </div>
 
-        <div id="submit-container">
-            {loading? <h1>Searching, please wait!</h1> : 
-            <button id='SubmitButton' onClick={(e) =>handleSubmit(e)}>
-                Search
-            </button>
+                <div id="single-input">
+                    <h1 id="input-question">Latitude</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    value={latitude}
+                    onChange={(e) => setLatitude(e.target.value)}
+                    />
+                </div>
+                <div id="single-input">
+                    <h1 id="input-question">Longitude</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    value={longitude}
+                    onChange={(e) => setLongitude(e.target.value)}
+                    />
+                </div>
+                <div id="single-input">
+                    <h1 id="input-question">Search Radius</h1>
+                    <input
+                    className='inputBox'
+                    type="text"
+                    value={searchRadius}
+                    onChange={(e) => setSearchRadius(e.target.value)}
+                    />
+                </div>
+            </div>
+
+            <div id="submit-container">
+                {loading? <h1>Searching, please wait!</h1> : 
+                <button id='SubmitButton' onClick={(e) =>handleSubmit(e)}>
+                    Search
+                </button>
+                }
+            </div>
+            <div id='search-results-container'>
+                <div id='search-results-header'>
+                    Search Results:
+                </div>
+                <div id='search-results'>
+                        {searchResults[0] != null && 
+                        <h1>{searchResults[0].Name}</h1>}
+                        {searchResults[1] != null && 
+                        <h1>{searchResults[1].Name}</h1>
+                        }
+                        {searchResults[2] != null && 
+                        <h1>{searchResults[2].Name}</h1>}
+                        {searchResults[3] != null && 
+                        <h1>{searchResults[3].Name}</h1>
+                        }
+                        {searchResults[4] != null && 
+                        <h1>{searchResults[4].Name}</h1>}
+                        {searchResults[5] != null && 
+                        <h1>{searchResults[5].Name}</h1>}
+                </div>
+            </div>
+            {error && 
+            <div id="error-container">
+                <h1>{error}</h1>    
+            </div>
             }
+            <div>
+            </div>
         </div>
-
-        {error && 
-        <div id="error-container">
-            <h1>{error}</h1>    
-        </div>
-        }
-        <div>
-        </div>
-    </div>
     )
 }
