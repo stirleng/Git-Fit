@@ -129,8 +129,8 @@ export default function WorkoutSearch(props) {
 
     return (
         <div id='WorkoutSearchPage'>
-            <div id="title-container">
-                <h1>Search for your favorite workout!</h1>
+            <div id="upload-screen-header">
+                <h1>Search Workouts</h1>
             </div>
             <div id="input-container">
 
