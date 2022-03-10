@@ -7,14 +7,13 @@
 #upload-screen-header{
     display:flex;
     justify-content: center;
-    height: 8vh;
-    padding-top: 1.5vh;
-    padding-bottom: 9vh;
+    height: 15vh;
+    padding: 1vh;
     background-color: #467fb45d;
     color: #2774AE;
     -webkit-text-stroke-color: #FFD100;
-    -webkit-text-stroke-width: 3px;
-    font-size: 37px;
+    -webkit-text-stroke-width: .15vw;
+    font-size: 1.85vw;
 }
 
 #white-background{
