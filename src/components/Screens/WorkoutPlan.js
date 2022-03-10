@@ -36,27 +36,24 @@ export default function WorkoutPlan (){
     //run onces on loading the page to fetch all the workouts into workoutArray
     //then populate display array through randomly choosing 6 workouts from workoutArray
     async function onRender(){
-
         await db.collection("workout").get().then((snapshot) =>{
             if(snapshot){
               const tempWork =[]
               const allWork = []
               snapshot.forEach(documentSnapshot =>{
-                console.log(documentSnapshot.data().Category)
                 allWork.push(documentSnapshot.data())
                 if (documentSnapshot.data().Category === pref){
-                  console.log(documentSnapshot.data())
                   tempWork.push(documentSnapshot.data()) 
                 }       
               })
               
+
               
               setWorkoutArray(allWork)
 
               //choosing 6 random workout
 
               shuffle(tempWork);
-              console.log(tempWork)
               setDisplayArray(tempWork)
               setDisplayArrayLength(tempWork.length)
              
@@ -66,24 +63,18 @@ export default function WorkoutPlan (){
 
     useEffect(()=>{
         onRender();
-
-        //console.log(workoutArray)
     }, [])
 
 
     async function handleClick(e){
-        console.log(workoutArray)
-
-        console.log(pref)
+     
         
         const prefArray = [];
-
         for (let i = 0; i < workoutArray.length; i++){
           if (workoutArray[i].Category === pref){
             prefArray.push(workoutArray[i]);
           }
         }
-
         shuffle(prefArray);
         setDisplayArray(prefArray)
         setDisplayArrayLength(prefArray.length)
@@ -98,7 +89,7 @@ export default function WorkoutPlan (){
             <div id = "select">
                 <select onClick={(e) => {setPref(e.target.value)}}>
                     Workout Preference
-                    <option value=''>Select a Category</option>
+                    <option value='chest'>Select a Category</option>
                     <option value = "chest">Chest</option>
                     <option value="back">Back</option>
                     <option value="leg">Legs</option>
@@ -111,17 +102,21 @@ export default function WorkoutPlan (){
                     onClick={(e) => {handleClick(e)}}>
                     Get your workout    
                 </button>
-                {displayArray.length === displayArrayLength && 
-                <div>
-                    <h1>{displayArray[0].Name}</h1>
-                    <h1>{displayArray[1].Name}</h1>
-                    <h1>{displayArray[2].Name}</h1>
-
-                </div>
-                
-                
+                {displayArray[0] != null && 
+                <h1>{displayArray[0].Name}</h1>}
+                {displayArray[1] != null && 
+                <h1>{displayArray[1].Name}</h1>
                 }
-              
+                {displayArray[2] != null && 
+                <h1>{displayArray[2].Name}</h1>}
+                {displayArray[3] != null && 
+                <h1>{displayArray[3].Name}</h1>
+                }
+                {displayArray[4] != null && 
+                <h1>{displayArray[4].Name}</h1>}
+                {displayArray[5] != null && 
+                <h1>{displayArray[5].Name}</h1>
+                }
             </div>
          </div>
              </div>

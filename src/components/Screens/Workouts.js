@@ -5,7 +5,6 @@ import { Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 
 export default function Workouts(props) {
     const {currentUser} = useAuth();
-    console.log(currentUser);
     return (
       <body className='WorkoutPage'>
         <div className='WorkoutScreenHeader'>
