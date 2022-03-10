@@ -1,11 +1,12 @@
-#body{
+#body {
     overflow-y: hidden; /* Hide vertical scrollbar */
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
+
 .container {
     display: flex;
     justify-content: center;
-    align-items: center ;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -15,7 +16,7 @@
     margin-top: 20px;
 }
 
-#background-video{
+#background-video {
     object-fit: cover;
     z-index: -1;
     height: 100vh;
@@ -28,7 +29,7 @@
     height: 25px;
     width: 300px;
     border-radius: 20px;
-    background-color:#E3EDFF
+    background-color: #E3EDFF
 }
 
 #About {
@@ -41,7 +42,7 @@
     overflow: hidden;
 }
 
-section{
+section {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -53,22 +54,22 @@ section{
 }
 
 #video-container {
-    position:absolute;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: -1;
 }
 
-#About-Text{
-    background:#E3EDFF ;
+#About-Text {
+    background: #E3EDFF;
     padding-left: 30px;
     padding-right: 30px;
     border-radius: 50px;
 }
 
 /* #signup {
-    background-image: url('../images/facilities_JWC_1156x420.jpg');
+    background-image: url('../images/facilities_jwc.jpg');
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -76,30 +77,30 @@ section{
 } */
 
 #signup-background {
-    background-image: url('../images/facilities_JWC_1156x420.jpg');
+    background-image: url('../assets/images/facilities_jwc.jpg');
     background-size: cover;
     height: 100vh;
     width: 100vw;
     filter: blur(8px);
     z-index: -1;
     position: absolute;
-    
+
 
 }
 
-#background-image{
+#background-image {
     background-size: cover;
 }
 
 /* .signUpBackground{
-    background-image: url('../images/facilities_JWC_1156x420.jpg');
+    background-image: url('../images/facilities_jwc.jpg');
     background-color: #E3EDFF;
     background-size: cover;
     height: 100vh;
     width: 100vw;
 } */
 
-#intro-back{
+#intro-back {
     background: #E3EDFF;
     padding-left: 10px;
     padding-right: 10px;

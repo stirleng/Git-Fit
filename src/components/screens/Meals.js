@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
-import styles from './Meals.module.css'
+import styles from '../styles/Meals.module.css'
 import globalStyles from '../styles/Global.module.css'
 import {useNavigate} from 'react-router-dom';
-import baked_haddock from '../images/Baked_Haddock_recipe_prvw.png'
+import baked_haddock from '../assets/images/baked_haddock.png'
 import Logo from "../ui/Logo";
 import MealSelector from "../ui/MealSelector";
 import MyButton from "../ui/Button";
