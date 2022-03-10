@@ -1,0 +1,36 @@
+.single-input {
+    margin-top: 2vh;
+}
+
+#upload-screen-header {
+    display: flex;
+    justify-content: center;
+    height: 15vh;
+    padding: 1vh;
+    background-color: #467fb45d;
+    color: #2774AE;
+    -webkit-text-stroke-color: #FFD100;
+    -webkit-text-stroke-width: .15vw;
+    font-size: 1.85vw;
+}
+
+#WorkoutSearchPage {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+}
+
+#search-results-container {
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: 7vw;
+}
+
+#search-results {
+    font-size: large;
+}

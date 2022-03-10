@@ -1,6 +1,6 @@
 # Git-Fit
 
-###**Build Instructions**
+**Build Instructions**
 1. Git Clone the repo into a directory
 2. Open the command line
 3. Navigate to the directory on the command line (e.g., cd C:\Users\joe\Git-Fit)

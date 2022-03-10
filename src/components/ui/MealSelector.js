@@ -12,7 +12,7 @@ import {
     ThemeProvider
 } from '@mui/material';
 import {createTheme} from "@mui/material";
-import {db} from "../../firebase";
+import {db} from "../../contexts/firebase";
 
 const muiTheme = createTheme({
     typography: {

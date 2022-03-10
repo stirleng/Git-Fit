@@ -1,12 +1,13 @@
 import {useAuth} from '../../contexts/AuthContext';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import TextBox from "../ui/TextBox";
 import MyButton from "../ui/Button"
-import styles from './SignIn.module.css'
+import styles from '../styles/SignIn.module.css'
 import globalStyles from '../styles/Global.module.css'
-import {Link, useNavigate, useLocation} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import Logo from "../ui/Logo";
 
 function SignIn() {
     const commonProps = {className: styles.inputBox, textColor: 'black', bgColor: 'white', width: 375, height: 40};
@@ -30,7 +31,7 @@ function SignIn() {
     async function handleSubmit(e) {
         e.preventDefault();
         await signIn(email, password)
-            .catch(function(error) {
+            .catch(function (error) {
                 // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -52,23 +53,7 @@ function SignIn() {
              }}/>
 
         <div id='top-layer' className={styles.slide}/>
-
-        <div id='top-layer' className={styles.rowContainer}>
-            <div id='top-layer' className={styles.test}/>
-            <div className={`${globalStyles.logo} ${globalStyles.card}`}
-                 style={{padding: '0 9px 0 5px',}}>
-                Git-Fit
-            </div>
-            <h2 style={{padding: '0 30px 0 30px'}}>
-                Sign In
-            </h2>
-            <h2 style={{paddingRight: '30px'}}>
-                Sign Up
-            </h2>
-            <h2 style={{paddingRight: '30px'}}>
-                About
-            </h2>
-        </div>
+        <Logo id='top-layer'/>
 
         <div id='top-layer' className={styles.container}>
             <div className={globalStyles.card}>

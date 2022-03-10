@@ -1,18 +1,18 @@
-import './WorkoutPlan.css'
+import '../styles/WorkoutPlan.css'
 import React, {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/compat/app'
-import {db} from '../../firebase'
+import {db} from '../../contexts/firebase'
 import {  collection, getDocs, query, where, limit, doc } from 'firebase/firestore'
 
 export default function WorkoutPlan (){
 
-    const {setPlan} = useAuth()
-    const [pref, setPref] = useState('chest')
+    const {setPlan} = useAuth();
+    const [pref, setPref] = useState('chest');
     const [workoutArray, setWorkoutArray] = useState([]);
     const [displayArray, setDisplayArray] = useState([]);
-    const [displayArrayLength, setDisplayArrayLength] = useState(-1)
+    const [displayArrayLength, setDisplayArrayLength] = useState(-1);
 
     //to shuffle array
     function shuffle(array) {
@@ -38,23 +38,23 @@ export default function WorkoutPlan (){
     async function onRender(){
         await db.collection("workout").get().then((snapshot) =>{
             if(snapshot){
-              const tempWork =[]
-              const allWork = []
+              const tempWork =[];
+              const allWork = [];
               snapshot.forEach(documentSnapshot =>{
-                allWork.push(documentSnapshot.data())
+                allWork.push(documentSnapshot.data());
                 if (documentSnapshot.data().Category === pref){
                   tempWork.push(documentSnapshot.data()) 
                 }       
-              })
+              });
               
 
               
-              setWorkoutArray(allWork)
+              setWorkoutArray(allWork);
 
               //choosing 6 random workout
 
               shuffle(tempWork);
-              setDisplayArray(tempWork)
+              setDisplayArray(tempWork);
               setDisplayArrayLength(tempWork.length)
              
             }
@@ -63,7 +63,7 @@ export default function WorkoutPlan (){
 
     useEffect(()=>{
         onRender();
-    }, [])
+    }, []);
 
 
     async function handleClick(e){
@@ -76,7 +76,7 @@ export default function WorkoutPlan (){
           }
         }
         shuffle(prefArray);
-        setDisplayArray(prefArray)
+        setDisplayArray(prefArray);
         setDisplayArrayLength(prefArray.length)
         
     
