@@ -25,7 +25,7 @@ export function AuthProvider({children}) {
   }
 
 
-  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex, bmr){
+  function setInfo(userUID, Email, Name, Weight, Height_ft, Height_in, Age, myTimestamp, sex){
     return db.collection("users").doc(userUID).set({
       Name: Name,
       Email: Email,
@@ -57,12 +57,6 @@ export function AuthProvider({children}) {
       Protein: proteinSource,
       Protein_Grams: parseFloat(gramOfProtein),
       Calories: parseFloat(calories),
-    })
-  }
-
-  function updateData(path){
-    return db.collection("data").doc(path).update({
-      count: firebase.firestore.FieldValue.increment(1)
     })
   }
 

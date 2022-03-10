@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {useAuth} from '../../contexts/AuthContext'
-import {db, collection, getDocs, query, where, limit, useFirestoreDocument, QuerySnapshot} from '../../contexts/firebase';
+import {db} from '../../contexts/firebase';
 import '../styles/Home.css'
-import {Link, useNavigate, useParams, useLocation} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import '../assets/images/homepage_background.jpg'
 import '../assets/images/barbell_image.png'
 import '../assets/images/apple_image.png'
@@ -11,12 +11,9 @@ import '../assets/images/apple_image.png'
 //import Button from 'react-bootstrap/Button'
 
 import firebase from 'firebase/compat/app'
-import {FieldValue} from 'firebase/firestore';
-import {next} from 'cheerio/lib/api/traversing';
 
-export default function Home(props) {
-    let navigate = useNavigate();
-
+export default function Home() {
+    useNavigate();
 
     const {currentUser} = useAuth();
     const [user, setUser] = useState({});
@@ -27,12 +24,12 @@ export default function Home(props) {
 
     //both of these can just get replaced by meals.name or workout.name
     const [suggestionMeal, setSuggestionMeal] = useState(""); //meal name
-    const [workoutSuggestion, setWorkoutSuggestion] = useState(""); //workout name,
+    const [, setWorkoutSuggestion] = useState(""); //workout name,
 
 
     //const [workoutType, setWorkoutType] = useState("")
-    const [meals, setMeals] = useState([]); //single meal object
-    const [mealArray, setMealArray] = useState([]); //array of meals object
+    const [, setMeals] = useState([]); //single meal object
+    const [, setMealArray] = useState([]); //array of meals object
     const [highProteinMealArray, setHighProteinMealArray] = useState([]);
     const [medProteinMealArray, setmedProteinMealArray] = useState([]);
     const [lowProteinMealArray, setlowProteinMealArray] = useState([]);

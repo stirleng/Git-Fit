@@ -7,7 +7,7 @@ import Logo from "../ui/Logo";
 import MealSelector from "../ui/MealSelector";
 import MyButton from "../ui/Button";
 
-export default function Meals(props) {
+export default function Meals() {
     const buttonProps = {className: styles.inputBox, textColor: 'white', bgColor: '#e0b100', width: 375, height: 50};
     let navigate = useNavigate();
 

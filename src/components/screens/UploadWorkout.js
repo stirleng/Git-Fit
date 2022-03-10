@@ -1,11 +1,10 @@
-import React, {useRef, useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {useAuth} from '../../contexts/AuthContext'
 import '../styles/UploadWorkout.css'
-import {Link, useNavigate, useParams, useLocation} from 'react-router-dom';
 // Added geofire for recording locations and searching nearby
 const geofire = require('geofire-common');
 
-export default function UploadWorkout(props) {
+export default function UploadWorkout() {
     const {setWorkout} = useAuth();
 
     const [error, setError] = useState("");
