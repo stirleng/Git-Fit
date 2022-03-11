@@ -26,43 +26,43 @@ async function scrapeMeals(url) {
 
 
 function App() {
-    useEffect(() => {
-        const fetchData = async (url) => {
-            const proteinSources = ['beef', 'chicken', 'pork', 'tofu', 'fish', 'beans'];
+    // useEffect(() => {
+    //     const fetchData = async (url) => {
+    //         const proteinSources = ['beef', 'chicken', 'pork', 'tofu', 'fish', 'beans'];
 
-            // Helper functions
-            const getFloat = (str) => parseFloat(str.match(/[0-9.]+/g));
-            const getAttribute = ($, str) => $('.prodwebcode')
-                .text().toLowerCase().indexOf(str);
-            const getIngredient = ($, str) => $('.ingred_allergen').find('p').first()
-                .text().toLowerCase().indexOf(str);
+    //         // Helper functions
+    //         const getFloat = (str) => parseFloat(str.match(/[0-9.]+/g));
+    //         const getAttribute = ($, str) => $('.prodwebcode')
+    //             .text().toLowerCase().indexOf(str);
+    //         const getIngredient = ($, str) => $('.ingred_allergen').find('p').first()
+    //             .text().toLowerCase().indexOf(str);
 
-            await axios.get(url).then(response => {
-                const data = cheerio.load(response.data);
-                data('.menu-item').each((i, e) => {
-                    const dishLink = data(e).find('a').attr('href');
+    //         await axios.get(url).then(response => {
+    //             const data = cheerio.load(response.data);
+    //             data('.menu-item').each((i, e) => {
+    //                 const dishLink = data(e).find('a').attr('href');
 
-                    axios.get(dishLink).then(async response => {
-                        const data = cheerio.load(response.data);
-                        let dishName = data('.recipecontainer').find('h2').text();
+    //                 axios.get(dishLink).then(async response => {
+    //                     const data = cheerio.load(response.data);
+    //                     let dishName = data('.recipecontainer').find('h2').text();
 
-                        if (dishName === '') return; // Ignore entry if meal is invalid.
+    //                     if (dishName === '') return; // Ignore entry if meal is invalid.
 
-                        await db.doc('meals/' + dishName.replace(/ /g, '_')).set({
-                            DishName: dishName,
-                            link: dishLink,
-                            isVegetarian: getAttribute(data, 'vegetarian') + getAttribute(data, 'vegan') > -1,
-                            isWhiteMeat: getAttribute(data, 'contains fish') + getIngredient(data, 'chicken') > -1,
-                            Protein: proteinSources.find(i => getIngredient(data, i) > -1) || '',
-                            Protein_Grams: getFloat(data('.nfnutrient').text()),
-                            Calories: getFloat(data('.nfcal').text()),
-                        }, {merge: true});
-                    }).catch(() => null);
-                });
-            }).catch(() => null);
-        };
-        fetchData('https://menu.dining.ucla.edu/Menus/BruinPlate/Lunch');
-    }, []);
+    //                     await db.doc('meals/' + dishName.replace(/ /g, '_')).set({
+    //                         DishName: dishName,
+    //                         link: dishLink,
+    //                         isVegetarian: getAttribute(data, 'vegetarian') + getAttribute(data, 'vegan') > -1,
+    //                         isWhiteMeat: getAttribute(data, 'contains fish') + getIngredient(data, 'chicken') > -1,
+    //                         Protein: proteinSources.find(i => getIngredient(data, i) > -1) || '',
+    //                         Protein_Grams: getFloat(data('.nfnutrient').text()),
+    //                         Calories: getFloat(data('.nfcal').text()),
+    //                     }, {merge: true});
+    //                 }).catch(() => null);
+    //             });
+    //         }).catch(() => null);
+    //     };
+    //     fetchData('https://menu.dining.ucla.edu/Menus/BruinPlate/Lunch');
+    // }, []);
 
     return (
         //First goes to Root which is /, but since we aren't signed in

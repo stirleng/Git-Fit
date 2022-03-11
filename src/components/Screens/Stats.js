@@ -110,6 +110,9 @@ export default function Stats() {
             setActiveDays(data.Chest_Days + data.Arms_Days + data.Leg_Days);
             setName(name)
         })
+
+        
+
     }
 
     let cal = 0

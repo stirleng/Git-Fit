@@ -5,7 +5,7 @@ import "../styles/UploadMeal.css"
 
 export default function UploadMeal() {
 
-    const {setMeal, updateData} = useAuth();
+    const {setMeal} = useAuth();
 
     //variables to set error messages/render
     const [error, setError] = useState("");
