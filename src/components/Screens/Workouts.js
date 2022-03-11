@@ -23,7 +23,7 @@ export default function Workouts() {
             </Link>
             <Link to="/workoutplan">
                 <button type="button" className='WorkoutPageButtons PlanButton'>
-                    Create Plan
+                    Get Plan
                 </button>
             </Link>
         </div>

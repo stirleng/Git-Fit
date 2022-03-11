@@ -81,24 +81,32 @@ export default function WorkoutPlan (){
 
 
     return (
-        <div id = "body">
-             <h1> What do you want to workout today?</h1>
+        
+        <div id='white-background'>
+          <div id='workout-plan-screen-header'>
+            <h1>Workout Plan</h1>
+          </div> 
+          <div id = 'workout-plan-filter'>
             <div id = "select">
-                <select onClick={(e) => {setPref(e.target.value)}}>
-                    Workout Preference
-                    <option value='chest'>Select a Category</option>
-                    <option value = "chest">Chest</option>
-                    <option value="back">Back</option>
-                    <option value="leg">Legs</option>
-                    <option value="bicep">Bicep</option>
-                    <option value="shoulder">Shoulders</option>
-                    <option value="tricep">Triceps</option>
-                </select>
-             <div>
-                <button id = "submit" type='button'
+                <div id='filter-tools'>
+                  <select onClick={(e) => {setPref(e.target.value)}}>
+                      Workout Preference
+                      <option value='chest'>Select a Category</option>
+                      <option value = "chest">Chest</option>
+                      <option value="back">Back</option>
+                      <option value="leg">Legs</option>
+                      <option value="bicep">Bicep</option>
+                      <option value="shoulder">Shoulders</option>
+                      <option value="tricep">Triceps</option>
+                  </select>
+                  <div class="break"></div>
+                  <button id = "submit" type='button'
                     onClick={(e) => {handleClick()}}>
-                    Get your workout    
+                    Get your workout!   
                 </button>
+                </div>
+                
+             <div>
                 {displayArray[0] != null && 
                 <h1>{displayArray[0].Name}</h1>}
                 {displayArray[1] != null && 
@@ -115,6 +123,7 @@ export default function WorkoutPlan (){
                 <h1>{displayArray[5].Name}</h1>
                 }
             </div>
+         </div>
          </div>
              </div>
     )
