@@ -5,8 +5,6 @@ import '../styles/Stats.css'
 
 export default function Stats() {
 
-    const [cal, setCal] = useState(0);
-    const [proj, setProj] = useState(0);
     const [protein, setProtein] = useState(0);
     const {currentUser} = useAuth();
     const [name, setName] = useState('');
@@ -17,8 +15,8 @@ export default function Stats() {
     const [weight, setWeight] = useState(0);
     const [sex, setSex] = useState('');
     const [age, setAge] = useState(0);
-    const [toChange, setToChange] = useState('');
-    const [newVal, setNewVal] = useState(0);
+    const [newVal, setNewVal] = useState(0)
+    const [toChange, setToChange] = useState('')
 
     async function getUserSeconds() {
         await db.collection("users").doc(currentUser.uid).get().then((snapshot) => {
@@ -41,30 +39,40 @@ export default function Stats() {
     //})
     let uid = currentUser.uid;
 
+    async function changeInfo(tag, val) {
+        switch (tag) {
+            case '':
+                alert("Please select a field to edit")
+                return
+
+            case "Sex":
+                 await db.collection("users").doc(uid).update({
+                        Sex: val
+                        });
+                  break;
+
+            default:
+                await db.collection("users").doc(uid).update({
+                    [tag]: parseFloat(val)
+                    });
+                break;
+            return
+    }
+
+    }
     //access user info in the backend
     async function onRender() {
         await db.collection("users").doc(uid).get().then((snapshot) => {
-            setAge(snapshot.get("Age"));
-            setFeet(snapshot.get("Height_ft"));
-            setInches(snapshot.get("Height_in"));
-            setWeight(snapshot.get("Weight"));
-            setSex(snapshot.get("Sex"));
-            let name = snapshot.get("Name");
-            setActiveDays(snapshot.get("Chest_Days") + snapshot.get("Arms_Days") + snapshot.get("Leg_Days"));
+            let data = snapshot.data()
 
-
-            let weight_kg = 0.453592 * weight;
-            let height_cm = 2.54 * (12 * feet + inches);
-
-            let bmr = 0;
-            if (sex == 'm') {
-                bmr = 1.55 * (88.362 + (13.397 * weight_kg) + (4.799 * height_cm) - (5.677 * age))
-            } else {
-                bmr = 1.55 * (447.593 + (9.247 * weight_kg) + (3.098 * height_cm) - (4.330 * age))
-            }
-            setCal(bmr.toFixed(2) - 500);
-            setProj(weight - 5);
-            setProtein(snapshot.get("Proteins_Consumed"));
+            setAge(data.Age);
+            setFeet(data.Height_ft);
+            setInches(data.Height_in);
+            setWeight(data.Weight);
+            setSex(data.Sex);
+            setProtein(data.Proteins_Consumed)
+            let name = data.Name;
+            setActiveDays(data.Chest_Days + data.Arms_Days + data.Leg_Days);
             setName(name)
         })
     }
@@ -78,6 +86,16 @@ export default function Stats() {
         onRender()
     }, []);
 
+    let cal = 0
+    let prot = protein
+    let projected = weight - 5
+    if (sex == 'm')
+    {
+        cal = (1.55 * (88.362 + (13.397 * 0.453592 * weight) + (4.799 * 2.54 * (12 * feet + inches)) - (5.677 * age)) - 500).toFixed(2)
+    }
+    else {
+        cal = (1.55 * (447.593 + (9.247 * 0.453592 * weight) + (3.098 * 2.54 * (12 * feet + inches)) - (4.330 * age)) - 500).toFixed(2)
+    }
 
     let cr = (daySinceStart == 0) ? activeDays : activeDays / daySinceStart;
     return (
@@ -85,9 +103,9 @@ export default function Stats() {
             <h1>
                 {name}'s Fitness Numbers
             </h1>
-            {cal && proj && name ? <body>
+            {cal && age && weight ? <body>
             If you eat about <b>{cal}</b> calories a day and follow your plan, you will weigh less
-            than <b>{proj}</b> lbs in just 5 weeks! <br></br>Keep it up
+            than <b>{projected}</b> lbs in just 5 weeks! <br></br>Keep it up
             <br></br><br></br>
 
             It's been <b>{daySinceStart}</b> days since you joined, and you've completed <b>{activeDays}</b> workouts.
@@ -95,7 +113,7 @@ export default function Stats() {
             Average Workouts Per Day: {cr}
             <br></br><br></br>
             Over the course of your time here, you've
-            consumed {protein.toFixed(2)} grams of proteins! Eating a high-protein <br></br>
+            consumed {prot.toFixed(2)} grams of proteins! Eating a high-protein <br></br>
             diet is the best way to build muscle while burning fat!
             <br></br><br></br>
 
@@ -134,7 +152,7 @@ export default function Stats() {
                     </div>
 
                     <button type="button" onClick={() => {
-                        changeInfo(toChange)
+                        changeInfo(toChange, newVal)
                     }}>
                         Update Info
                     </button>

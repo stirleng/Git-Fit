@@ -1,0 +1,72 @@
+@font-face {
+    font-family: Futura-Book;
+    src: url(../fonts/futura/Futura\ Book\ font.ttf);
+    font-style: italic;
+}
+
+h1{
+    font-style: normal;
+}
+
+body{
+    background-image: 
+	  linear-gradient(to right bottom, 
+     rgba(76, 216, 255, 0.8),
+     rgba(12, 85, 187, 0.8)),
+     url('../images/janssSteps.jpg');
+     background-size: cover;
+     height: 100vh;
+     font-family: Futura-Book;
+     font-style: italic
+}
+
+#inputFieldContainer {
+    flex-direction: column;
+    display: flex;
+    margin-top: 20px;
+    color:aliceblue;
+}
+
+#body{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    flex-direction: column;
+}
+
+#dualField{
+    flex-direction: row;
+    display: flex;
+    margin-top: 20px;
+    width: 50vh;
+}
+
+.armFlex{
+        height: 1vh;
+        width: 1h;
+}
+
+.shoe{
+    background-color: white;
+    margin-top: 10px;
+    background-image:url(../images/shoe.jpg);
+    background-position:70% 43%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-style:normal;
+    font-size: 100%;
+    height:250px;
+    width:250px;
+    text-align:right;
+}
+
+h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-variant:small-caps;
+    font-size: 300%;
+    margin-top: 10px;
+}
+
+.select{
+    margin-bottom: 20px;
+}
