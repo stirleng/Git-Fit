@@ -39,16 +39,40 @@ export default function Stats() {
     //})
     let uid = currentUser.uid;
 
+    async function changeInfo(tag, val) {
+        switch (tag) {
+            case '':
+                alert("Please select a field to edit")
+                return
+
+            case "Sex":
+                 await db.collection("users").doc(uid).update({
+                        Sex: val
+                        });
+                  break;
+
+            default:
+                await db.collection("users").doc(uid).update({
+                    [tag]: parseFloat(val)
+                    });
+                break;
+            return
+    }
+
+    }
     //access user info in the backend
     async function onRender() {
         await db.collection("users").doc(uid).get().then((snapshot) => {
-            setAge(snapshot.get("Age"));
-            setFeet(snapshot.get("Height_ft"));
-            setInches(snapshot.get("Height_in"));
-            setWeight(snapshot.get("Weight"));
-            setSex(snapshot.get("Sex"));
-            let name = snapshot.get("Name");
-            setActiveDays(snapshot.get("Chest_Days") + snapshot.get("Arms_Days") + snapshot.get("Leg_Days"));
+            let data = snapshot.data()
+
+            setAge(data.Age);
+            setFeet(data.Height_ft);
+            setInches(data.Height_in);
+            setWeight(data.Weight);
+            setSex(data.Sex);
+            setProtein(data.Proteins_Consumed)
+            let name = data.Name;
+            setActiveDays(data.Chest_Days + data.Arms_Days + data.Leg_Days);
             setName(name)
         })
     }
@@ -63,6 +87,7 @@ export default function Stats() {
     }, []);
 
     let cal = 0
+    let prot = protein
     let projected = weight - 5
     if (sex == 'm')
     {
@@ -88,7 +113,7 @@ export default function Stats() {
             Average Workouts Per Day: {cr}
             <br></br><br></br>
             Over the course of your time here, you've
-            consumed {protein.toFixed(2)} grams of proteins! Eating a high-protein <br></br>
+            consumed {prot.toFixed(2)} grams of proteins! Eating a high-protein <br></br>
             diet is the best way to build muscle while burning fat!
             <br></br><br></br>
 
@@ -127,7 +152,7 @@ export default function Stats() {
                     </div>
 
                     <button type="button" onClick={() => {
-                        changeInfo(toChange)
+                        changeInfo(toChange, newVal)
                     }}>
                         Update Info
                     </button>
