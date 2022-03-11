@@ -42,7 +42,7 @@ export default function Stats() {
 
     async function changeInfo(tag, val) {
 
-        if (tag == "Weight" && val == 0){
+        if (tag === "Weight" && val === 0){
             alert("User is not massless");
             return
     }
@@ -53,7 +53,7 @@ export default function Stats() {
                 return
 
             case "Sex":
-                if (val != 'f' && val != 'm'){
+                if (val !== 'f' && val !== 'm'){
                     alert("Please select m or f")
                     return
                 }
@@ -90,7 +90,7 @@ export default function Stats() {
             setInches(val)
         }else if (tag === "Weight"){
             setWeight(val)
-        }else if (tag == "Sex") {
+        }else if (tag === "Sex") {
             setSex(val)
         }
     }
@@ -111,7 +111,7 @@ export default function Stats() {
             setName(name)
         })
 
-        
+
 
     }
 
