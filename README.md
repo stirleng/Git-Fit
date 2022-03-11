@@ -41,4 +41,6 @@ Test as follows:
     7. Type and enter "npm install react-router-dom@6"
     8. Type and enter "npm install axios cheerio"
     9. Type and enter "npm install --save geofire-common"
-    10. Type and enter: "npm start"
+    10. Create "firebase.js" under /src/contexts, and create your own instance of firebase project setup in that file 
+        https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project
+    11. Type and enter: "npm start"
