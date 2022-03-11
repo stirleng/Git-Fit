@@ -87,13 +87,6 @@ export default function Stats() {
         })
     }
 
-
-
-    // //runs whenever page loads
-    // useEffect(() => {
-        
-    // }, []);
-
     let cal = 0
     let prot = protein
     let projected = weight - 5
