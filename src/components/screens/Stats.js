@@ -32,6 +32,7 @@ export default function Stats() {
 
     useEffect(() => {
         getUserSeconds()
+        onRender()
     }, []);
 
     // await db.collection("users").doc(currentUser.uid).get().then((snapshot) =>{
@@ -56,9 +57,18 @@ export default function Stats() {
                     [tag]: parseFloat(val)
                     });
                 break;
-            return
-    }
+            
+        }
 
+        if (tag === "Age"){
+            setAge(val)
+        }else if (tag === "Height_ft"){
+            setFeet(val)
+        }else if (tag === "Height_in"){
+            setInches(val)
+        }else if (tag === "Weight"){
+            setWeight(val)
+        }
     }
     //access user info in the backend
     async function onRender() {
@@ -77,14 +87,12 @@ export default function Stats() {
         })
     }
 
-    function changeInfo() {
 
-    }
 
-    //runs whenever page loads
-    useEffect(() => {
-        onRender()
-    }, []);
+    // //runs whenever page loads
+    // useEffect(() => {
+        
+    // }, []);
 
     let cal = 0
     let prot = protein
