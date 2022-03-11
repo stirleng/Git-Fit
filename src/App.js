@@ -1,19 +1,19 @@
 import React, {useEffect} from 'react';
 import {AuthProvider} from './contexts/AuthContext';
-import SignIn from './components/screens/SignIn'
-import SignUp from './components/screens/SignUp';
-import Workouts from './components/screens/Workouts';
-import WorkoutSearch from './components/screens/WorkoutSearch';
-import WorkoutPlan from './components/screens/WorkoutPlan'
-import Meals from './components/screens/Meals';
-import UploadWorkout from './components/screens/UploadWorkout';
-import UploadMeal from './components/screens/UploadMeal';
-import Stats from './components/screens/Stats';
+import SignIn from './components/Screens/SignIn'
+import SignUp from './components/Screens/SignUp';
+import Workouts from './components/Screens/Workouts';
+import WorkoutSearch from './components/Screens/WorkoutSearch';
+import WorkoutPlan from './components/Screens/WorkoutPlan'
+import Meals from './components/Screens/Meals';
+import UploadWorkout from './components/Screens/UploadWorkout';
+import UploadMeal from './components/Screens/UploadMeal';
+import Stats from './components/Screens/Stats';
 
-import NewInfo from './components/screens/NewInfo';
-import Home from './components/screens/Home';
+import NewInfo from './components/Screens/NewInfo';
+import Home from './components/Screens/Home';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import PrivateRoute from './components/screens/PrivateRoute';
+import PrivateRoute from './components/Screens/PrivateRoute';
 import axios from "axios";
 import * as cheerio from "cheerio";
 import {db} from './contexts/firebase'

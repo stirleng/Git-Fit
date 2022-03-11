@@ -97,7 +97,7 @@ export default function Stats() {
     let cal = 0
     let prot = protein
     let projected = weight - 5
-    if (sex == 'm')
+    if (sex === 'm')
     {
         cal = (1.55 * (88.362 + (13.397 * 0.453592 * weight) + (4.799 * 2.54 * (12 * feet + inches)) - (5.677 * age)) - 500).toFixed(2)
     }
@@ -105,7 +105,7 @@ export default function Stats() {
         cal = (1.55 * (447.593 + (9.247 * 0.453592 * weight) + (3.098 * 2.54 * (12 * feet + inches)) - (4.330 * age)) - 500).toFixed(2)
     }
 
-    let cr = (daySinceStart == 0) ? activeDays : activeDays / daySinceStart;
+    let cr = (daySinceStart === 0) ? activeDays : activeDays / daySinceStart;
     return (
         <div id='header'>
             <h1>
