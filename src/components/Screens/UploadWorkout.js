@@ -22,8 +22,8 @@ export default function UploadWorkout() {
     // sets variable description with empty string, updated by SetDescription function
     // useState means it rerenders whenever value is changed
     const [location, setLocation] = useState(null);
-    const [latitude, setLatitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [locationHash, setLocationHash] = useState(null);
 
     //TODO: Make calories, link, intensity, description, fields optional
@@ -56,7 +56,7 @@ export default function UploadWorkout() {
             return
         }
 
-        if (latitude !== null && longitude !== null) {
+        if (latitude !== "" && longitude !== "") {
             try {
                 setLocationHash(geofire.geohashForLocation([parseInt(latitude), parseInt(longitude)]))
             } catch (err) {
