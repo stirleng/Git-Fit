@@ -56,9 +56,7 @@ export default function UploadWorkout() {
             return
         }
 
-        // TODO: CREATE CHECKS ON LAT AND LONG OR DELETE
         if (latitude !== null && longitude !== null) {
-            //TODO: check bounds
             try {
                 setLocationHash(geofire.geohashForLocation([parseInt(latitude), parseInt(longitude)]))
             } catch (err) {
@@ -68,7 +66,6 @@ export default function UploadWorkout() {
             }
         }
         try {
-            //setWorkout(category, caloriesBurned, intensity, name, workoutLink)
             await setWorkout(category, caloriesBurned, intensity, name, workoutLink, description, latitude, longitude, locationHash);
             setLoading(false)
         } catch (err) {
@@ -151,16 +148,6 @@ export default function UploadWorkout() {
                     >
                         Default text here
                     </textarea>
-                </div>
-                <div id="single-input">
-                    <h1 id="input-question">Location</h1>
-                    <input
-                        className='inputBox'
-                        type="text"
-                        placeholder="TODO: lat, long or address & geocode"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                    />
                 </div>
                 <div id="single-input">
                     <h1 id="input-question">Latitude</h1>

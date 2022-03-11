@@ -3,6 +3,8 @@ import {AuthProvider} from './contexts/AuthContext';
 import SignIn from './components/screens/SignIn'
 import SignUp from './components/screens/SignUp';
 import Workouts from './components/screens/Workouts';
+import WorkoutSearch from './components/screens/WorkoutSearch';
+import WorkoutPlan from './components/screens/WorkoutPlan'
 import Meals from './components/screens/Meals';
 import UploadWorkout from './components/screens/UploadWorkout';
 import UploadMeal from './components/screens/UploadMeal';
@@ -73,6 +75,8 @@ function App() {
                     <Route path="/signin" element={<SignIn/>}/>
                     <Route path="/workouts" element={<PrivateRoute><Workouts/></PrivateRoute>}/>
                     <Route path="/uploadworkout" element={<PrivateRoute><UploadWorkout/></PrivateRoute>}/>
+                    <Route path="/workoutsearch" element={<PrivateRoute><WorkoutSearch/></PrivateRoute>}/>
+                    <Route path="/workoutplan" element={<PrivateRoute><WorkoutPlan/></PrivateRoute>}/> 
                     <Route path="/meals" element={<PrivateRoute><Meals/></PrivateRoute>}/>
                     <Route path="/newinfo" element={<PrivateRoute><NewInfo/> </PrivateRoute>}/>
                     <Route path="/uploadmeal" element={<PrivateRoute><UploadMeal/></PrivateRoute>}/>
