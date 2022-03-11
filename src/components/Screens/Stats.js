@@ -41,12 +41,22 @@ export default function Stats() {
     let uid = currentUser.uid;
 
     async function changeInfo(tag, val) {
+
+        if (tag == "Weight" && val == 0){
+            alert("User is not massless");
+            return
+    }
+
         switch (tag) {
             case '':
                 alert("Please select a field to edit")
                 return
 
             case "Sex":
+                if (val != 'f' && val != 'm'){
+                    alert("Please select m or f")
+                    return
+                }
                  await db.collection("users").doc(uid).update({
                         Sex: val
                         });
@@ -61,15 +71,30 @@ export default function Stats() {
         }
 
         if (tag === "Age"){
+            if (val <= 0){
+                alert("Enter a valid age")
+                return
+            }
             setAge(val)
         }else if (tag === "Height_ft"){
+            if (val < 0){
+                alert("Enert a valid height")
+                return
+            }
             setFeet(val)
         }else if (tag === "Height_in"){
+            if (val < 0){
+                alert("Enter a valid height")
+                return
+            }
             setInches(val)
         }else if (tag === "Weight"){
             setWeight(val)
+        }else if (tag == "Sex") {
+            setSex(val)
         }
     }
+
     //access user info in the backend
     async function onRender() {
         await db.collection("users").doc(uid).get().then((snapshot) => {
@@ -97,6 +122,7 @@ export default function Stats() {
     let cal = 0
     let prot = protein
     let projected = weight - 5
+
     if (sex === 'm')
     {
         cal = (1.55 * (88.362 + (13.397 * 0.453592 * weight) + (4.799 * 2.54 * (12 * feet + inches)) - (5.677 * age)) - 500).toFixed(2)
@@ -144,6 +170,7 @@ export default function Stats() {
                         <option value="Height_ft">Height (feet)</option>
                         <option value="Height_in">Height (inches)</option>
                         <option value="Weight">Weight</option>
+                        <option value="Sex">Sex (f/m)</option>
                     </select>
 
                     <div>
