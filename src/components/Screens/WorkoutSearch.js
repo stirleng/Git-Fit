@@ -15,9 +15,9 @@ export default function WorkoutSearch() {
     const [category, setCategory] = useState("cardio");
     const [caloriesBurned, setCaloriesBurned] = useState(1); // Default search cal > 1
     const [intensity, setIntensity] = useState("low");
-    const [searchRadius, setSearchRadius] = useState(1); // Default search radius 1km
-    const [latitude, setLatitude] = useState(34);
-    const [longitude, setLongitude] = useState(-118); // Default location is in la
+    const [searchRadius, setSearchRadius] = useState(null); // Default search radius 1km
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState(""); // Default location is in la
     const distFiltered = [];
     const [searchResults, setSearchResults] = useState([]);
 
@@ -73,7 +73,7 @@ export default function WorkoutSearch() {
     async function search(type, intensity, calories, lat, lng, dist) {
         // query document snapshot array
         let filteredDocs = [];
-        if (lat != null && lng != null) {
+        if (lat != "" && lng != "") {
             await queryHashes(lat, lng, dist).then(() => {
                 // Wait for query hash function to finish
             });
@@ -114,8 +114,6 @@ export default function WorkoutSearch() {
         try {
             search(category, intensity, caloriesBurned, latitude, longitude, searchRadius).then((results) => {
                 setSearchResults(results);
-                console.log("search Results");
-                console.log(searchResults)
             })
         } catch (err) {
             setError(err.message);
@@ -127,110 +125,238 @@ export default function WorkoutSearch() {
 
     return (
         <div id='WorkoutSearchPage'>
-            <div id="upload-screen-header">
-                <h1>Search Workouts</h1>
-            </div>
-            <div id="input-container">
+            <div id='search-container'>
+                <div id="upload-screen-header">
+                    <h1>Search Workouts</h1>
+                </div>
+                <div id="input-container">
 
-                <div id="select-container">
-                    <label id="category-question" for="selectCategory">Select the category for your workout</label>
-                    <select name="selectCategory" id="category-input" value={category}
-                            onChange={(e) => setCategory(e.target.value)}>
-                        <option value="chest">Chest</option>
-                        <option value="back">Back</option>
-                        <option value="bicep">Bicep</option>
-                        <option value="shoulder">Shoulder</option>
-                        <option value="tricep">Tricep</option>
-                        <option value="leg">Leg</option>
-                        <option value="cardio">Cardio</option>
-                        <option value="abs">Abs</option>
-                    </select>
+                    <div id="select-container">
+                        <label id="category-question" for="selectCategory">Select the category for your workout</label>
+                        <select name="selectCategory" id="category-input" value={category}
+                                onChange={(e) => setCategory(e.target.value)}>
+                            <option value="chest">Chest</option>
+                            <option value="back">Back</option>
+                            <option value="bicep">Bicep</option>
+                            <option value="shoulder">Shoulder</option>
+                            <option value="tricep">Tricep</option>
+                            <option value="leg">Leg</option>
+                            <option value="cardio">Cardio</option>
+                            <option value="abs">Abs</option>
+                        </select>
+                    </div>
+
+                    <div id="select-container">
+                        <label id="category-question" for="selectCategory">Intensity Level?</label>
+                        <select name="selectCategory" id="category-input" value={intensity}
+                                onChange={(e) => setIntensity(e.target.value)}>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+                    <div id="single-input">
+                        <h1 id="input-question">Calories burned in 1 hour?</h1>
+                        <input
+                            className='inputBox'
+                            type="number"
+                            value={caloriesBurned}
+                            onChange={(e) => setCaloriesBurned(e.target.value)}
+                        />
+                    </div>
+
+                    <div id="single-input">
+                        <h1 id="input-question">Latitude</h1>
+                        <input
+                            className='inputBox'
+                            type="text"
+                            value={latitude}
+                            onChange={(e) => setLatitude(e.target.value)}
+                        />
+                    </div>
+                    <div id="single-input">
+                        <h1 id="input-question">Longitude</h1>
+                        <input
+                            className='inputBox'
+                            type="text"
+                            value={longitude}
+                            onChange={(e) => setLongitude(e.target.value)}
+                        />
+                    </div>
+                    <div id="single-input">
+                        <h1 id="input-question">Search Radius</h1>
+                        <input
+                            className='inputBox'
+                            type="text"
+                            value={searchRadius}
+                            onChange={(e) => setSearchRadius(e.target.value)}
+                        />
+                    </div>
                 </div>
 
-                <div id="select-container">
-                    <label id="category-question" for="selectCategory">Intensity Level?</label>
-                    <select name="selectCategory" id="category-input" value={intensity}
-                            onChange={(e) => setIntensity(e.target.value)}>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
+                <div id="submit-container">
+                    {loading ? <h1>Searching, please wait!</h1> :
+                        <button id='SubmitButton' onClick={(e) => handleSubmit(e)}>
+                            Search
+                        </button>
+                    }
                 </div>
-
-                <div id="single-input">
-                    <h1 id="input-question">Calories burned in 1 hour?</h1>
-                    <input
-                        className='inputBox'
-                        type="number"
-                        value={caloriesBurned}
-                        onChange={(e) => setCaloriesBurned(e.target.value)}
-                    />
-                </div>
-
-                <div id="single-input">
-                    <h1 id="input-question">Latitude</h1>
-                    <input
-                        className='inputBox'
-                        type="text"
-                        value={latitude}
-                        onChange={(e) => setLatitude(e.target.value)}
-                    />
-                </div>
-                <div id="single-input">
-                    <h1 id="input-question">Longitude</h1>
-                    <input
-                        className='inputBox'
-                        type="text"
-                        value={longitude}
-                        onChange={(e) => setLongitude(e.target.value)}
-                    />
-                </div>
-                <div id="single-input">
-                    <h1 id="input-question">Search Radius</h1>
-                    <input
-                        className='inputBox'
-                        type="text"
-                        value={searchRadius}
-                        onChange={(e) => setSearchRadius(e.target.value)}
-                    />
-                </div>
-            </div>
-
-            <div id="submit-container">
-                {loading ? <h1>Searching, please wait!</h1> :
-                    <button id='SubmitButton' onClick={(e) => handleSubmit(e)}>
-                        Search
-                    </button>
+                {error &&
+                    <div id="error-container">
+                        <h1>{error}</h1>
+                    </div>
                 }
+                <div>
+                </div>
             </div>
             <div id='search-results-container'>
-                <div id='search-results-header'>
-                    Search Results:
+                    <div id='search-results-header'>
+                        Search Results:
+                    </div>
+                    <div id='search-results'>
+                        {searchResults[0] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[0].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[0].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[0].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[0].Calories_Burned}</div>
+                                {searchResults[0].Description != null && searchResults[0].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[0].Description}</div>
+                                    }
+                                {searchResults[0].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[0].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[1] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[1].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[1].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[1].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[1].Calories_Burned}</div>
+                                {searchResults[1].Description != null && searchResults[1].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[1].Description}</div>
+                                    }
+                                {searchResults[1].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[1].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[2] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[2].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[2].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[2].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[2].Calories_Burned}</div>
+                                {searchResults[2].Description != null && searchResults[2].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[2].Description}</div>
+                                    }
+                                {searchResults[2].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[2].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[3] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[3].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[3].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[3].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[3].Calories_Burned}</div>
+                                {searchResults[3].Description != null && searchResults[3].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[3].Description}</div>
+                                    }
+                                {searchResults[3].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[3].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[4] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[4].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[4].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[4].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[4].Calories_Burned}</div>
+                                {searchResults[4].Description != null && searchResults[4].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[4].Description}</div>
+                                    }
+                                {searchResults[4].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[4].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[5] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[5].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[5].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[5].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[5].Calories_Burned}</div>
+                                {searchResults[5].Description != null && searchResults[5].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[5].Description}</div>
+                                    }
+                                {searchResults[5].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[5].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[6] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[6].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[6].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[6].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[6].Calories_Burned}</div>
+                                {searchResults[6].Description != null && searchResults[6].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[6].Description}</div>
+                                    }
+                                {searchResults[6].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[6].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[7] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[7].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[7].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[7].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[7].Calories_Burned}</div>
+                                {searchResults[7].Description != null && searchResults[7].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[7].Description}</div>
+                                    }
+                                {searchResults[7].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[7].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[8] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[8].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[8].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[8].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[8].Calories_Burned}</div>
+                                {searchResults[8].Description != null && searchResults[8].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[8].Description}</div>
+                                    }
+                                {searchResults[8].Link != null &&
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[8].Link}</div>
+                                    }
+                            </div>
+                        }
+                        {searchResults[9] != null &&
+                            <div id='display-single-workout'>
+                                <div id='workout-text-elt'>Name: <br></br>{searchResults[9].Name}</div>
+                                <div id='workout-text-elt'>Type:<br></br>{searchResults[9].Category}</div>
+                                <div id='workout-text-elt'>Intensity:<br></br>{searchResults[9].Intensity}</div>
+                                <div id='workout-text-elt'>Calories:<br></br>{searchResults[9].Calories_Burned}</div>
+                                {searchResults[9].Description != null && searchResults[9].Description != "" &&
+                                    <div id='workout-text-elt'>Description:<br></br>{searchResults[9].Description}</div>
+                                    }
+                                {searchResults[9].Link != null && 
+                                    <div id='workout-text-elt'>Link:<br></br>{searchResults[9].Link}</div>
+                                    }
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div id='search-results'>
-                    {searchResults[0] != null &&
-                        <h1>{searchResults[0].Name}</h1>}
-                    {searchResults[1] != null &&
-                        <h1>{searchResults[1].Name}</h1>
-                    }
-                    {searchResults[2] != null &&
-                        <h1>{searchResults[2].Name}</h1>}
-                    {searchResults[3] != null &&
-                        <h1>{searchResults[3].Name}</h1>
-                    }
-                    {searchResults[4] != null &&
-                        <h1>{searchResults[4].Name}</h1>}
-                    {searchResults[5] != null &&
-                        <h1>{searchResults[5].Name}</h1>}
-                </div>
-            </div>
-            {error &&
-                <div id="error-container">
-                    <h1>{error}</h1>
-                </div>
-            }
-            <div>
-            </div>
         </div>
     )
 }

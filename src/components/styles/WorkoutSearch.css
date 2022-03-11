@@ -1,3 +1,9 @@
+@font-face {
+    font-family: Futura-Book;
+    src: url(../assets/fonts/futura/Futura\ Book\ font.ttf);
+    font-size: 10px;
+}
+
 .single-input {
     margin-top: 2vh;
 }
@@ -15,22 +21,52 @@
 }
 
 #WorkoutSearchPage {
+    position: fixed;
+}
+
+#search-container {
     background-color: white;
     position: fixed;
     top: 0;
     left: 0;
-    width: 50%;
-    height: 100%;
+    width: 50vw;
+    height: 100vh;
+    overflow: scroll;
 }
 
 #search-results-container {
-    height: 5vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-left: 7vw;
+    position: fixed;
+    top: 0;
+    left: 50vw;
+    width: 50vw;
+    height: 100%;
+    margin-left: 2vh;
+    margin-top: 5vh;
+    overflow: scroll;
 }
 
 #search-results {
-    font-size: large;
+    font-weight: bold;
+}
+
+#display-single-workout{
+    display: flex;
+    flex-direction: row;
+    color: black;
+    width: 48vw;
+    margin-top: 2vh;
+}
+
+#workout-text-elt{
+    border-color: black;
+    border-style: solid;
+    background-color: rgba(135,206,250,.5);
+    color: black;
+    width: 8vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    font-family: Futura-book;
+    overflow-wrap: break-word;
 }
